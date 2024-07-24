@@ -34,7 +34,7 @@ class SdConfig extends Configuration
         self::$defaultConfiguration = self::fromConfiguration($config);
     }
 
-    private static function fromConfiguration(Configuration $configuration): SdConfig
+    public static function fromConfiguration(Configuration $configuration): SdConfig
     {
         // Copy config properties except for user-agent.
         $config = new SdConfig();

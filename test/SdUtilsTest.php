@@ -17,8 +17,8 @@ class SdUtilsTest extends TestCase
     public function testExtractFileInfoFullHeader(): void
     {
         $res = SdUtils::extractFileInfo([
-            "Content-Length" => "165030",
-            "Content-Disposition" => 'attachment ; filename="foobar.txt"',
+            "Content-Length" => ["165030"],
+            "Content-Disposition" => ['attachment ; filename="foobar.txt"'],
         ]);
         $this->assertTrue($res['filename'] == "foobar.txt");
         $this->assertTrue($res['size'] == 165030);

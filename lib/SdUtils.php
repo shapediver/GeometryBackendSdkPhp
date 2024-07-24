@@ -3,12 +3,14 @@
 namespace ShapeDiver\GeometryApiV2;
 
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
+use ShapeDiver\GeometryApiV2\Client\Model\ResAssetUploadHeaders;
 
 class SdUtils
 {
     /**
-     *Upload the given file to the specified URL.
+     * Upload the given file to the specified URL.
      *
      * @param string $url The target URL of the upload request.
      * @param $data The data that should be uploaded.
@@ -32,7 +34,11 @@ class SdUtils
         $client = new SdClient(['base_uri' => $url]);
 
         try {
-            $response = $client->request('PUT', '', ['headers' => $headers, 'body' => $data]);
+            $response = $client->request(
+                'PUT',
+                '',
+                [RequestOptions::HEADERS => $headers, RequestOptions::BODY => $data]
+            );
             return $response;
         } catch (RequestException $e) {
             return $e->getResponse();
@@ -43,46 +49,41 @@ class SdUtils
      * Upload the given asset to the specified ShapeDiver URL.
      *
      * @param string $url The target URL of the upload request.
-     * @param $data The data that should be uploaded.
+     * @param resource $data The data that should be uploaded.
      * @param array $headers The headers object that was returned from the request-upload call.
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public static function upload_asset(
+    public static function uploadAsset(
         string $url,
         $data,
-        array $headers
+        ResAssetUploadHeaders $headers
     ): ResponseInterface {
-        $resHeaders = ['Content-Type' => $headers['content_type']];
-        if (!empty($headers['content_disposition'])) {
-            $resHeaders['Content-Disposition'] = $headers['content_disposition'];
+        $resHeaders = ['Content-Type' => $headers['contentType']];
+        if (!empty($headers['contentDisposition'])) {
+            $resHeaders['Content-Disposition'] = $headers['contentDisposition'];
         }
 
         $client = new SdClient(['base_uri' => $url]);
 
-        try {
-            $response = $client->request('PUT', '', ['headers' => $resHeaders, 'body' => $data]);
-            return $response;
-        } catch (RequestException $e) {
-            return $e->getResponse();
-        }
+        $response = $client->request(
+            'PUT',
+            '',
+            [RequestOptions::HEADERS => $resHeaders, RequestOptions::BODY => $data]
+        );
+        return $response;
     }
 
     /**
      * Download from the specified URL.
      *
      * @param string $url The target URL of the download request.
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param string|resource $sink Either a path to a file that will store the contents of the
+     * response body, or a resource from `fopen` to write the response to.
      */
-    public static function download(string $url): ResponseInterface
+    public static function download(string $url, $sink): void
     {
         $client = new SdClient(['base_uri' => $url]);
-
-        try {
-            $response = $client->request('GET', '');
-            return $response;
-        } catch (RequestException $e) {
-            return $e->getResponse();
-        }
+        $client->request('GET', '', [RequestOptions::SINK => $sink]);
     }
 
     /**
@@ -104,17 +105,17 @@ class SdUtils
         // Extract size from Content-Length header
         $size = null;
         if (isset($headers['Content-Length'])) {
-            $size = (int)$headers['Content-Length'];
+            $size = (int)$headers['Content-Length'][0];
         } elseif (isset($headers['content-length'])) {
-            $size = (int)$headers['content-length'];
+            $size = (int)$headers['content-length'][0];
         }
 
         // Extract filename from Content-Disposition header
         $filename = null;
         if (isset($headers['Content-Disposition'])) {
-            $filename = self::filenameFromContentDisposition($headers['Content-Disposition']);
+            $filename = self::filenameFromContentDisposition($headers['Content-Disposition'][0]);
         } elseif (isset($headers['content-disposition'])) {
-            $filename = self::filenameFromContentDisposition($headers['content-disposition']);
+            $filename = self::filenameFromContentDisposition($headers['content-disposition'][0]);
         }
 
         return ['size' => $size, 'filename' => $filename];

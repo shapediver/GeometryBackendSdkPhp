@@ -51,9 +51,14 @@ generate version:
 
     # Generate the PHP client.
     mkdir -p "{{target_dir}}"
+    # --generate-alias-as-model
     openapi-generator-cli generate \
         --invoker-package "ShapeDiver\\\GeometryApiV2\\\Client" \
-        --additional-properties variableNamingConvention=camelCase \
+        --additional-properties=\
+            disallowAdditionalPropertiesIfNotPresent=false,\
+            legacyDiscriminatorBehavior=false,\
+            modern=true,\
+            variableNamingConvention=camelCase \
         -i "{{spec_file}}" \
         -g php \
         -o "{{target_dir}}" || { \
