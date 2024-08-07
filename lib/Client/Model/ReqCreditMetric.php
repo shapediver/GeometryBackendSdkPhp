@@ -59,7 +59,7 @@ class ReqCreditMetric implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqAnyCreditMetricId',
-        'timestamp' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended',
+        'timestamp' => 'string[]',
         'timestampFrom' => 'string',
         'timestampTo' => 'string'
     ];
@@ -352,7 +352,7 @@ class ReqCreditMetric implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets timestamp
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended|null
+     * @return string[]|null
      */
     public function getTimestamp()
     {
@@ -362,7 +362,7 @@ class ReqCreditMetric implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets timestamp
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended|null $timestamp Multiple timestamps are aggregated and result in a single credit metrics object.
+     * @param string[]|null $timestamp Either a single extended date or an array of extended dates. Multiple timestamps are aggregated and result in a single credit metrics object.
      *
      * @return self
      */

@@ -58,8 +58,8 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'modelid' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid',
-        'timestamp' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended',
+        'modelid' => 'string[]',
+        'timestamp' => 'string[]',
         'timestampFrom' => 'string',
         'timestampTo' => 'string'
     ];
@@ -72,7 +72,7 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'modelid' => null,
+        'modelid' => 'uuid',
         'timestamp' => null,
         'timestampFrom' => null,
         'timestampTo' => null
@@ -325,7 +325,7 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets modelid
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getModelid()
     {
@@ -335,7 +335,7 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets modelid
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $modelid modelid
+     * @param string[] $modelid modelid
      *
      * @return self
      */
@@ -352,7 +352,7 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets timestamp
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended|null
+     * @return string[]|null
      */
     public function getTimestamp()
     {
@@ -362,7 +362,7 @@ class ReqModelStatistic implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets timestamp
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneAnyDateExtended|null $timestamp Multiple timestamps are aggregated and result in a single statistic object.
+     * @param string[]|null $timestamp Either a single extended date or an array of extended dates. Multiple timestamps are aggregated and result in a single statistic object.
      *
      * @return self
      */

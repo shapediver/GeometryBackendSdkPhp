@@ -58,8 +58,8 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
       * @var string[]
       */
     protected static $openAPITypes = [
-        'modelIds' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid',
-        'userIds' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid'
+        'modelIds' => 'string[]',
+        'userIds' => 'string[]'
     ];
 
     /**
@@ -70,8 +70,8 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'modelIds' => null,
-        'userIds' => null
+        'modelIds' => 'uuid',
+        'userIds' => 'uuid'
     ];
 
     /**
@@ -306,7 +306,7 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets modelIds
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getModelIds()
     {
@@ -316,7 +316,7 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets modelIds
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $modelIds modelIds
+     * @param string[] $modelIds modelIds
      *
      * @return self
      */
@@ -333,7 +333,7 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets userIds
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getUserIds()
     {
@@ -343,7 +343,7 @@ class ReqModelUserCreditMetricId implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets userIds
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $userIds userIds
+     * @param string[] $userIds userIds
      *
      * @return self
      */

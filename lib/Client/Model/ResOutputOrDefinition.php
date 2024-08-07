@@ -69,7 +69,7 @@ class ResOutputOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
         'tooltip' => 'string',
         'displayname' => 'string',
         'hidden' => 'bool',
-        'version' => 'bool',
+        'version' => 'string',
         'delay' => 'int',
         'content' => '\ShapeDiver\GeometryApiV2\Client\Model\ResOutputContent[]',
         'bbmin' => 'float[]',
@@ -125,7 +125,7 @@ class ResOutputOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
         'tooltip' => false,
         'displayname' => false,
         'hidden' => false,
-        'version' => true,
+        'version' => false,
         'delay' => false,
         'content' => false,
         'bbmin' => false,
@@ -735,8 +735,7 @@ class ResOutputOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets version
      *
-     * @return bool
-     * @deprecated
+     * @return string
      */
     public function getVersion()
     {
@@ -746,22 +745,14 @@ class ResOutputOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets version
      *
-     * @param bool $version This property is never set.
+     * @param string $version A unique identifier for the particular version of the output. This is a hash code which is based on the parameter values that were used to compute the resulting data. The hash code only depends on the values of the parameters which may theoretically influence the results of the output. As an example, parameters which are in no way connected to the output component in Grasshopper are not considered.
      *
      * @return self
-     * @deprecated
      */
     public function setVersion($version)
     {
         if (is_null($version)) {
-            array_push($this->openAPINullablesSetToNull, 'version');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('version', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+            throw new \InvalidArgumentException('non-nullable version cannot be null');
         }
         $this->container['version'] = $version;
 

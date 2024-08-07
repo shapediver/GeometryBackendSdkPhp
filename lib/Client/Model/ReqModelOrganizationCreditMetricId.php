@@ -58,8 +58,8 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
       * @var string[]
       */
     protected static $openAPITypes = [
-        'modelIds' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid',
-        'orgIds' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid'
+        'modelIds' => 'string[]',
+        'orgIds' => 'string[]'
     ];
 
     /**
@@ -70,8 +70,8 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'modelIds' => null,
-        'orgIds' => null
+        'modelIds' => 'uuid',
+        'orgIds' => 'uuid'
     ];
 
     /**
@@ -306,7 +306,7 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
     /**
      * Gets modelIds
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getModelIds()
     {
@@ -316,7 +316,7 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
     /**
      * Sets modelIds
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $modelIds modelIds
+     * @param string[] $modelIds modelIds
      *
      * @return self
      */
@@ -333,7 +333,7 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
     /**
      * Gets orgIds
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getOrgIds()
     {
@@ -343,7 +343,7 @@ class ReqModelOrganizationCreditMetricId implements ModelInterface, ArrayAccess,
     /**
      * Sets orgIds
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $orgIds orgIds
+     * @param string[] $orgIds orgIds
      *
      * @return self
      */

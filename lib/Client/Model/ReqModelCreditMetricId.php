@@ -58,7 +58,7 @@ class ReqModelCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'modelIds' => '\ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid'
+        'modelIds' => 'string[]'
     ];
 
     /**
@@ -69,7 +69,7 @@ class ReqModelCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'modelIds' => null
+        'modelIds' => 'uuid'
     ];
 
     /**
@@ -296,7 +296,7 @@ class ReqModelCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets modelIds
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid
+     * @return string[]
      */
     public function getModelIds()
     {
@@ -306,7 +306,7 @@ class ReqModelCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets modelIds
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\AtLeastOneUuid $modelIds modelIds
+     * @param string[] $modelIds modelIds
      *
      * @return self
      */

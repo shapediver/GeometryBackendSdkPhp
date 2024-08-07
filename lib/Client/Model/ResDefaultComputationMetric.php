@@ -61,7 +61,7 @@ class ResDefaultComputationMetric implements ModelInterface, ArrayAccess, \JsonS
         'count' => 'int',
         'credits' => 'int',
         'duration' => 'int',
-        'countPerChunks' => 'array<string,string>'
+        'countPerChunks' => 'array<string,int>'
     ];
 
     /**
@@ -434,7 +434,7 @@ class ResDefaultComputationMetric implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets countPerChunks
      *
-     * @return array<string,string>
+     * @return array<string,int>
      */
     public function getCountPerChunks()
     {
@@ -444,7 +444,7 @@ class ResDefaultComputationMetric implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets countPerChunks
      *
-     * @param array<string,string> $countPerChunks Count of computations per computation time expressed in started 10-second chunks.
+     * @param array<string,int> $countPerChunks Count of computations per computation time expressed in started 10-second chunks.
      *
      * @return self
      */

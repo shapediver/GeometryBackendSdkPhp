@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqAnyCreditMetricId
+ * ResGetOrganizationCreditMetrics
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqAnyCreditMetricId Class Doc Comment
+ * ResGetOrganizationCreditMetrics Class Doc Comment
  *
  * @category Class
- * @description Either a single or multiple IDs. Multiple IDs are aggregated and result in a single credit metrics object.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResGetOrganizationCreditMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqAnyCreditMetricId';
+    protected static $openAPIModelName = 'ResGetOrganizationCreditMetrics';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +57,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
       * @var string[]
       */
     protected static $openAPITypes = [
-        'modelIds' => 'string[]',
-        'userIds' => 'string[]',
-        'orgIds' => 'string[]',
-        'systems' => 'bool'
+        'analytics' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics',
+        'version' => 'string'
     ];
 
     /**
@@ -72,10 +69,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'modelIds' => 'uuid',
-        'userIds' => 'uuid',
-        'orgIds' => 'uuid',
-        'systems' => null
+        'analytics' => null,
+        'version' => null
     ];
 
     /**
@@ -84,10 +79,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'modelIds' => false,
-        'userIds' => false,
-        'orgIds' => false,
-        'systems' => false
+        'analytics' => false,
+        'version' => false
     ];
 
     /**
@@ -176,10 +169,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
-        'modelIds' => 'modelIds',
-        'userIds' => 'userIds',
-        'orgIds' => 'orgIds',
-        'systems' => 'systems'
+        'analytics' => 'analytics',
+        'version' => 'version'
     ];
 
     /**
@@ -188,10 +179,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $setters = [
-        'modelIds' => 'setModelIds',
-        'userIds' => 'setUserIds',
-        'orgIds' => 'setOrgIds',
-        'systems' => 'setSystems'
+        'analytics' => 'setAnalytics',
+        'version' => 'setVersion'
     ];
 
     /**
@@ -200,10 +189,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $getters = [
-        'modelIds' => 'getModelIds',
-        'userIds' => 'getUserIds',
-        'orgIds' => 'getOrgIds',
-        'systems' => 'getSystems'
+        'analytics' => 'getAnalytics',
+        'version' => 'getVersion'
     ];
 
     /**
@@ -263,10 +250,8 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('modelIds', $data ?? [], null);
-        $this->setIfExists('userIds', $data ?? [], null);
-        $this->setIfExists('orgIds', $data ?? [], null);
-        $this->setIfExists('systems', $data ?? [], null);
+        $this->setIfExists('analytics', $data ?? [], null);
+        $this->setIfExists('version', $data ?? [], null);
     }
 
     /**
@@ -296,17 +281,11 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if ($this->container['modelIds'] === null) {
-            $invalidProperties[] = "'modelIds' can't be null";
+        if ($this->container['analytics'] === null) {
+            $invalidProperties[] = "'analytics' can't be null";
         }
-        if ($this->container['userIds'] === null) {
-            $invalidProperties[] = "'userIds' can't be null";
-        }
-        if ($this->container['orgIds'] === null) {
-            $invalidProperties[] = "'orgIds' can't be null";
-        }
-        if ($this->container['systems'] === null) {
-            $invalidProperties[] = "'systems' can't be null";
+        if ($this->container['version'] === null) {
+            $invalidProperties[] = "'version' can't be null";
         }
         return $invalidProperties;
     }
@@ -324,109 +303,55 @@ class ReqAnyCreditMetricId implements ModelInterface, ArrayAccess, \JsonSerializ
 
 
     /**
-     * Gets modelIds
+     * Gets analytics
      *
-     * @return string[]
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics
      */
-    public function getModelIds()
+    public function getAnalytics()
     {
-        return $this->container['modelIds'];
+        return $this->container['analytics'];
     }
 
     /**
-     * Sets modelIds
+     * Sets analytics
      *
-     * @param string[] $modelIds modelIds
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics $analytics Statistics of the model for the given timespan.
      *
      * @return self
      */
-    public function setModelIds($modelIds)
+    public function setAnalytics($analytics)
     {
-        if (is_null($modelIds)) {
-            throw new \InvalidArgumentException('non-nullable modelIds cannot be null');
+        if (is_null($analytics)) {
+            throw new \InvalidArgumentException('non-nullable analytics cannot be null');
         }
-        $this->container['modelIds'] = $modelIds;
+        $this->container['analytics'] = $analytics;
 
         return $this;
     }
 
     /**
-     * Gets userIds
+     * Gets version
      *
-     * @return string[]
+     * @return string
      */
-    public function getUserIds()
+    public function getVersion()
     {
-        return $this->container['userIds'];
+        return $this->container['version'];
     }
 
     /**
-     * Sets userIds
+     * Sets version
      *
-     * @param string[] $userIds userIds
+     * @param string $version Version of the Geometry Backend API.
      *
      * @return self
      */
-    public function setUserIds($userIds)
+    public function setVersion($version)
     {
-        if (is_null($userIds)) {
-            throw new \InvalidArgumentException('non-nullable userIds cannot be null');
+        if (is_null($version)) {
+            throw new \InvalidArgumentException('non-nullable version cannot be null');
         }
-        $this->container['userIds'] = $userIds;
-
-        return $this;
-    }
-
-    /**
-     * Gets orgIds
-     *
-     * @return string[]
-     */
-    public function getOrgIds()
-    {
-        return $this->container['orgIds'];
-    }
-
-    /**
-     * Sets orgIds
-     *
-     * @param string[] $orgIds orgIds
-     *
-     * @return self
-     */
-    public function setOrgIds($orgIds)
-    {
-        if (is_null($orgIds)) {
-            throw new \InvalidArgumentException('non-nullable orgIds cannot be null');
-        }
-        $this->container['orgIds'] = $orgIds;
-
-        return $this;
-    }
-
-    /**
-     * Gets systems
-     *
-     * @return bool
-     */
-    public function getSystems()
-    {
-        return $this->container['systems'];
-    }
-
-    /**
-     * Sets systems
-     *
-     * @param bool $systems systems
-     *
-     * @return self
-     */
-    public function setSystems($systems)
-    {
-        if (is_null($systems)) {
-            throw new \InvalidArgumentException('non-nullable systems cannot be null');
-        }
-        $this->container['systems'] = $systems;
+        $this->container['version'] = $version;
 
         return $this;
     }

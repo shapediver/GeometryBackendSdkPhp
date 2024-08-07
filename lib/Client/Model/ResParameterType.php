@@ -89,23 +89,23 @@ class ResParameterType
 
     public const COLOR = 'Color';
 
-    public const EVEN = 'Drawing';
+    public const DRAWING = 'Drawing';
 
-    public const FILE = 'Even';
+    public const EVEN = 'Even';
 
-    public const FLOAT = 'File';
+    public const FILE = 'File';
 
-    public const INT = 'Float';
+    public const FLOAT = 'Float';
 
-    public const ODD = 'Int';
+    public const INT = 'Int';
 
-    public const STRING = 'Interaction';
+    public const INTERACTION = 'Interaction';
 
-    public const STRINGLIST = 'Odd';
+    public const ODD = 'Odd';
 
-    public const TIME = 'String';
+    public const STRING = 'String';
 
-    public const UNKNOWN = 'StringList';
+    public const STRINGLIST = 'StringList';
 
     public const TIME = 'Time';
 
@@ -141,15 +141,15 @@ class ResParameterType
             self::S_VECTOR,
             self::BOOL,
             self::COLOR,
+            self::DRAWING,
             self::EVEN,
             self::FILE,
             self::FLOAT,
             self::INT,
+            self::INTERACTION,
             self::ODD,
             self::STRING,
             self::STRINGLIST,
-            self::TIME,
-            self::UNKNOWN,
             self::TIME,
             self::UNKNOWN
         ];

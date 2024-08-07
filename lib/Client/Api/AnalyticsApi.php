@@ -74,7 +74,19 @@ class AnalyticsApi
         'getCreditMetrics' => [
             'application/json',
         ],
+        'getModelOrganizationCreditMetrics' => [
+            'application/json',
+        ],
         'getModelStatistics' => [
+            'application/json',
+        ],
+        'getModelUserCreditMetrics' => [
+            'application/json',
+        ],
+        'getOrganizationCreditMetrics' => [
+            'application/json',
+        ],
+        'getUserCreditMetrics' => [
             'application/json',
         ],
     ];
@@ -471,6 +483,372 @@ class AnalyticsApi
     }
 
     /**
+     * Operation getModelOrganizationCreditMetrics
+     *
+     * Get model credit metrics of the organization at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $orgId ID of the organization. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function getModelOrganizationCreditMetrics($timestamp, $orgId, string $contentType = self::contentTypes['getModelOrganizationCreditMetrics'][0])
+    {
+        list($response) = $this->getModelOrganizationCreditMetricsWithHttpInfo($timestamp, $orgId, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getModelOrganizationCreditMetricsWithHttpInfo
+     *
+     * Get model credit metrics of the organization at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $orgId ID of the organization. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelOrganizationCreditMetricsWithHttpInfo($timestamp, $orgId, string $contentType = self::contentTypes['getModelOrganizationCreditMetrics'][0])
+    {
+        $request = $this->getModelOrganizationCreditMetricsRequest($timestamp, $orgId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelOrganizationCreditMetricsAsync
+     *
+     * Get model credit metrics of the organization at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $orgId ID of the organization. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelOrganizationCreditMetricsAsync($timestamp, $orgId, string $contentType = self::contentTypes['getModelOrganizationCreditMetrics'][0])
+    {
+        return $this->getModelOrganizationCreditMetricsAsyncWithHttpInfo($timestamp, $orgId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelOrganizationCreditMetricsAsyncWithHttpInfo
+     *
+     * Get model credit metrics of the organization at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $orgId ID of the organization. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelOrganizationCreditMetricsAsyncWithHttpInfo($timestamp, $orgId, string $contentType = self::contentTypes['getModelOrganizationCreditMetrics'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelOrganizationCreditMetrics';
+        $request = $this->getModelOrganizationCreditMetricsRequest($timestamp, $orgId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelOrganizationCreditMetrics'
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $orgId ID of the organization. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelOrganizationCreditMetricsRequest($timestamp, $orgId, string $contentType = self::contentTypes['getModelOrganizationCreditMetrics'][0])
+    {
+
+        // verify the required parameter 'timestamp' is set
+        if ($timestamp === null || (is_array($timestamp) && count($timestamp) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $timestamp when calling getModelOrganizationCreditMetrics'
+            );
+        }
+
+        // verify the required parameter 'orgId' is set
+        if ($orgId === null || (is_array($orgId) && count($orgId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $orgId when calling getModelOrganizationCreditMetrics'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/analytics/credit-metrics/timestamp/{timestamp}/org/{orgId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($timestamp !== null) {
+            $resourcePath = str_replace(
+                '{' . 'timestamp' . '}',
+                ObjectSerializer::toPathValue($timestamp),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($orgId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'orgId' . '}',
+                ObjectSerializer::toPathValue($orgId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getModelStatistics
      *
      * Get model session analytics.
@@ -809,6 +1187,1064 @@ class AnalyticsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getModelUserCreditMetrics
+     *
+     * Get model credit metrics of the user at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $userId ID of the user. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function getModelUserCreditMetrics($timestamp, $userId, string $contentType = self::contentTypes['getModelUserCreditMetrics'][0])
+    {
+        list($response) = $this->getModelUserCreditMetricsWithHttpInfo($timestamp, $userId, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getModelUserCreditMetricsWithHttpInfo
+     *
+     * Get model credit metrics of the user at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $userId ID of the user. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelUserCreditMetricsWithHttpInfo($timestamp, $userId, string $contentType = self::contentTypes['getModelUserCreditMetrics'][0])
+    {
+        $request = $this->getModelUserCreditMetricsRequest($timestamp, $userId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelUserCreditMetricsAsync
+     *
+     * Get model credit metrics of the user at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $userId ID of the user. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelUserCreditMetricsAsync($timestamp, $userId, string $contentType = self::contentTypes['getModelUserCreditMetrics'][0])
+    {
+        return $this->getModelUserCreditMetricsAsyncWithHttpInfo($timestamp, $userId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelUserCreditMetricsAsyncWithHttpInfo
+     *
+     * Get model credit metrics of the user at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $userId ID of the user. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelUserCreditMetricsAsyncWithHttpInfo($timestamp, $userId, string $contentType = self::contentTypes['getModelUserCreditMetrics'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelUserCreditMetrics';
+        $request = $this->getModelUserCreditMetricsRequest($timestamp, $userId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelUserCreditMetrics'
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $userId ID of the user. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelUserCreditMetricsRequest($timestamp, $userId, string $contentType = self::contentTypes['getModelUserCreditMetrics'][0])
+    {
+
+        // verify the required parameter 'timestamp' is set
+        if ($timestamp === null || (is_array($timestamp) && count($timestamp) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $timestamp when calling getModelUserCreditMetrics'
+            );
+        }
+
+        // verify the required parameter 'userId' is set
+        if ($userId === null || (is_array($userId) && count($userId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $userId when calling getModelUserCreditMetrics'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/analytics/credit-metrics/timestamp/{timestamp}/user/{userId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($timestamp !== null) {
+            $resourcePath = str_replace(
+                '{' . 'timestamp' . '}',
+                ObjectSerializer::toPathValue($timestamp),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($userId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'userId' . '}',
+                ObjectSerializer::toPathValue($userId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getOrganizationCreditMetrics
+     *
+     * Get credit metrics of all organizations with users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function getOrganizationCreditMetrics($timestamp, string $contentType = self::contentTypes['getOrganizationCreditMetrics'][0])
+    {
+        list($response) = $this->getOrganizationCreditMetricsWithHttpInfo($timestamp, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getOrganizationCreditMetricsWithHttpInfo
+     *
+     * Get credit metrics of all organizations with users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getOrganizationCreditMetricsWithHttpInfo($timestamp, string $contentType = self::contentTypes['getOrganizationCreditMetrics'][0])
+    {
+        $request = $this->getOrganizationCreditMetricsRequest($timestamp, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getOrganizationCreditMetricsAsync
+     *
+     * Get credit metrics of all organizations with users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrganizationCreditMetricsAsync($timestamp, string $contentType = self::contentTypes['getOrganizationCreditMetrics'][0])
+    {
+        return $this->getOrganizationCreditMetricsAsyncWithHttpInfo($timestamp, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getOrganizationCreditMetricsAsyncWithHttpInfo
+     *
+     * Get credit metrics of all organizations with users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrganizationCreditMetricsAsyncWithHttpInfo($timestamp, string $contentType = self::contentTypes['getOrganizationCreditMetrics'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetOrganizationCreditMetrics';
+        $request = $this->getOrganizationCreditMetricsRequest($timestamp, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getOrganizationCreditMetrics'
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getOrganizationCreditMetricsRequest($timestamp, string $contentType = self::contentTypes['getOrganizationCreditMetrics'][0])
+    {
+
+        // verify the required parameter 'timestamp' is set
+        if ($timestamp === null || (is_array($timestamp) && count($timestamp) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $timestamp when calling getOrganizationCreditMetrics'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/analytics/credit-metrics/timestamp/{timestamp}/org';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($timestamp !== null) {
+            $resourcePath = str_replace(
+                '{' . 'timestamp' . '}',
+                ObjectSerializer::toPathValue($timestamp),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getUserCreditMetrics
+     *
+     * Get credit metrics of all users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function getUserCreditMetrics($timestamp, string $contentType = self::contentTypes['getUserCreditMetrics'][0])
+    {
+        list($response) = $this->getUserCreditMetricsWithHttpInfo($timestamp, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getUserCreditMetricsWithHttpInfo
+     *
+     * Get credit metrics of all users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getUserCreditMetricsWithHttpInfo($timestamp, string $contentType = self::contentTypes['getUserCreditMetrics'][0])
+    {
+        $request = $this->getUserCreditMetricsRequest($timestamp, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getUserCreditMetricsAsync
+     *
+     * Get credit metrics of all users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getUserCreditMetricsAsync($timestamp, string $contentType = self::contentTypes['getUserCreditMetrics'][0])
+    {
+        return $this->getUserCreditMetricsAsyncWithHttpInfo($timestamp, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getUserCreditMetricsAsyncWithHttpInfo
+     *
+     * Get credit metrics of all users active at timestamp.
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getUserCreditMetricsAsyncWithHttpInfo($timestamp, string $contentType = self::contentTypes['getUserCreditMetrics'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetUserCreditMetrics';
+        $request = $this->getUserCreditMetricsRequest($timestamp, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getUserCreditMetrics'
+     *
+     * @param  string $timestamp Timestamp of activity in format YYYY, YYYYMM, YYYYMMDD, or YYYYMMDDHH. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getUserCreditMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getUserCreditMetricsRequest($timestamp, string $contentType = self::contentTypes['getUserCreditMetrics'][0])
+    {
+
+        // verify the required parameter 'timestamp' is set
+        if ($timestamp === null || (is_array($timestamp) && count($timestamp) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $timestamp when calling getUserCreditMetrics'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/analytics/credit-metrics/timestamp/{timestamp}/user';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($timestamp !== null) {
+            $resourcePath = str_replace(
+                '{' . 'timestamp' . '}',
+                ObjectSerializer::toPathValue($timestamp),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

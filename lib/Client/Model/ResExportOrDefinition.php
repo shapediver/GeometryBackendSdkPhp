@@ -68,7 +68,7 @@ class ResExportOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
         'tooltip' => 'string',
         'displayname' => 'string',
         'hidden' => 'bool',
-        'version' => 'bool',
+        'version' => 'string',
         'delay' => 'int',
         'content' => '\ShapeDiver\GeometryApiV2\Client\Model\ResExportContent[]',
         'msg' => 'string',
@@ -122,7 +122,7 @@ class ResExportOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
         'tooltip' => false,
         'displayname' => false,
         'hidden' => false,
-        'version' => true,
+        'version' => false,
         'delay' => false,
         'content' => false,
         'msg' => false,
@@ -704,8 +704,7 @@ class ResExportOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets version
      *
-     * @return bool
-     * @deprecated
+     * @return string
      */
     public function getVersion()
     {
@@ -715,22 +714,14 @@ class ResExportOrDefinition implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets version
      *
-     * @param bool $version This property is never set.
+     * @param string $version Requested version of the export.
      *
      * @return self
-     * @deprecated
      */
     public function setVersion($version)
     {
         if (is_null($version)) {
-            array_push($this->openAPINullablesSetToNull, 'version');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('version', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+            throw new \InvalidArgumentException('non-nullable version cannot be null');
         }
         $this->container['version'] = $version;
 

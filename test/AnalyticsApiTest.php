@@ -78,4 +78,56 @@ class AnalyticsApiTest extends TestCase
         // Close the session.
         (new SessionApi($client, $modelConfig))->closeSession($sessionId);
     }
+
+    public function testUserCreditMetrics(): void
+    {
+        global $host;
+        global $jwtBackend;
+
+        $client = new SdClient();
+        $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
+
+        $resCredits = (new AnalyticsApi($client, $backendConfig))->getUserCreditMetrics("202407");
+        $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
+    }
+
+    public function testOrganizationCreditMetrics(): void
+    {
+        global $host;
+        global $jwtBackend;
+
+        $client = new SdClient();
+        $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
+
+        $resCredits = (new AnalyticsApi($client, $backendConfig))->getOrganizationCreditMetrics("202407");
+        $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
+    }
+
+    public function testModelUserCreditMetrics(): void
+    {
+        global $host;
+        global $jwtModel;
+
+        $client = new SdClient();
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+
+        $userId = "92a8410b-6496-4b86-8c3f-1014d59f7fa3";
+        $resCredits = (new AnalyticsApi($client, $modelConfig))
+            ->getModelUserCreditMetrics("202407", $userId);
+        $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
+    }
+
+    public function testModelOrganizationCreditMetrics(): void
+    {
+        global $host;
+        global $jwtModel;
+
+        $client = new SdClient();
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+
+        $orgId = "a785380e-183d-11ef-926a-f3f7d2b9f407";
+        $resCredits = (new AnalyticsApi($client, $modelConfig))
+            ->getModelOrganizationCreditMetrics("202407", $orgId);
+        $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
+    }
 }

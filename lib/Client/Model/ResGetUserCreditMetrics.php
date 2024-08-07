@@ -1,6 +1,6 @@
 <?php
 /**
- * AtLeastOneUuid
+ * ResGetUserCreditMetrics
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * AtLeastOneUuid Class Doc Comment
+ * ResGetUserCreditMetrics Class Doc Comment
  *
  * @category Class
- * @description Either a single UUID or an array of UUIDs.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResGetUserCreditMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'AtLeastOneUuid';
+    protected static $openAPIModelName = 'ResGetUserCreditMetrics';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +57,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        
+        'analytics' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics',
+        'version' => 'string'
     ];
 
     /**
@@ -69,7 +69,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        
+        'analytics' => null,
+        'version' => null
     ];
 
     /**
@@ -78,7 +79,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        
+        'analytics' => false,
+        'version' => false
     ];
 
     /**
@@ -167,7 +169,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        
+        'analytics' => 'analytics',
+        'version' => 'version'
     ];
 
     /**
@@ -176,7 +179,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        
+        'analytics' => 'setAnalytics',
+        'version' => 'setVersion'
     ];
 
     /**
@@ -185,7 +189,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        
+        'analytics' => 'getAnalytics',
+        'version' => 'getVersion'
     ];
 
     /**
@@ -245,6 +250,8 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('analytics', $data ?? [], null);
+        $this->setIfExists('version', $data ?? [], null);
     }
 
     /**
@@ -274,6 +281,12 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['analytics'] === null) {
+            $invalidProperties[] = "'analytics' can't be null";
+        }
+        if ($this->container['version'] === null) {
+            $invalidProperties[] = "'version' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -288,6 +301,60 @@ class AtLeastOneUuid implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets analytics
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics
+     */
+    public function getAnalytics()
+    {
+        return $this->container['analytics'];
+    }
+
+    /**
+     * Sets analytics
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResAnalytics $analytics Statistics of the model for the given timespan.
+     *
+     * @return self
+     */
+    public function setAnalytics($analytics)
+    {
+        if (is_null($analytics)) {
+            throw new \InvalidArgumentException('non-nullable analytics cannot be null');
+        }
+        $this->container['analytics'] = $analytics;
+
+        return $this;
+    }
+
+    /**
+     * Gets version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->container['version'];
+    }
+
+    /**
+     * Sets version
+     *
+     * @param string $version Version of the Geometry Backend API.
+     *
+     * @return self
+     */
+    public function setVersion($version)
+    {
+        if (is_null($version)) {
+            throw new \InvalidArgumentException('non-nullable version cannot be null');
+        }
+        $this->container['version'] = $version;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *

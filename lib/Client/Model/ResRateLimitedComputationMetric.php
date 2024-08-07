@@ -61,7 +61,7 @@ class ResRateLimitedComputationMetric implements ModelInterface, ArrayAccess, \J
         'count' => 'int',
         'credits' => 'int',
         'duration' => 'int',
-        'countPerChunks' => 'array<string,string>'
+        'countPerChunks' => 'array<string,int>'
     ];
 
     /**
@@ -434,7 +434,7 @@ class ResRateLimitedComputationMetric implements ModelInterface, ArrayAccess, \J
     /**
      * Gets countPerChunks
      *
-     * @return array<string,string>
+     * @return array<string,int>
      */
     public function getCountPerChunks()
     {
@@ -444,7 +444,7 @@ class ResRateLimitedComputationMetric implements ModelInterface, ArrayAccess, \J
     /**
      * Sets countPerChunks
      *
-     * @param array<string,string> $countPerChunks Count of computations per computation time expressed in started 10-second chunks.
+     * @param array<string,int> $countPerChunks Count of computations per computation time expressed in started 10-second chunks.
      *
      * @return self
      */
