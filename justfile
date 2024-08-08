@@ -99,10 +99,13 @@ generate version:
 
 # Tests the Python client generation with the current version of the checked out OAS repo.
 test-generator:
-    # --package-name "shapediver.geometry_api_v2.client" \
     openapi-generator-cli generate \
-        --invoker-package "ShapeDiver\\\GeometryApiV2\\\" \
-        --additional-properties variableNamingConvention=camelCase \
+        --invoker-package "ShapeDiver\\\GeometryApiV2\\\Client" \
+        --additional-properties=\
+            disallowAdditionalPropertiesIfNotPresent=false,\
+            legacyDiscriminatorBehavior=false,\
+            modern=true,\
+            variableNamingConvention=camelCase \
         --dry-run \
         -i "{{oas_repo}}/geometry_backend_v2.yaml" \
         -g php
