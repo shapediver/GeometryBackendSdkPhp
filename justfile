@@ -31,6 +31,22 @@ reset:
 test:
     vendor/bin/phpunit ./test/
 
+# Updates the SDK version - currently no actual release!
+release version:
+    # Stop when repo is dirty
+    test -z "$(git diff --shortstat)"
+
+    # Update sdk version number.
+    sed -i 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php"
+
+    # Commit and tag.
+    git add -A .
+    git commit -m "Publish v{{version}}"
+    git tag -a "v{{version}}" -m "Publish v{{version}}"
+
+    # Pushing branch main and tag v{{version}} to Git
+    git push --atomic origin v{{version}} main
+
 # Generate the PHP client from the OpenAPI specification.
 generate version:
     # Ensure that the required tools are installed.

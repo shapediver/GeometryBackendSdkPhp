@@ -19,7 +19,8 @@ Using the **ShapeDiver Geometry Backend API** allows access to ShapeDiver models
 
 ### Composer
 
-To install the bindings via [Composer](https://getcomposer.org/), add the following to your `composer.json`:
+To install a respective version of the bindings (in the example below the version is `1.0.0`) via
+[Composer](https://getcomposer.org/), add the following to your `composer.json`:
 
 ```json
 {
@@ -30,7 +31,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
     }
   ],
   "require": {
-    "shapediver/geometry-api-v2": "dev-main"
+    "shapediver/geometry-api-v2": "dev-main#v1.0.0"
   }
 }
 ```
