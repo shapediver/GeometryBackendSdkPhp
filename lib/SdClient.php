@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class SdClient implements ClientInterface
 {
-    public const SDK_VERSION = "0.1.0";  # WARNING: This value is updated automatically!
+    public const SDK_VERSION = "1.0.0";  # WARNING: This value is updated automatically!
 
     protected $client;
 
