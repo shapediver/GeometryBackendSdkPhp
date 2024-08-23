@@ -59,11 +59,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $openAPITypes = [
         'actions' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAction[]',
         'exports' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResExportOrDefinition>',
+        'file' => '\ShapeDiver\GeometryApiV2\Client\Model\ResFile',
         'message' => 'string',
         'model' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModel',
         'outputs' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResOutputOrDefinition>',
         'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameter>',
         'sessionId' => 'string',
+        'setting' => '\ShapeDiver\GeometryApiV2\Client\Model\ResSettings',
         'statistic' => '\ShapeDiver\GeometryApiV2\Client\Model\ResStatistic',
         'templates' => '\ShapeDiver\GeometryApiV2\Client\Model\ResTemplate[]',
         'version' => 'string',
@@ -81,11 +83,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $openAPIFormats = [
         'actions' => null,
         'exports' => null,
+        'file' => null,
         'message' => null,
         'model' => null,
         'outputs' => null,
         'parameters' => null,
         'sessionId' => 'uuid',
+        'setting' => null,
         'statistic' => null,
         'templates' => null,
         'version' => null,
@@ -101,11 +105,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static array $openAPINullables = [
         'actions' => false,
         'exports' => false,
+        'file' => false,
         'message' => false,
         'model' => false,
         'outputs' => false,
         'parameters' => false,
         'sessionId' => false,
+        'setting' => false,
         'statistic' => false,
         'templates' => false,
         'version' => false,
@@ -201,11 +207,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $attributeMap = [
         'actions' => 'actions',
         'exports' => 'exports',
+        'file' => 'file',
         'message' => 'message',
         'model' => 'model',
         'outputs' => 'outputs',
         'parameters' => 'parameters',
         'sessionId' => 'sessionId',
+        'setting' => 'setting',
         'statistic' => 'statistic',
         'templates' => 'templates',
         'version' => 'version',
@@ -221,11 +229,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $setters = [
         'actions' => 'setActions',
         'exports' => 'setExports',
+        'file' => 'setFile',
         'message' => 'setMessage',
         'model' => 'setModel',
         'outputs' => 'setOutputs',
         'parameters' => 'setParameters',
         'sessionId' => 'setSessionId',
+        'setting' => 'setSetting',
         'statistic' => 'setStatistic',
         'templates' => 'setTemplates',
         'version' => 'setVersion',
@@ -241,11 +251,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     protected static $getters = [
         'actions' => 'getActions',
         'exports' => 'getExports',
+        'file' => 'getFile',
         'message' => 'getMessage',
         'model' => 'getModel',
         'outputs' => 'getOutputs',
         'parameters' => 'getParameters',
         'sessionId' => 'getSessionId',
+        'setting' => 'getSetting',
         'statistic' => 'getStatistic',
         'templates' => 'getTemplates',
         'version' => 'getVersion',
@@ -312,11 +324,13 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $this->setIfExists('actions', $data ?? [], null);
         $this->setIfExists('exports', $data ?? [], null);
+        $this->setIfExists('file', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
         $this->setIfExists('outputs', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
         $this->setIfExists('sessionId', $data ?? [], null);
+        $this->setIfExists('setting', $data ?? [], null);
         $this->setIfExists('statistic', $data ?? [], null);
         $this->setIfExists('templates', $data ?? [], null);
         $this->setIfExists('version', $data ?? [], null);
@@ -354,11 +368,17 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['actions'] === null) {
             $invalidProperties[] = "'actions' can't be null";
         }
+        if ($this->container['file'] === null) {
+            $invalidProperties[] = "'file' can't be null";
+        }
         if ($this->container['model'] === null) {
             $invalidProperties[] = "'model' can't be null";
         }
         if ($this->container['sessionId'] === null) {
             $invalidProperties[] = "'sessionId' can't be null";
+        }
+        if ($this->container['setting'] === null) {
+            $invalidProperties[] = "'setting' can't be null";
         }
         if ($this->container['statistic'] === null) {
             $invalidProperties[] = "'statistic' can't be null";
@@ -440,6 +460,33 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable exports cannot be null');
         }
         $this->container['exports'] = $exports;
+
+        return $this;
+    }
+
+    /**
+     * Gets file
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResFile
+     */
+    public function getFile()
+    {
+        return $this->container['file'];
+    }
+
+    /**
+     * Sets file
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResFile $file Links regarding the model file.
+     *
+     * @return self
+     */
+    public function setFile($file)
+    {
+        if (is_null($file)) {
+            throw new \InvalidArgumentException('non-nullable file cannot be null');
+        }
+        $this->container['file'] = $file;
 
         return $this;
     }
@@ -575,6 +622,33 @@ class ResCreateSessionByTicket implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable sessionId cannot be null');
         }
         $this->container['sessionId'] = $sessionId;
+
+        return $this;
+    }
+
+    /**
+     * Gets setting
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResSettings
+     */
+    public function getSetting()
+    {
+        return $this->container['setting'];
+    }
+
+    /**
+     * Sets setting
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResSettings $setting Various settings.
+     *
+     * @return self
+     */
+    public function setSetting($setting)
+    {
+        if (is_null($setting)) {
+            throw new \InvalidArgumentException('non-nullable setting cannot be null');
+        }
+        $this->container['setting'] = $setting;
 
         return $this;
     }
