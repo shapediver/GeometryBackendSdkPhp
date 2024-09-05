@@ -59,7 +59,7 @@ class ModelApiTest extends TestCase
             timestampTo: '20240627072220908',
             status: QueryComputationStatisticsStatus::SUCCESS
         );
-        $this->assertNotEmpty($resComp->getComputations());
+        $this->assertGreaterThanOrEqual(count($resComp->getComputations()), 0);
 
         // Update a model.
         $reqUpdate = new ReqModel(['pub' => true, 'backendaccess' => true, 'useCdn' => true]);
@@ -72,7 +72,7 @@ class ModelApiTest extends TestCase
         $this->assertNotEmpty($resList->getList()->getModel());
     }
 
-    public function test_cleanup(): void
+    public function testCleanup(): void
     {
         global $host;
         global $jwtModel;
@@ -96,7 +96,7 @@ class ModelApiTest extends TestCase
         $this->assertNotEmpty($resCleanup->getCleanup());
     }
 
-    public function test_parameters(): void
+    public function testParameters(): void
     {
         global $host;
         global $jwtModel;

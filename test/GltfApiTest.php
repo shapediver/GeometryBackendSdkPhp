@@ -44,7 +44,7 @@ class GltfApiTest extends TestCase
         (new SessionApi($client, $config))->closeSession($sessionId);
     }
 
-    public function test_upload_gltf_and_convert_to_usdz(): void
+    public function testUploadGltfAndConvertToUsdz(): void
     {
         global $host;
 

@@ -3,11 +3,17 @@
 namespace ShapeDiver\GeometryApiV2\Test;
 
 use PHPUnit\Framework\TestCase;
+use ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
 use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
+use ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqTicket;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqTicketType;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
+
+use function ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
+use function ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
+use function ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
 
 require_once __DIR__ . '/config.php';
 
@@ -67,6 +73,47 @@ class SessionApiTest extends TestCase
         // Get the session defaults.
         $resDefaults = (new SessionApi($client, $config))->getSessionDefaults($sessionId);
         $this->assertEquals($resDefaults->getSessionId(), $sessionId);
+
+        // Close the session.
+        (new SessionApi($client, $config))->closeSession($sessionId);
+    }
+
+    public function testInitSessionWithModelState(): void
+    {
+        global $host;
+        global $jwtBackend;
+
+        $client = new SdClient();
+        $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
+        $config = (new SdConfig())->setHost($host);
+
+        // Initialize a new session.
+        $ticket = TestUtils::createTicket();
+        $resSession = (new SessionApi($client, $config))->createSessionByTicket($ticket);
+        $this->assertNull($resSession->getModelState());
+        $sessionId = $resSession->getSessionId();
+
+        # Create minimal Model-State.
+        $reqModelState = (new ReqModelState())->setParameters([]);
+        $resModelState = (new ModelStateApi($client, $config))
+            ->createModelState($sessionId, $reqModelState);
+        $modelStateId = $resModelState->getModelState()->getId();
+        $modelId = $resModelState->getModelState()->getModelId();
+
+        # Test: Create session via ticket and Model-State.
+        $res = (new SessionApi($client, $config))
+            ->createSessionByTicket($ticket, $modelStateId, true);
+        $this->assertNotNull($res->getModelState());
+        (new SessionApi($client, $config))->closeSession($res->getSessionId());
+
+        # Test: Create session via model and Model-State.
+        $res = (new SessionApi($client, $backendConfig))
+            ->createSessionByModel($modelId, $modelStateId, false);
+        $this->assertNotNull($res->getModelState());
+        (new SessionApi($client, $config))->closeSession($res->getSessionId());
+
+        // Delete the Model-State.
+        (new ModelStateApi($client, $backendConfig))->deleteModelState($modelStateId);
 
         // Close the session.
         (new SessionApi($client, $config))->closeSession($sessionId);

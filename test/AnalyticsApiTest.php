@@ -106,10 +106,10 @@ class AnalyticsApiTest extends TestCase
     public function testModelUserCreditMetrics(): void
     {
         global $host;
-        global $jwtModel;
+        global $jwtBackend;
 
         $client = new SdClient();
-        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
         $userId = "92a8410b-6496-4b86-8c3f-1014d59f7fa3";
         $resCredits = (new AnalyticsApi($client, $modelConfig))
@@ -120,10 +120,10 @@ class AnalyticsApiTest extends TestCase
     public function testModelOrganizationCreditMetrics(): void
     {
         global $host;
-        global $jwtModel;
+        global $jwtBackend;
 
         $client = new SdClient();
-        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
         $orgId = "a785380e-183d-11ef-926a-f3f7d2b9f407";
         $resCredits = (new AnalyticsApi($client, $modelConfig))
