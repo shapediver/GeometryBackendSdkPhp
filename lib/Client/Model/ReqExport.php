@@ -334,7 +334,7 @@ class ReqExport implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameters
      *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters Body of a customization request, a directory of parameter key and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`
+     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
      *
      * @return self
      */

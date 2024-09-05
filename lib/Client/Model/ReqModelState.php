@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ReqModelState
  *
  * PHP version 7.4
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ReqModelState Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
+ * @description Description of a Model-State.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ReqModelState implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ReqModelState';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,9 +59,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'data' => 'array<string,mixed>',
+        'image' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqFileDefinition',
+        'arSceneId' => 'string'
     ];
 
     /**
@@ -73,9 +73,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'data' => null,
+        'image' => null,
+        'arSceneId' => null
     ];
 
     /**
@@ -85,9 +85,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'data' => false,
+        'image' => false,
+        'arSceneId' => false
     ];
 
     /**
@@ -177,9 +177,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'data' => 'data',
+        'image' => 'image',
+        'arSceneId' => 'arSceneId'
     ];
 
     /**
@@ -189,9 +189,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'data' => 'setData',
+        'image' => 'setImage',
+        'arSceneId' => 'setArSceneId'
     ];
 
     /**
@@ -201,9 +201,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'data' => 'getData',
+        'image' => 'getImage',
+        'arSceneId' => 'getArSceneId'
     ];
 
     /**
@@ -264,9 +264,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
+        $this->setIfExists('image', $data ?? [], null);
+        $this->setIfExists('arSceneId', $data ?? [], null);
     }
 
     /**
@@ -299,13 +299,6 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['parameters'] === null) {
             $invalidProperties[] = "'parameters' can't be null";
         }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
-        }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -349,87 +342,82 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets exports
+     * Gets data
      *
-     * @return string[]
+     * @return array<string,mixed>|null
      */
-    public function getExports()
+    public function getData()
     {
-        return $this->container['exports'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets exports
+     * Sets data
      *
-     * @param string[] $exports exports
+     * @param array<string,mixed>|null $data Optional untyped data that can be used to store additional information.
      *
      * @return self
      */
-    public function setExports($exports)
+    public function setData($data)
     {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
         }
-        $this->container['exports'] = $exports;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets outputs
+     * Gets image
      *
-     * @return string[]|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqFileDefinition|null
      */
-    public function getOutputs()
+    public function getImage()
     {
-        return $this->container['outputs'];
+        return $this->container['image'];
     }
 
     /**
-     * Sets outputs
+     * Sets image
      *
-     * @param string[]|null $outputs outputs
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqFileDefinition|null $image Details of the Model-State image file. If provided, the response will include a URL for uploading the file.
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setImage($image)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($image)) {
+            throw new \InvalidArgumentException('non-nullable image cannot be null');
         }
-        $this->container['outputs'] = $outputs;
+        $this->container['image'] = $image;
 
         return $this;
     }
 
     /**
-     * Gets maxWaitTime
+     * Gets arSceneId
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getMaxWaitTime()
+    public function getArSceneId()
     {
-        return $this->container['maxWaitTime'];
+        return $this->container['arSceneId'];
     }
 
     /**
-     * Sets maxWaitTime
+     * Sets arSceneId
      *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
+     * @param string|null $arSceneId The ID of an existing AR scene associated with this model. If provided, the scene's glTF and USDZ data will be duplicated into the newly created Model-State.
      *
      * @return self
      */
-    public function setMaxWaitTime($maxWaitTime)
+    public function setArSceneId($arSceneId)
     {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
+        if (is_null($arSceneId)) {
+            throw new \InvalidArgumentException('non-nullable arSceneId cannot be null');
         }
-
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
-        }
-
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        $this->container['arSceneId'] = $arSceneId;
 
         return $this;
     }

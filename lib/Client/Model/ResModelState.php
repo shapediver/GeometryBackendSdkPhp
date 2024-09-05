@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ResModelState
  *
  * PHP version 7.4
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ResModelState Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
+ * @description Definition of a Model-State.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResModelState implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ResModelState';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +58,12 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>',
+        'data' => 'array<string,mixed>',
+        'id' => 'string',
+        'modelId' => 'string',
+        'createdate' => 'string',
+        'imageUrl' => 'string'
     ];
 
     /**
@@ -73,9 +75,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'data' => null,
+        'id' => null,
+        'modelId' => 'uuid',
+        'createdate' => null,
+        'imageUrl' => null
     ];
 
     /**
@@ -85,9 +89,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'data' => false,
+        'id' => false,
+        'modelId' => false,
+        'createdate' => false,
+        'imageUrl' => false
     ];
 
     /**
@@ -177,9 +183,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'data' => 'data',
+        'id' => 'id',
+        'modelId' => 'modelId',
+        'createdate' => 'createdate',
+        'imageUrl' => 'imageUrl'
     ];
 
     /**
@@ -189,9 +197,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'data' => 'setData',
+        'id' => 'setId',
+        'modelId' => 'setModelId',
+        'createdate' => 'setCreatedate',
+        'imageUrl' => 'setImageUrl'
     ];
 
     /**
@@ -201,9 +211,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'data' => 'getData',
+        'id' => 'getId',
+        'modelId' => 'getModelId',
+        'createdate' => 'getCreatedate',
+        'imageUrl' => 'getImageUrl'
     ];
 
     /**
@@ -264,9 +276,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('modelId', $data ?? [], null);
+        $this->setIfExists('createdate', $data ?? [], null);
+        $this->setIfExists('imageUrl', $data ?? [], null);
     }
 
     /**
@@ -299,11 +313,17 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['parameters'] === null) {
             $invalidProperties[] = "'parameters' can't be null";
         }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
         }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
+        if ($this->container['modelId'] === null) {
+            $invalidProperties[] = "'modelId' can't be null";
+        }
+        if ($this->container['createdate'] === null) {
+            $invalidProperties[] = "'createdate' can't be null";
+        }
+        if (!preg_match("/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/", $this->container['createdate'])) {
+            $invalidProperties[] = "invalid value for 'createdate', must be conform to the pattern /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/.";
         }
 
         return $invalidProperties;
@@ -324,7 +344,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets parameters
      *
-     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>
+     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>
      */
     public function getParameters()
     {
@@ -334,7 +354,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameters
      *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
+     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue> $parameters A directory of parameter IDs and values.
      *
      * @return self
      */
@@ -349,87 +369,141 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets exports
+     * Gets data
      *
-     * @return string[]
+     * @return array<string,mixed>|null
      */
-    public function getExports()
+    public function getData()
     {
-        return $this->container['exports'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets exports
+     * Sets data
      *
-     * @param string[] $exports exports
+     * @param array<string,mixed>|null $data Optional untyped data that holds additional information.
      *
      * @return self
      */
-    public function setExports($exports)
+    public function setData($data)
     {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
         }
-        $this->container['exports'] = $exports;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets outputs
+     * Gets id
      *
-     * @return string[]|null
+     * @return string
      */
-    public function getOutputs()
+    public function getId()
     {
-        return $this->container['outputs'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets outputs
+     * Sets id
      *
-     * @param string[]|null $outputs outputs
+     * @param string $id ID of the Model-State.
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setId($id)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['outputs'] = $outputs;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets maxWaitTime
+     * Gets modelId
      *
-     * @return int|null
+     * @return string
      */
-    public function getMaxWaitTime()
+    public function getModelId()
     {
-        return $this->container['maxWaitTime'];
+        return $this->container['modelId'];
     }
 
     /**
-     * Sets maxWaitTime
+     * Sets modelId
      *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
+     * @param string $modelId ID of the ShapeDiver model.
      *
      * @return self
      */
-    public function setMaxWaitTime($maxWaitTime)
+    public function setModelId($modelId)
     {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
+        if (is_null($modelId)) {
+            throw new \InvalidArgumentException('non-nullable modelId cannot be null');
+        }
+        $this->container['modelId'] = $modelId;
+
+        return $this;
+    }
+
+    /**
+     * Gets createdate
+     *
+     * @return string
+     */
+    public function getCreatedate()
+    {
+        return $this->container['createdate'];
+    }
+
+    /**
+     * Sets createdate
+     *
+     * @param string $createdate Timestamp of creation of the Model-State.
+     *
+     * @return self
+     */
+    public function setCreatedate($createdate)
+    {
+        if (is_null($createdate)) {
+            throw new \InvalidArgumentException('non-nullable createdate cannot be null');
         }
 
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
+        if ((!preg_match("/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/", ObjectSerializer::toString($createdate)))) {
+            throw new \InvalidArgumentException("invalid value for \$createdate when calling ResModelState., must conform to the pattern /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/.");
         }
 
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        $this->container['createdate'] = $createdate;
+
+        return $this;
+    }
+
+    /**
+     * Gets imageUrl
+     *
+     * @return string|null
+     */
+    public function getImageUrl()
+    {
+        return $this->container['imageUrl'];
+    }
+
+    /**
+     * Sets imageUrl
+     *
+     * @param string|null $imageUrl The URL of the Model-State image.
+     *
+     * @return self
+     */
+    public function setImageUrl($imageUrl)
+    {
+        if (is_null($imageUrl)) {
+            throw new \InvalidArgumentException('non-nullable imageUrl cannot be null');
+        }
+        $this->container['imageUrl'] = $imageUrl;
 
         return $this;
     }

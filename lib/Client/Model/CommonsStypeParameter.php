@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqBasicParameter
+ * CommonsStypeParameter
  *
  * PHP version 7.4
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqBasicParameter Class Doc Comment
+ * CommonsStypeParameter Class Doc Comment
  *
  * @category Class
- * @description Definition of a basic ShapeDiver parameter.
+ * @description Definition of the value to use for s-type parameters.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializable
+class CommonsStypeParameter implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqBasicParameter';
+    protected static $openAPIModelName = 'CommonsStypeParameter';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +58,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        
+        'value' => 'string',
+        'asset' => '\ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset'
     ];
 
     /**
@@ -69,7 +70,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        
+        'value' => null,
+        'asset' => null
     ];
 
     /**
@@ -78,7 +80,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        
+        'value' => false,
+        'asset' => false
     ];
 
     /**
@@ -167,7 +170,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        
+        'value' => 'value',
+        'asset' => 'asset'
     ];
 
     /**
@@ -176,7 +180,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        
+        'value' => 'setValue',
+        'asset' => 'setAsset'
     ];
 
     /**
@@ -185,7 +190,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        
+        'value' => 'getValue',
+        'asset' => 'getAsset'
     ];
 
     /**
@@ -245,6 +251,8 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('value', $data ?? [], null);
+        $this->setIfExists('asset', $data ?? [], null);
     }
 
     /**
@@ -288,6 +296,60 @@ class ReqBasicParameter implements ModelInterface, ArrayAccess, \JsonSerializabl
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets value
+     *
+     * @return string|null
+     */
+    public function getValue()
+    {
+        return $this->container['value'];
+    }
+
+    /**
+     * Sets value
+     *
+     * @param string|null $value Optional embedded value. If this is set the asset is ignored.
+     *
+     * @return self
+     */
+    public function setValue($value)
+    {
+        if (is_null($value)) {
+            throw new \InvalidArgumentException('non-nullable value cannot be null');
+        }
+        $this->container['value'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Gets asset
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset|null
+     */
+    public function getAsset()
+    {
+        return $this->container['asset'];
+    }
+
+    /**
+     * Sets asset
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset|null $asset asset
+     *
+     * @return self
+     */
+    public function setAsset($asset)
+    {
+        if (is_null($asset)) {
+            throw new \InvalidArgumentException('non-nullable asset cannot be null');
+        }
+        $this->container['asset'] = $asset;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *

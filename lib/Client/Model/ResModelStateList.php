@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ResModelStateList
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ResModelStateList Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResModelStateList implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ResModelStateList';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +57,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'file' => '\ShapeDiver\GeometryApiV2\Client\Model\ResFileInfo[]',
+        'sdtf' => '\ShapeDiver\GeometryApiV2\Client\Model\ResSdtfInfo[]',
+        'model' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModel[]',
+        'modelState' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[]',
+        'output' => '\ShapeDiver\GeometryApiV2\Client\Model\ResOutput[]',
+        'export' => '\ShapeDiver\GeometryApiV2\Client\Model\ResExport[]',
+        'texture' => '\ShapeDiver\GeometryApiV2\Client\Model\ResTexture[]'
     ];
 
     /**
@@ -72,10 +74,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'file' => null,
+        'sdtf' => null,
+        'model' => null,
+        'modelState' => null,
+        'output' => null,
+        'export' => null,
+        'texture' => null
     ];
 
     /**
@@ -84,10 +89,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'file' => false,
+        'sdtf' => false,
+        'model' => false,
+        'modelState' => false,
+        'output' => false,
+        'export' => false,
+        'texture' => false
     ];
 
     /**
@@ -176,10 +184,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'file' => 'file',
+        'sdtf' => 'sdtf',
+        'model' => 'model',
+        'modelState' => 'modelState',
+        'output' => 'output',
+        'export' => 'export',
+        'texture' => 'texture'
     ];
 
     /**
@@ -188,10 +199,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'file' => 'setFile',
+        'sdtf' => 'setSdtf',
+        'model' => 'setModel',
+        'modelState' => 'setModelState',
+        'output' => 'setOutput',
+        'export' => 'setExport',
+        'texture' => 'setTexture'
     ];
 
     /**
@@ -200,10 +214,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'file' => 'getFile',
+        'sdtf' => 'getSdtf',
+        'model' => 'getModel',
+        'modelState' => 'getModelState',
+        'output' => 'getOutput',
+        'export' => 'getExport',
+        'texture' => 'getTexture'
     ];
 
     /**
@@ -263,10 +280,13 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('file', $data ?? [], null);
+        $this->setIfExists('sdtf', $data ?? [], null);
+        $this->setIfExists('model', $data ?? [], null);
+        $this->setIfExists('modelState', $data ?? [], null);
+        $this->setIfExists('output', $data ?? [], null);
+        $this->setIfExists('export', $data ?? [], null);
+        $this->setIfExists('texture', $data ?? [], null);
     }
 
     /**
@@ -296,16 +316,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['parameters'] === null) {
-            $invalidProperties[] = "'parameters' can't be null";
+        if ($this->container['modelState'] === null) {
+            $invalidProperties[] = "'modelState' can't be null";
         }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
-        }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -322,114 +335,190 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets parameters
+     * Gets file
      *
-     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResFileInfo[]|null
      */
-    public function getParameters()
+    public function getFile()
     {
-        return $this->container['parameters'];
+        return $this->container['file'];
     }
 
     /**
-     * Sets parameters
+     * Sets file
      *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResFileInfo[]|null $file A directory of file objects.
      *
      * @return self
      */
-    public function setParameters($parameters)
+    public function setFile($file)
     {
-        if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
+        if (is_null($file)) {
+            throw new \InvalidArgumentException('non-nullable file cannot be null');
         }
-        $this->container['parameters'] = $parameters;
+        $this->container['file'] = $file;
 
         return $this;
     }
 
     /**
-     * Gets exports
+     * Gets sdtf
      *
-     * @return string[]
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResSdtfInfo[]|null
      */
-    public function getExports()
+    public function getSdtf()
     {
-        return $this->container['exports'];
+        return $this->container['sdtf'];
     }
 
     /**
-     * Sets exports
+     * Sets sdtf
      *
-     * @param string[] $exports exports
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResSdtfInfo[]|null $sdtf A directory of sdTF objects.
      *
      * @return self
      */
-    public function setExports($exports)
+    public function setSdtf($sdtf)
     {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
+        if (is_null($sdtf)) {
+            throw new \InvalidArgumentException('non-nullable sdtf cannot be null');
         }
-        $this->container['exports'] = $exports;
+        $this->container['sdtf'] = $sdtf;
 
         return $this;
     }
 
     /**
-     * Gets outputs
+     * Gets model
      *
-     * @return string[]|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModel[]|null
      */
-    public function getOutputs()
+    public function getModel()
     {
-        return $this->container['outputs'];
+        return $this->container['model'];
     }
 
     /**
-     * Sets outputs
+     * Sets model
      *
-     * @param string[]|null $outputs outputs
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModel[]|null $model A directory of ShapeDiver models.
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setModel($model)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($model)) {
+            throw new \InvalidArgumentException('non-nullable model cannot be null');
         }
-        $this->container['outputs'] = $outputs;
+        $this->container['model'] = $model;
 
         return $this;
     }
 
     /**
-     * Gets maxWaitTime
+     * Gets modelState
      *
-     * @return int|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[]
      */
-    public function getMaxWaitTime()
+    public function getModelState()
     {
-        return $this->container['maxWaitTime'];
+        return $this->container['modelState'];
     }
 
     /**
-     * Sets maxWaitTime
+     * Sets modelState
      *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[] $modelState A directory of Model-States.
      *
      * @return self
      */
-    public function setMaxWaitTime($maxWaitTime)
+    public function setModelState($modelState)
     {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
+        if (is_null($modelState)) {
+            throw new \InvalidArgumentException('non-nullable modelState cannot be null');
         }
+        $this->container['modelState'] = $modelState;
 
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
+        return $this;
+    }
+
+    /**
+     * Gets output
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResOutput[]|null
+     */
+    public function getOutput()
+    {
+        return $this->container['output'];
+    }
+
+    /**
+     * Sets output
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResOutput[]|null $output A directory of output versions.
+     *
+     * @return self
+     */
+    public function setOutput($output)
+    {
+        if (is_null($output)) {
+            throw new \InvalidArgumentException('non-nullable output cannot be null');
         }
+        $this->container['output'] = $output;
 
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        return $this;
+    }
+
+    /**
+     * Gets export
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResExport[]|null
+     */
+    public function getExport()
+    {
+        return $this->container['export'];
+    }
+
+    /**
+     * Sets export
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResExport[]|null $export A directory of export versions.
+     *
+     * @return self
+     */
+    public function setExport($export)
+    {
+        if (is_null($export)) {
+            throw new \InvalidArgumentException('non-nullable export cannot be null');
+        }
+        $this->container['export'] = $export;
+
+        return $this;
+    }
+
+    /**
+     * Gets texture
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResTexture[]|null
+     */
+    public function getTexture()
+    {
+        return $this->container['texture'];
+    }
+
+    /**
+     * Sets texture
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResTexture[]|null $texture A directory of model textures.
+     *
+     * @return self
+     */
+    public function setTexture($texture)
+    {
+        if (is_null($texture)) {
+            throw new \InvalidArgumentException('non-nullable texture cannot be null');
+        }
+        $this->container['texture'] = $texture;
 
         return $this;
     }

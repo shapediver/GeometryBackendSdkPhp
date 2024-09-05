@@ -59,7 +59,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'file' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition>',
-        'sdtf' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition[]'
+        'sdtf' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition[]',
+        'modelState' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition'
     ];
 
     /**
@@ -71,7 +72,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'file' => null,
-        'sdtf' => null
+        'sdtf' => null,
+        'modelState' => null
     ];
 
     /**
@@ -81,7 +83,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'file' => false,
-        'sdtf' => false
+        'sdtf' => false,
+        'modelState' => false
     ];
 
     /**
@@ -171,7 +174,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'file' => 'file',
-        'sdtf' => 'sdtf'
+        'sdtf' => 'sdtf',
+        'modelState' => 'modelState'
     ];
 
     /**
@@ -181,7 +185,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'file' => 'setFile',
-        'sdtf' => 'setSdtf'
+        'sdtf' => 'setSdtf',
+        'modelState' => 'setModelState'
     ];
 
     /**
@@ -191,7 +196,8 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'file' => 'getFile',
-        'sdtf' => 'getSdtf'
+        'sdtf' => 'getSdtf',
+        'modelState' => 'getModelState'
     ];
 
     /**
@@ -253,6 +259,7 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('file', $data ?? [], null);
         $this->setIfExists('sdtf', $data ?? [], null);
+        $this->setIfExists('modelState', $data ?? [], null);
     }
 
     /**
@@ -347,6 +354,33 @@ class ResAsset implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable sdtf cannot be null');
         }
         $this->container['sdtf'] = $sdtf;
+
+        return $this;
+    }
+
+    /**
+     * Gets modelState
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition|null
+     */
+    public function getModelState()
+    {
+        return $this->container['modelState'];
+    }
+
+    /**
+     * Sets modelState
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResAssetDefinition|null $modelState The asset-definition of a Model-State image.
+     *
+     * @return self
+     */
+    public function setModelState($modelState)
+    {
+        if (is_null($modelState)) {
+            throw new \InvalidArgumentException('non-nullable modelState cannot be null');
+        }
+        $this->container['modelState'] = $modelState;
 
         return $this;
     }

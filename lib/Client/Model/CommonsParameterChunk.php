@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqParameterChunk
+ * CommonsParameterChunk
  *
  * PHP version 7.4
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqParameterChunk Class Doc Comment
+ * CommonsParameterChunk Class Doc Comment
  *
  * @category Class
  * @description Describing which chunk of the s-type asset to use. When not specified, the chunk of an asset gets chosen based on parameter ID and name.
@@ -41,7 +41,7 @@ use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqParameterChunk implements ModelInterface, ArrayAccess, \JsonSerializable
+class CommonsParameterChunk implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ReqParameterChunk implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqParameterChunk';
+    protected static $openAPIModelName = 'CommonsParameterChunk';
 
     /**
       * Array of property to type mappings. Used for (de)serialization

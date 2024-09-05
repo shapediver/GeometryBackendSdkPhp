@@ -35,7 +35,7 @@ use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
  * ReqParameterValue Class Doc Comment
  *
  * @category Class
- * @description The value of parameter.  Supported types: * Basic parameter (&#x60;ReqBasicParameter&#x60;) * S-type parameter (&#x60;ReqStypeParameter&#x60;)
+ * @description The value of a single model parameter.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -59,7 +59,7 @@ class ReqParameterValue implements ModelInterface, ArrayAccess, \JsonSerializabl
       */
     protected static $openAPITypes = [
         'value' => 'string',
-        'asset' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterAsset'
+        'asset' => '\ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset'
     ];
 
     /**
@@ -327,7 +327,7 @@ class ReqParameterValue implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets asset
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqParameterAsset|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset|null
      */
     public function getAsset()
     {
@@ -337,7 +337,7 @@ class ReqParameterValue implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets asset
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqParameterAsset|null $asset asset
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\CommmonsParameterAsset|null $asset asset
      *
      * @return self
      */

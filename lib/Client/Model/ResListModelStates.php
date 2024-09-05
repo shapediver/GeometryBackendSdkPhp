@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ResListModelStates
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ResListModelStates Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResListModelStates implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ResListModelStates';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +57,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'pagination' => '\ShapeDiver\GeometryApiV2\Client\Model\ResPagination',
+        'version' => 'string',
+        'list' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModelStateList'
     ];
 
     /**
@@ -72,10 +70,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'pagination' => null,
+        'version' => null,
+        'list' => null
     ];
 
     /**
@@ -84,10 +81,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'pagination' => false,
+        'version' => false,
+        'list' => false
     ];
 
     /**
@@ -176,10 +172,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'pagination' => 'pagination',
+        'version' => 'version',
+        'list' => 'list'
     ];
 
     /**
@@ -188,10 +183,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'pagination' => 'setPagination',
+        'version' => 'setVersion',
+        'list' => 'setList'
     ];
 
     /**
@@ -200,10 +194,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'pagination' => 'getPagination',
+        'version' => 'getVersion',
+        'list' => 'getList'
     ];
 
     /**
@@ -263,10 +256,9 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('pagination', $data ?? [], null);
+        $this->setIfExists('version', $data ?? [], null);
+        $this->setIfExists('list', $data ?? [], null);
     }
 
     /**
@@ -296,16 +288,15 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['parameters'] === null) {
-            $invalidProperties[] = "'parameters' can't be null";
+        if ($this->container['pagination'] === null) {
+            $invalidProperties[] = "'pagination' can't be null";
         }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
+        if ($this->container['version'] === null) {
+            $invalidProperties[] = "'version' can't be null";
         }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
+        if ($this->container['list'] === null) {
+            $invalidProperties[] = "'list' can't be null";
         }
-
         return $invalidProperties;
     }
 
@@ -322,114 +313,82 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets parameters
+     * Gets pagination
      *
-     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResPagination
      */
-    public function getParameters()
+    public function getPagination()
     {
-        return $this->container['parameters'];
+        return $this->container['pagination'];
     }
 
     /**
-     * Sets parameters
+     * Sets pagination
      *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResPagination $pagination Pagination information.
      *
      * @return self
      */
-    public function setParameters($parameters)
+    public function setPagination($pagination)
     {
-        if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
+        if (is_null($pagination)) {
+            throw new \InvalidArgumentException('non-nullable pagination cannot be null');
         }
-        $this->container['parameters'] = $parameters;
+        $this->container['pagination'] = $pagination;
 
         return $this;
     }
 
     /**
-     * Gets exports
+     * Gets version
      *
-     * @return string[]
+     * @return string
      */
-    public function getExports()
+    public function getVersion()
     {
-        return $this->container['exports'];
+        return $this->container['version'];
     }
 
     /**
-     * Sets exports
+     * Sets version
      *
-     * @param string[] $exports exports
+     * @param string $version Version of the Geometry Backend API.
      *
      * @return self
      */
-    public function setExports($exports)
+    public function setVersion($version)
     {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
+        if (is_null($version)) {
+            throw new \InvalidArgumentException('non-nullable version cannot be null');
         }
-        $this->container['exports'] = $exports;
+        $this->container['version'] = $version;
 
         return $this;
     }
 
     /**
-     * Gets outputs
+     * Gets list
      *
-     * @return string[]|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateList
      */
-    public function getOutputs()
+    public function getList()
     {
-        return $this->container['outputs'];
+        return $this->container['list'];
     }
 
     /**
-     * Sets outputs
+     * Sets list
      *
-     * @param string[]|null $outputs outputs
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateList $list list
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setList($list)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($list)) {
+            throw new \InvalidArgumentException('non-nullable list cannot be null');
         }
-        $this->container['outputs'] = $outputs;
-
-        return $this;
-    }
-
-    /**
-     * Gets maxWaitTime
-     *
-     * @return int|null
-     */
-    public function getMaxWaitTime()
-    {
-        return $this->container['maxWaitTime'];
-    }
-
-    /**
-     * Sets maxWaitTime
-     *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
-     *
-     * @return self
-     */
-    public function setMaxWaitTime($maxWaitTime)
-    {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
-        }
-
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
-        }
-
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        $this->container['list'] = $list;
 
         return $this;
     }

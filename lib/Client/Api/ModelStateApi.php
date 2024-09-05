@@ -1,6 +1,6 @@
 <?php
 /**
- * SessionApi
+ * ModelStateApi
  * PHP version 7.4
  *
  * @category Class
@@ -40,14 +40,14 @@ use ShapeDiver\GeometryApiV2\Client\HeaderSelector;
 use ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * SessionApi Class Doc Comment
+ * ModelStateApi Class Doc Comment
  *
  * @category Class
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class SessionApi
+class ModelStateApi
 {
     /**
      * @var ClientInterface
@@ -71,22 +71,28 @@ class SessionApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'closeSession' => [
+        'createModelState' => [
             'application/json',
         ],
-        'createSessionByModel' => [
+        'deleteModelState' => [
             'application/json',
         ],
-        'createSessionByTicket' => [
+        'downloadModelStateImage' => [
             'application/json',
         ],
-        'createTicket' => [
+        'getModelState' => [
             'application/json',
         ],
-        'decryptTicket' => [
+        'getModelStateData' => [
             'application/json',
         ],
-        'getSessionDefaults' => [
+        'getModelStateImageMetadata' => [
+            'application/json',
+        ],
+        'getModelStateMetadata' => [
+            'application/json',
+        ],
+        'listModelStates' => [
             'application/json',
         ],
     ];
@@ -138,38 +144,40 @@ class SessionApi
     }
 
     /**
-     * Operation closeSession
+     * Operation createModelState
      *
-     * Close session.
+     * Create new Model-State.
      *
      * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['closeSession'] to see the possible values for this operation
+     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqModelState $reqModelState reqModelState (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createModelState'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError
      */
-    public function closeSession($sessionId, string $contentType = self::contentTypes['closeSession'][0])
+    public function createModelState($sessionId, $reqModelState, string $contentType = self::contentTypes['createModelState'][0])
     {
-        list($response) = $this->closeSessionWithHttpInfo($sessionId, $contentType);
+        list($response) = $this->createModelStateWithHttpInfo($sessionId, $reqModelState, $contentType);
         return $response;
     }
 
     /**
-     * Operation closeSessionWithHttpInfo
+     * Operation createModelStateWithHttpInfo
      *
-     * Close session.
+     * Create new Model-State.
      *
      * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['closeSession'] to see the possible values for this operation
+     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqModelState $reqModelState (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createModelState'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function closeSessionWithHttpInfo($sessionId, string $contentType = self::contentTypes['closeSession'][0])
+    public function createModelStateWithHttpInfo($sessionId, $reqModelState, string $contentType = self::contentTypes['createModelState'][0])
     {
-        $request = $this->closeSessionRequest($sessionId, $contentType);
+        $request = $this->createModelStateRequest($sessionId, $reqModelState, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -208,11 +216,11 @@ class SessionApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession' === '\SplFileObject') {
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession' !== 'string') {
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -230,7 +238,7 @@ class SessionApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession', []),
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -263,7 +271,7 @@ class SessionApi
                     ];
             }
 
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession';
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -296,7 +304,7 @@ class SessionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession',
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -315,19 +323,20 @@ class SessionApi
     }
 
     /**
-     * Operation closeSessionAsync
+     * Operation createModelStateAsync
      *
-     * Close session.
+     * Create new Model-State.
      *
      * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['closeSession'] to see the possible values for this operation
+     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqModelState $reqModelState (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function closeSessionAsync($sessionId, string $contentType = self::contentTypes['closeSession'][0])
+    public function createModelStateAsync($sessionId, $reqModelState, string $contentType = self::contentTypes['createModelState'][0])
     {
-        return $this->closeSessionAsyncWithHttpInfo($sessionId, $contentType)
+        return $this->createModelStateAsyncWithHttpInfo($sessionId, $reqModelState, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -336,20 +345,21 @@ class SessionApi
     }
 
     /**
-     * Operation closeSessionAsyncWithHttpInfo
+     * Operation createModelStateAsyncWithHttpInfo
      *
-     * Close session.
+     * Create new Model-State.
      *
      * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['closeSession'] to see the possible values for this operation
+     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqModelState $reqModelState (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function closeSessionAsyncWithHttpInfo($sessionId, string $contentType = self::contentTypes['closeSession'][0])
+    public function createModelStateAsyncWithHttpInfo($sessionId, $reqModelState, string $contentType = self::contentTypes['createModelState'][0])
     {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCloseSession';
-        $request = $this->closeSessionRequest($sessionId, $contentType);
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateModelState';
+        $request = $this->createModelStateRequest($sessionId, $reqModelState, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -388,26 +398,34 @@ class SessionApi
     }
 
     /**
-     * Create request for operation 'closeSession'
+     * Create request for operation 'createModelState'
      *
      * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['closeSession'] to see the possible values for this operation
+     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqModelState $reqModelState (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function closeSessionRequest($sessionId, string $contentType = self::contentTypes['closeSession'][0])
+    public function createModelStateRequest($sessionId, $reqModelState, string $contentType = self::contentTypes['createModelState'][0])
     {
 
         // verify the required parameter 'sessionId' is set
         if ($sessionId === null || (is_array($sessionId) && count($sessionId) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sessionId when calling closeSession'
+                'Missing the required parameter $sessionId when calling createModelState'
+            );
+        }
+
+        // verify the required parameter 'reqModelState' is set
+        if ($reqModelState === null || (is_array($reqModelState) && count($reqModelState) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $reqModelState when calling createModelState'
             );
         }
 
 
-        $resourcePath = '/api/v2/session/{sessionId}/close';
+        $resourcePath = '/api/v2/session/{sessionId}/model-state';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -421,6 +439,359 @@ class SessionApi
             $resourcePath = str_replace(
                 '{' . 'sessionId' . '}',
                 ObjectSerializer::toPathValue($sessionId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($reqModelState)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reqModelState));
+            } else {
+                $httpBody = $reqModelState;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteModelState
+     *
+     * Delete a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteModelState'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function deleteModelState($modelStateId, string $contentType = self::contentTypes['deleteModelState'][0])
+    {
+        list($response) = $this->deleteModelStateWithHttpInfo($modelStateId, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteModelStateWithHttpInfo
+     *
+     * Delete a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteModelState'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteModelStateWithHttpInfo($modelStateId, string $contentType = self::contentTypes['deleteModelState'][0])
+    {
+        $request = $this->deleteModelStateRequest($modelStateId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteModelStateAsync
+     *
+     * Delete a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteModelState'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteModelStateAsync($modelStateId, string $contentType = self::contentTypes['deleteModelState'][0])
+    {
+        return $this->deleteModelStateAsyncWithHttpInfo($modelStateId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteModelStateAsyncWithHttpInfo
+     *
+     * Delete a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteModelState'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteModelStateAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['deleteModelState'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModelState';
+        $request = $this->deleteModelStateRequest($modelStateId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteModelState'
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteModelState'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteModelStateRequest($modelStateId, string $contentType = self::contentTypes['deleteModelState'][0])
+    {
+
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $modelStateId when calling deleteModelState'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/model-state/{modelStateId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($modelStateId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
                 $resourcePath
             );
         }
@@ -476,7 +847,7 @@ class SessionApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'POST',
+            'DELETE',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -484,44 +855,38 @@ class SessionApi
     }
 
     /**
-     * Operation createSessionByModel
+     * Operation downloadModelStateImage
      *
-     * Initialize new session by model ID.
+     * Downloads the Model-State image.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByModel'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadModelStateImage'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     * @return \SplFileObject|\ShapeDiver\GeometryApiV2\Client\Model\ResError
      */
-    public function createSessionByModel($modelId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByModel'][0])
+    public function downloadModelStateImage($modelStateId, string $contentType = self::contentTypes['downloadModelStateImage'][0])
     {
-        list($response) = $this->createSessionByModelWithHttpInfo($modelId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
+        list($response) = $this->downloadModelStateImageWithHttpInfo($modelStateId, $contentType);
         return $response;
     }
 
     /**
-     * Operation createSessionByModelWithHttpInfo
+     * Operation downloadModelStateImageWithHttpInfo
      *
-     * Initialize new session by model ID.
+     * Downloads the Model-State image.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByModel'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadModelStateImage'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createSessionByModelWithHttpInfo($modelId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByModel'][0])
+    public function downloadModelStateImageWithHttpInfo($modelStateId, string $contentType = self::contentTypes['downloadModelStateImage'][0])
     {
-        $request = $this->createSessionByModelRequest($modelId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
+        $request = $this->downloadModelStateImageRequest($modelStateId, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -559,12 +924,12 @@ class SessionApi
             }
 
             switch($statusCode) {
-                case 201:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel' === '\SplFileObject') {
+                case 200:
+                    if ('\SplFileObject' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel' !== 'string') {
+                        if ('\SplFileObject' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -582,7 +947,7 @@ class SessionApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel', []),
+                        ObjectSerializer::deserialize($content, '\SplFileObject', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -615,7 +980,7 @@ class SessionApi
                     ];
             }
 
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel';
+            $returnType = '\SplFileObject';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -645,10 +1010,10 @@ class SessionApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 201:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel',
+                        '\SplFileObject',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -667,22 +1032,19 @@ class SessionApi
     }
 
     /**
-     * Operation createSessionByModelAsync
+     * Operation downloadModelStateImageAsync
      *
-     * Initialize new session by model ID.
+     * Downloads the Model-State image.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByModel'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadModelStateImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createSessionByModelAsync($modelId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByModel'][0])
+    public function downloadModelStateImageAsync($modelStateId, string $contentType = self::contentTypes['downloadModelStateImage'][0])
     {
-        return $this->createSessionByModelAsyncWithHttpInfo($modelId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType)
+        return $this->downloadModelStateImageAsyncWithHttpInfo($modelStateId, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -691,23 +1053,20 @@ class SessionApi
     }
 
     /**
-     * Operation createSessionByModelAsyncWithHttpInfo
+     * Operation downloadModelStateImageAsyncWithHttpInfo
      *
-     * Initialize new session by model ID.
+     * Downloads the Model-State image.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByModel'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadModelStateImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createSessionByModelAsyncWithHttpInfo($modelId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByModel'][0])
+    public function downloadModelStateImageAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['downloadModelStateImage'][0])
     {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByModel';
-        $request = $this->createSessionByModelRequest($modelId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
+        $returnType = '\SplFileObject';
+        $request = $this->downloadModelStateImageRequest($modelStateId, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -746,472 +1105,52 @@ class SessionApi
     }
 
     /**
-     * Create request for operation 'createSessionByModel'
+     * Create request for operation 'downloadModelStateImage'
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByModel'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadModelStateImage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createSessionByModelRequest($modelId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByModel'][0])
+    public function downloadModelStateImageRequest($modelStateId, string $contentType = self::contentTypes['downloadModelStateImage'][0])
     {
 
-        // verify the required parameter 'modelId' is set
-        if ($modelId === null || (is_array($modelId) && count($modelId) === 0)) {
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $modelId when calling createSessionByModel'
+                'Missing the required parameter $modelStateId when calling downloadModelStateImage'
             );
         }
 
 
-
-
-
-        $resourcePath = '/api/v2/model/{modelId}/session';
+        $resourcePath = '/api/v2/model-state/{modelStateId}/image';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $modelStateId,
-            'modelStateId', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $strictValidation,
-            'strictValidation', // param base name
-            'boolean', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
 
 
         // path params
-        if ($modelId !== null) {
+        if ($modelStateId !== null) {
             $resourcePath = str_replace(
-                '{' . 'modelId' . '}',
-                ObjectSerializer::toPathValue($modelId),
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
                 $resourcePath
             );
         }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/octet-stream', 'application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($reqCustomizationOrExport)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reqCustomizationOrExport));
-            } else {
-                $httpBody = $reqCustomizationOrExport;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer (JWT) authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation createSessionByTicket
-     *
-     * Initialize new session by ticket.
-     *
-     * @param  string $ticketId Encrypted ticket. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByTicket'] to see the possible values for this operation
-     *
-     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError
-     */
-    public function createSessionByTicket($ticketId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByTicket'][0])
-    {
-        list($response) = $this->createSessionByTicketWithHttpInfo($ticketId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation createSessionByTicketWithHttpInfo
-     *
-     * Initialize new session by ticket.
-     *
-     * @param  string $ticketId Encrypted ticket. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByTicket'] to see the possible values for this operation
-     *
-     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function createSessionByTicketWithHttpInfo($ticketId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByTicket'][0])
-    {
-        $request = $this->createSessionByTicketRequest($ticketId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 201:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-                if ($returnType !== 'string') {
-                    try {
-                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                    } catch (\JsonException $exception) {
-                        throw new ApiException(
-                            sprintf(
-                                'Error JSON decoding server response (%s)',
-                                $request->getUri()
-                            ),
-                            $statusCode,
-                            $response->getHeaders(),
-                            $content
-                        );
-                    }
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation createSessionByTicketAsync
-     *
-     * Initialize new session by ticket.
-     *
-     * @param  string $ticketId Encrypted ticket. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createSessionByTicketAsync($ticketId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByTicket'][0])
-    {
-        return $this->createSessionByTicketAsyncWithHttpInfo($ticketId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation createSessionByTicketAsyncWithHttpInfo
-     *
-     * Initialize new session by ticket.
-     *
-     * @param  string $ticketId Encrypted ticket. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function createSessionByTicketAsyncWithHttpInfo($ticketId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByTicket'][0])
-    {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateSessionByTicket';
-        $request = $this->createSessionByTicketRequest($ticketId, $modelStateId, $strictValidation, $reqCustomizationOrExport, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'createSessionByTicket'
-     *
-     * @param  string $ticketId Encrypted ticket. (required)
-     * @param  string $modelStateId ID of the Model-State to apply. (optional)
-     * @param  bool $strictValidation When &#x60;false&#x60;, any Model-State parameter that cannot be applied to the model is ignored. However, when set to &#x60;true&#x60;, any validation error will result in an error response.  Defaults to &#x60;false&#x60;. (optional)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqCustomizationOrExport $reqCustomizationOrExport (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSessionByTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function createSessionByTicketRequest($ticketId, $modelStateId = null, $strictValidation = null, $reqCustomizationOrExport = null, string $contentType = self::contentTypes['createSessionByTicket'][0])
-    {
-
-        // verify the required parameter 'ticketId' is set
-        if ($ticketId === null || (is_array($ticketId) && count($ticketId) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $ticketId when calling createSessionByTicket'
-            );
-        }
-
-
-
-
-
-        $resourcePath = '/api/v2/ticket/{ticketId}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $modelStateId,
-            'modelStateId', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $strictValidation,
-            'strictValidation', // param base name
-            'boolean', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-        // path params
-        if ($ticketId !== null) {
-            $resourcePath = str_replace(
-                '{' . 'ticketId' . '}',
-                ObjectSerializer::toPathValue($ticketId),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($reqCustomizationOrExport)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reqCustomizationOrExport));
-            } else {
-                $httpBody = $reqCustomizationOrExport;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -1250,7 +1189,7 @@ class SessionApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'POST',
+            'GET',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1258,40 +1197,38 @@ class SessionApi
     }
 
     /**
-     * Operation createTicket
+     * Operation getModelState
      *
-     * Create a new ticket that allows to initialize a new session.
+     * Get a Model-State.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqTicket $reqTicket reqTicket (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTicket'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelState'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError
      */
-    public function createTicket($modelId, $reqTicket, string $contentType = self::contentTypes['createTicket'][0])
+    public function getModelState($modelStateId, string $contentType = self::contentTypes['getModelState'][0])
     {
-        list($response) = $this->createTicketWithHttpInfo($modelId, $reqTicket, $contentType);
+        list($response) = $this->getModelStateWithHttpInfo($modelStateId, $contentType);
         return $response;
     }
 
     /**
-     * Operation createTicketWithHttpInfo
+     * Operation getModelStateWithHttpInfo
      *
-     * Create a new ticket that allows to initialize a new session.
+     * Get a Model-State.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqTicket $reqTicket (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTicket'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelState'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createTicketWithHttpInfo($modelId, $reqTicket, string $contentType = self::contentTypes['createTicket'][0])
+    public function getModelStateWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelState'][0])
     {
-        $request = $this->createTicketRequest($modelId, $reqTicket, $contentType);
+        $request = $this->getModelStateRequest($modelStateId, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1330,11 +1267,11 @@ class SessionApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket' === '\SplFileObject') {
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket' !== 'string') {
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -1352,7 +1289,7 @@ class SessionApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket', []),
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1385,7 +1322,7 @@ class SessionApi
                     ];
             }
 
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket';
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -1418,7 +1355,7 @@ class SessionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket',
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1437,20 +1374,19 @@ class SessionApi
     }
 
     /**
-     * Operation createTicketAsync
+     * Operation getModelStateAsync
      *
-     * Create a new ticket that allows to initialize a new session.
+     * Get a Model-State.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqTicket $reqTicket (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTicket'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTicketAsync($modelId, $reqTicket, string $contentType = self::contentTypes['createTicket'][0])
+    public function getModelStateAsync($modelStateId, string $contentType = self::contentTypes['getModelState'][0])
     {
-        return $this->createTicketAsyncWithHttpInfo($modelId, $reqTicket, $contentType)
+        return $this->getModelStateAsyncWithHttpInfo($modelStateId, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1459,21 +1395,20 @@ class SessionApi
     }
 
     /**
-     * Operation createTicketAsyncWithHttpInfo
+     * Operation getModelStateAsyncWithHttpInfo
      *
-     * Create a new ticket that allows to initialize a new session.
+     * Get a Model-State.
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqTicket $reqTicket (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTicket'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTicketAsyncWithHttpInfo($modelId, $reqTicket, string $contentType = self::contentTypes['createTicket'][0])
+    public function getModelStateAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelState'][0])
     {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResCreateTicket';
-        $request = $this->createTicketRequest($modelId, $reqTicket, $contentType);
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelState';
+        $request = $this->getModelStateRequest($modelStateId, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1512,34 +1447,26 @@ class SessionApi
     }
 
     /**
-     * Create request for operation 'createTicket'
+     * Create request for operation 'getModelState'
      *
-     * @param  string $modelId Model ID. (required)
-     * @param  \ShapeDiver\GeometryApiV2\Client\Model\ReqTicket $reqTicket (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTicket'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelState'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createTicketRequest($modelId, $reqTicket, string $contentType = self::contentTypes['createTicket'][0])
+    public function getModelStateRequest($modelStateId, string $contentType = self::contentTypes['getModelState'][0])
     {
 
-        // verify the required parameter 'modelId' is set
-        if ($modelId === null || (is_array($modelId) && count($modelId) === 0)) {
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $modelId when calling createTicket'
-            );
-        }
-
-        // verify the required parameter 'reqTicket' is set
-        if ($reqTicket === null || (is_array($reqTicket) && count($reqTicket) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $reqTicket when calling createTicket'
+                'Missing the required parameter $modelStateId when calling getModelState'
             );
         }
 
 
-        $resourcePath = '/api/v2/model/{modelId}/ticket';
+        $resourcePath = '/api/v2/model-state/{modelStateId}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1549,363 +1476,10 @@ class SessionApi
 
 
         // path params
-        if ($modelId !== null) {
+        if ($modelStateId !== null) {
             $resourcePath = str_replace(
-                '{' . 'modelId' . '}',
-                ObjectSerializer::toPathValue($modelId),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($reqTicket)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reqTicket));
-            } else {
-                $httpBody = $reqTicket;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer (JWT) authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation decryptTicket
-     *
-     * Decrypt the given ticket and return its details.
-     *
-     * @param  string $ticketEncrypted Encrypted ShapeDiver ticket. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decryptTicket'] to see the possible values for this operation
-     *
-     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError
-     */
-    public function decryptTicket($ticketEncrypted, string $contentType = self::contentTypes['decryptTicket'][0])
-    {
-        list($response) = $this->decryptTicketWithHttpInfo($ticketEncrypted, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation decryptTicketWithHttpInfo
-     *
-     * Decrypt the given ticket and return its details.
-     *
-     * @param  string $ticketEncrypted Encrypted ShapeDiver ticket. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decryptTicket'] to see the possible values for this operation
-     *
-     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function decryptTicketWithHttpInfo($ticketEncrypted, string $contentType = self::contentTypes['decryptTicket'][0])
-    {
-        $request = $this->decryptTicketRequest($ticketEncrypted, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                default:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-                if ($returnType !== 'string') {
-                    try {
-                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                    } catch (\JsonException $exception) {
-                        throw new ApiException(
-                            sprintf(
-                                'Error JSON decoding server response (%s)',
-                                $request->getUri()
-                            ),
-                            $statusCode,
-                            $response->getHeaders(),
-                            $content
-                        );
-                    }
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                default:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation decryptTicketAsync
-     *
-     * Decrypt the given ticket and return its details.
-     *
-     * @param  string $ticketEncrypted Encrypted ShapeDiver ticket. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decryptTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function decryptTicketAsync($ticketEncrypted, string $contentType = self::contentTypes['decryptTicket'][0])
-    {
-        return $this->decryptTicketAsyncWithHttpInfo($ticketEncrypted, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation decryptTicketAsyncWithHttpInfo
-     *
-     * Decrypt the given ticket and return its details.
-     *
-     * @param  string $ticketEncrypted Encrypted ShapeDiver ticket. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decryptTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function decryptTicketAsyncWithHttpInfo($ticketEncrypted, string $contentType = self::contentTypes['decryptTicket'][0])
-    {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDecryptTicket';
-        $request = $this->decryptTicketRequest($ticketEncrypted, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'decryptTicket'
-     *
-     * @param  string $ticketEncrypted Encrypted ShapeDiver ticket. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decryptTicket'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function decryptTicketRequest($ticketEncrypted, string $contentType = self::contentTypes['decryptTicket'][0])
-    {
-
-        // verify the required parameter 'ticketEncrypted' is set
-        if ($ticketEncrypted === null || (is_array($ticketEncrypted) && count($ticketEncrypted) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $ticketEncrypted when calling decryptTicket'
-            );
-        }
-
-
-        $resourcePath = '/api/v2/ticket/{ticketEncrypted}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($ticketEncrypted !== null) {
-            $resourcePath = str_replace(
-                '{' . 'ticketEncrypted' . '}',
-                ObjectSerializer::toPathValue($ticketEncrypted),
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
                 $resourcePath
             );
         }
@@ -1969,38 +1543,38 @@ class SessionApi
     }
 
     /**
-     * Operation getSessionDefaults
+     * Operation getModelStateData
      *
-     * Get session defaults (corresponds to the content of the session initialization request).
+     * Get a Model-State&#39;s parameter and additional data.
      *
-     * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSessionDefaults'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateData'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData|\ShapeDiver\GeometryApiV2\Client\Model\ResError
      */
-    public function getSessionDefaults($sessionId, string $contentType = self::contentTypes['getSessionDefaults'][0])
+    public function getModelStateData($modelStateId, string $contentType = self::contentTypes['getModelStateData'][0])
     {
-        list($response) = $this->getSessionDefaultsWithHttpInfo($sessionId, $contentType);
+        list($response) = $this->getModelStateDataWithHttpInfo($modelStateId, $contentType);
         return $response;
     }
 
     /**
-     * Operation getSessionDefaultsWithHttpInfo
+     * Operation getModelStateDataWithHttpInfo
      *
-     * Get session defaults (corresponds to the content of the session initialization request).
+     * Get a Model-State&#39;s parameter and additional data.
      *
-     * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSessionDefaults'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateData'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSessionDefaultsWithHttpInfo($sessionId, string $contentType = self::contentTypes['getSessionDefaults'][0])
+    public function getModelStateDataWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateData'][0])
     {
-        $request = $this->getSessionDefaultsRequest($sessionId, $contentType);
+        $request = $this->getModelStateDataRequest($modelStateId, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2039,11 +1613,11 @@ class SessionApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults' === '\SplFileObject') {
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults' !== 'string') {
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -2061,7 +1635,7 @@ class SessionApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults', []),
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -2094,7 +1668,7 @@ class SessionApi
                     ];
             }
 
-            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults';
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -2127,7 +1701,7 @@ class SessionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults',
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2146,19 +1720,19 @@ class SessionApi
     }
 
     /**
-     * Operation getSessionDefaultsAsync
+     * Operation getModelStateDataAsync
      *
-     * Get session defaults (corresponds to the content of the session initialization request).
+     * Get a Model-State&#39;s parameter and additional data.
      *
-     * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSessionDefaults'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateData'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSessionDefaultsAsync($sessionId, string $contentType = self::contentTypes['getSessionDefaults'][0])
+    public function getModelStateDataAsync($modelStateId, string $contentType = self::contentTypes['getModelStateData'][0])
     {
-        return $this->getSessionDefaultsAsyncWithHttpInfo($sessionId, $contentType)
+        return $this->getModelStateDataAsyncWithHttpInfo($modelStateId, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2167,20 +1741,20 @@ class SessionApi
     }
 
     /**
-     * Operation getSessionDefaultsAsyncWithHttpInfo
+     * Operation getModelStateDataAsyncWithHttpInfo
      *
-     * Get session defaults (corresponds to the content of the session initialization request).
+     * Get a Model-State&#39;s parameter and additional data.
      *
-     * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSessionDefaults'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateData'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSessionDefaultsAsyncWithHttpInfo($sessionId, string $contentType = self::contentTypes['getSessionDefaults'][0])
+    public function getModelStateDataAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateData'][0])
     {
-        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetSessionDefaults';
-        $request = $this->getSessionDefaultsRequest($sessionId, $contentType);
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResGetModelStateData';
+        $request = $this->getModelStateDataRequest($modelStateId, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2219,26 +1793,26 @@ class SessionApi
     }
 
     /**
-     * Create request for operation 'getSessionDefaults'
+     * Create request for operation 'getModelStateData'
      *
-     * @param  string $sessionId Session ID. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSessionDefaults'] to see the possible values for this operation
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateData'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getSessionDefaultsRequest($sessionId, string $contentType = self::contentTypes['getSessionDefaults'][0])
+    public function getModelStateDataRequest($modelStateId, string $contentType = self::contentTypes['getModelStateData'][0])
     {
 
-        // verify the required parameter 'sessionId' is set
-        if ($sessionId === null || (is_array($sessionId) && count($sessionId) === 0)) {
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sessionId when calling getSessionDefaults'
+                'Missing the required parameter $modelStateId when calling getModelStateData'
             );
         }
 
 
-        $resourcePath = '/api/v2/session/{sessionId}/default';
+        $resourcePath = '/api/v2/model-state/{modelStateId}/data';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2248,10 +1822,841 @@ class SessionApi
 
 
         // path params
-        if ($sessionId !== null) {
+        if ($modelStateId !== null) {
             $resourcePath = str_replace(
-                '{' . 'sessionId' . '}',
-                ObjectSerializer::toPathValue($sessionId),
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getModelStateImageMetadata
+     *
+     * Checks if the Model-State has an image.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateImageMetadata'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getModelStateImageMetadata($modelStateId, string $contentType = self::contentTypes['getModelStateImageMetadata'][0])
+    {
+        $this->getModelStateImageMetadataWithHttpInfo($modelStateId, $contentType);
+    }
+
+    /**
+     * Operation getModelStateImageMetadataWithHttpInfo
+     *
+     * Checks if the Model-State has an image.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateImageMetadata'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelStateImageMetadataWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateImageMetadata'][0])
+    {
+        $request = $this->getModelStateImageMetadataRequest($modelStateId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelStateImageMetadataAsync
+     *
+     * Checks if the Model-State has an image.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateImageMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelStateImageMetadataAsync($modelStateId, string $contentType = self::contentTypes['getModelStateImageMetadata'][0])
+    {
+        return $this->getModelStateImageMetadataAsyncWithHttpInfo($modelStateId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelStateImageMetadataAsyncWithHttpInfo
+     *
+     * Checks if the Model-State has an image.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateImageMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelStateImageMetadataAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateImageMetadata'][0])
+    {
+        $returnType = '';
+        $request = $this->getModelStateImageMetadataRequest($modelStateId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelStateImageMetadata'
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateImageMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelStateImageMetadataRequest($modelStateId, string $contentType = self::contentTypes['getModelStateImageMetadata'][0])
+    {
+
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $modelStateId when calling getModelStateImageMetadata'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/model-state/{modelStateId}/image';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($modelStateId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'HEAD',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getModelStateMetadata
+     *
+     * Checks the existence of a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateMetadata'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getModelStateMetadata($modelStateId, string $contentType = self::contentTypes['getModelStateMetadata'][0])
+    {
+        $this->getModelStateMetadataWithHttpInfo($modelStateId, $contentType);
+    }
+
+    /**
+     * Operation getModelStateMetadataWithHttpInfo
+     *
+     * Checks the existence of a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateMetadata'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelStateMetadataWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateMetadata'][0])
+    {
+        $request = $this->getModelStateMetadataRequest($modelStateId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelStateMetadataAsync
+     *
+     * Checks the existence of a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelStateMetadataAsync($modelStateId, string $contentType = self::contentTypes['getModelStateMetadata'][0])
+    {
+        return $this->getModelStateMetadataAsyncWithHttpInfo($modelStateId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelStateMetadataAsyncWithHttpInfo
+     *
+     * Checks the existence of a Model-State.
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelStateMetadataAsyncWithHttpInfo($modelStateId, string $contentType = self::contentTypes['getModelStateMetadata'][0])
+    {
+        $returnType = '';
+        $request = $this->getModelStateMetadataRequest($modelStateId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelStateMetadata'
+     *
+     * @param  string $modelStateId Model-State ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelStateMetadata'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelStateMetadataRequest($modelStateId, string $contentType = self::contentTypes['getModelStateMetadata'][0])
+    {
+
+        // verify the required parameter 'modelStateId' is set
+        if ($modelStateId === null || (is_array($modelStateId) && count($modelStateId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $modelStateId when calling getModelStateMetadata'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/model-state/{modelStateId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($modelStateId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'modelStateId' . '}',
+                ObjectSerializer::toPathValue($modelStateId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'HEAD',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listModelStates
+     *
+     * List Model-States of a ShapeDiver model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $offset Continuation token for pagination. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listModelStates'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function listModelStates($modelId, $offset = null, string $contentType = self::contentTypes['listModelStates'][0])
+    {
+        list($response) = $this->listModelStatesWithHttpInfo($modelId, $offset, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listModelStatesWithHttpInfo
+     *
+     * List Model-States of a ShapeDiver model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $offset Continuation token for pagination. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listModelStates'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listModelStatesWithHttpInfo($modelId, $offset = null, string $contentType = self::contentTypes['listModelStates'][0])
+    {
+        $request = $this->listModelStatesRequest($modelId, $offset, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listModelStatesAsync
+     *
+     * List Model-States of a ShapeDiver model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $offset Continuation token for pagination. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listModelStates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listModelStatesAsync($modelId, $offset = null, string $contentType = self::contentTypes['listModelStates'][0])
+    {
+        return $this->listModelStatesAsyncWithHttpInfo($modelId, $offset, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listModelStatesAsyncWithHttpInfo
+     *
+     * List Model-States of a ShapeDiver model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $offset Continuation token for pagination. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listModelStates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listModelStatesAsyncWithHttpInfo($modelId, $offset = null, string $contentType = self::contentTypes['listModelStates'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResListModelStates';
+        $request = $this->listModelStatesRequest($modelId, $offset, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listModelStates'
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $offset Continuation token for pagination. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listModelStates'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listModelStatesRequest($modelId, $offset = null, string $contentType = self::contentTypes['listModelStates'][0])
+    {
+
+        // verify the required parameter 'modelId' is set
+        if ($modelId === null || (is_array($modelId) && count($modelId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $modelId when calling listModelStates'
+            );
+        }
+
+
+
+        $resourcePath = '/api/v2/model-state/model/{modelId}/list';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $offset,
+            'offset', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($modelId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'modelId' . '}',
+                ObjectSerializer::toPathValue($modelId),
                 $resourcePath
             );
         }

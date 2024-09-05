@@ -35,7 +35,7 @@ use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
  * ResAssetDefinition Class Doc Comment
  *
  * @category Class
- * @description Result part for the response to an upload request for file/sdTF parameters.
+ * @description Result part for the response to an asset upload request.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

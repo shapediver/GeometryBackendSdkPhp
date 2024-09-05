@@ -62,6 +62,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => '\ShapeDiver\GeometryApiV2\Client\Model\ResFile',
         'message' => 'string',
         'model' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModel',
+        'modelState' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData',
         'outputs' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResOutputOrDefinition>',
         'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameter>',
         'sessionId' => 'string',
@@ -70,7 +71,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => '\ShapeDiver\GeometryApiV2\Client\Model\ResTemplate[]',
         'version' => 'string',
         'viewer' => '\ShapeDiver\GeometryApiV2\Client\Model\ResViewer',
-        'viewerSettingsVersion' => 'string'
+        'viewerSettingsVersion' => 'string',
+        'warnings' => 'string[]'
     ];
 
     /**
@@ -86,6 +88,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => null,
         'message' => null,
         'model' => null,
+        'modelState' => null,
         'outputs' => null,
         'parameters' => null,
         'sessionId' => 'uuid',
@@ -94,7 +97,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => null,
         'version' => null,
         'viewer' => null,
-        'viewerSettingsVersion' => null
+        'viewerSettingsVersion' => null,
+        'warnings' => null
     ];
 
     /**
@@ -108,6 +112,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => false,
         'message' => false,
         'model' => false,
+        'modelState' => false,
         'outputs' => false,
         'parameters' => false,
         'sessionId' => false,
@@ -116,7 +121,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => false,
         'version' => false,
         'viewer' => false,
-        'viewerSettingsVersion' => false
+        'viewerSettingsVersion' => false,
+        'warnings' => false
     ];
 
     /**
@@ -210,6 +216,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => 'file',
         'message' => 'message',
         'model' => 'model',
+        'modelState' => 'modelState',
         'outputs' => 'outputs',
         'parameters' => 'parameters',
         'sessionId' => 'sessionId',
@@ -218,7 +225,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => 'templates',
         'version' => 'version',
         'viewer' => 'viewer',
-        'viewerSettingsVersion' => 'viewerSettingsVersion'
+        'viewerSettingsVersion' => 'viewerSettingsVersion',
+        'warnings' => 'warnings'
     ];
 
     /**
@@ -232,6 +240,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => 'setFile',
         'message' => 'setMessage',
         'model' => 'setModel',
+        'modelState' => 'setModelState',
         'outputs' => 'setOutputs',
         'parameters' => 'setParameters',
         'sessionId' => 'setSessionId',
@@ -240,7 +249,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => 'setTemplates',
         'version' => 'setVersion',
         'viewer' => 'setViewer',
-        'viewerSettingsVersion' => 'setViewerSettingsVersion'
+        'viewerSettingsVersion' => 'setViewerSettingsVersion',
+        'warnings' => 'setWarnings'
     ];
 
     /**
@@ -254,6 +264,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'file' => 'getFile',
         'message' => 'getMessage',
         'model' => 'getModel',
+        'modelState' => 'getModelState',
         'outputs' => 'getOutputs',
         'parameters' => 'getParameters',
         'sessionId' => 'getSessionId',
@@ -262,7 +273,8 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         'templates' => 'getTemplates',
         'version' => 'getVersion',
         'viewer' => 'getViewer',
-        'viewerSettingsVersion' => 'getViewerSettingsVersion'
+        'viewerSettingsVersion' => 'getViewerSettingsVersion',
+        'warnings' => 'getWarnings'
     ];
 
     /**
@@ -327,6 +339,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('file', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
+        $this->setIfExists('modelState', $data ?? [], null);
         $this->setIfExists('outputs', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
         $this->setIfExists('sessionId', $data ?? [], null);
@@ -336,6 +349,7 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('version', $data ?? [], null);
         $this->setIfExists('viewer', $data ?? [], null);
         $this->setIfExists('viewerSettingsVersion', $data ?? [], null);
+        $this->setIfExists('warnings', $data ?? [], null);
     }
 
     /**
@@ -541,6 +555,33 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable model cannot be null');
         }
         $this->container['model'] = $model;
+
+        return $this;
+    }
+
+    /**
+     * Gets modelState
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData|null
+     */
+    public function getModelState()
+    {
+        return $this->container['modelState'];
+    }
+
+    /**
+     * Sets modelState
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData|null $modelState Model-State information.
+     *
+     * @return self
+     */
+    public function setModelState($modelState)
+    {
+        if (is_null($modelState)) {
+            throw new \InvalidArgumentException('non-nullable modelState cannot be null');
+        }
+        $this->container['modelState'] = $modelState;
 
         return $this;
     }
@@ -784,6 +825,33 @@ class ResCreateSessionByModel implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable viewerSettingsVersion cannot be null');
         }
         $this->container['viewerSettingsVersion'] = $viewerSettingsVersion;
+
+        return $this;
+    }
+
+    /**
+     * Gets warnings
+     *
+     * @return string[]|null
+     */
+    public function getWarnings()
+    {
+        return $this->container['warnings'];
+    }
+
+    /**
+     * Sets warnings
+     *
+     * @param string[]|null $warnings An array of warnings encountered during request processing. These warnings indicate potential issues or non-critical conditions but did not prevent the request from being successfully processed.
+     *
+     * @return self
+     */
+    public function setWarnings($warnings)
+    {
+        if (is_null($warnings)) {
+            throw new \InvalidArgumentException('non-nullable warnings cannot be null');
+        }
+        $this->container['warnings'] = $warnings;
 
         return $this;
     }

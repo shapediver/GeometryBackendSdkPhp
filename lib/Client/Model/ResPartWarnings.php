@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ResPartWarnings
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ResPartWarnings Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResPartWarnings implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ResPartWarnings';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +57,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'warnings' => 'string[]'
     ];
 
     /**
@@ -72,10 +68,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'warnings' => null
     ];
 
     /**
@@ -84,10 +77,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'warnings' => false
     ];
 
     /**
@@ -176,10 +166,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'warnings' => 'warnings'
     ];
 
     /**
@@ -188,10 +175,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'warnings' => 'setWarnings'
     ];
 
     /**
@@ -200,10 +184,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'warnings' => 'getWarnings'
     ];
 
     /**
@@ -263,10 +244,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('warnings', $data ?? [], null);
     }
 
     /**
@@ -296,16 +274,6 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['parameters'] === null) {
-            $invalidProperties[] = "'parameters' can't be null";
-        }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
-        }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -322,114 +290,28 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets parameters
-     *
-     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>
-     */
-    public function getParameters()
-    {
-        return $this->container['parameters'];
-    }
-
-    /**
-     * Sets parameters
-     *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
-     *
-     * @return self
-     */
-    public function setParameters($parameters)
-    {
-        if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
-        }
-        $this->container['parameters'] = $parameters;
-
-        return $this;
-    }
-
-    /**
-     * Gets exports
-     *
-     * @return string[]
-     */
-    public function getExports()
-    {
-        return $this->container['exports'];
-    }
-
-    /**
-     * Sets exports
-     *
-     * @param string[] $exports exports
-     *
-     * @return self
-     */
-    public function setExports($exports)
-    {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
-        }
-        $this->container['exports'] = $exports;
-
-        return $this;
-    }
-
-    /**
-     * Gets outputs
+     * Gets warnings
      *
      * @return string[]|null
      */
-    public function getOutputs()
+    public function getWarnings()
     {
-        return $this->container['outputs'];
+        return $this->container['warnings'];
     }
 
     /**
-     * Sets outputs
+     * Sets warnings
      *
-     * @param string[]|null $outputs outputs
+     * @param string[]|null $warnings An array of warnings encountered during request processing. These warnings indicate potential issues or non-critical conditions but did not prevent the request from being successfully processed.
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setWarnings($warnings)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($warnings)) {
+            throw new \InvalidArgumentException('non-nullable warnings cannot be null');
         }
-        $this->container['outputs'] = $outputs;
-
-        return $this;
-    }
-
-    /**
-     * Gets maxWaitTime
-     *
-     * @return int|null
-     */
-    public function getMaxWaitTime()
-    {
-        return $this->container['maxWaitTime'];
-    }
-
-    /**
-     * Sets maxWaitTime
-     *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
-     *
-     * @return self
-     */
-    public function setMaxWaitTime($maxWaitTime)
-    {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
-        }
-
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
-        }
-
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        $this->container['warnings'] = $warnings;
 
         return $this;
     }

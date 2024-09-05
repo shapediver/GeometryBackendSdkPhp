@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqExportOrCache
+ * ResModelStateInfo
  *
  * PHP version 7.4
  *
@@ -32,16 +32,16 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqExportOrCache Class Doc Comment
+ * ResModelStateInfo Class Doc Comment
  *
  * @category Class
- * @description Either a cache or an export request.
+ * @description Basic information about a Model-State.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResModelStateInfo implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqExportOrCache';
+    protected static $openAPIModelName = 'ResModelStateInfo';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,10 +58,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>',
-        'exports' => 'string[]',
-        'outputs' => 'string[]',
-        'maxWaitTime' => 'int'
+        'id' => 'string',
+        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>',
+        'hasImage' => 'bool',
+        'hasGltf' => 'bool',
+        'hasUsdz' => 'bool'
     ];
 
     /**
@@ -72,10 +73,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'id' => null,
         'parameters' => null,
-        'exports' => null,
-        'outputs' => null,
-        'maxWaitTime' => null
+        'hasImage' => null,
+        'hasGltf' => null,
+        'hasUsdz' => null
     ];
 
     /**
@@ -84,10 +86,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'id' => false,
         'parameters' => false,
-        'exports' => false,
-        'outputs' => false,
-        'maxWaitTime' => false
+        'hasImage' => false,
+        'hasGltf' => false,
+        'hasUsdz' => false
     ];
 
     /**
@@ -176,10 +179,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'id' => 'id',
         'parameters' => 'parameters',
-        'exports' => 'exports',
-        'outputs' => 'outputs',
-        'maxWaitTime' => 'max_wait_time'
+        'hasImage' => 'hasImage',
+        'hasGltf' => 'hasGltf',
+        'hasUsdz' => 'hasUsdz'
     ];
 
     /**
@@ -188,10 +192,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'id' => 'setId',
         'parameters' => 'setParameters',
-        'exports' => 'setExports',
-        'outputs' => 'setOutputs',
-        'maxWaitTime' => 'setMaxWaitTime'
+        'hasImage' => 'setHasImage',
+        'hasGltf' => 'setHasGltf',
+        'hasUsdz' => 'setHasUsdz'
     ];
 
     /**
@@ -200,10 +205,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'id' => 'getId',
         'parameters' => 'getParameters',
-        'exports' => 'getExports',
-        'outputs' => 'getOutputs',
-        'maxWaitTime' => 'getMaxWaitTime'
+        'hasImage' => 'getHasImage',
+        'hasGltf' => 'getHasGltf',
+        'hasUsdz' => 'getHasUsdz'
     ];
 
     /**
@@ -263,10 +269,11 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
-        $this->setIfExists('exports', $data ?? [], null);
-        $this->setIfExists('outputs', $data ?? [], null);
-        $this->setIfExists('maxWaitTime', $data ?? [], null);
+        $this->setIfExists('hasImage', $data ?? [], null);
+        $this->setIfExists('hasGltf', $data ?? [], null);
+        $this->setIfExists('hasUsdz', $data ?? [], null);
     }
 
     /**
@@ -296,16 +303,21 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         if ($this->container['parameters'] === null) {
             $invalidProperties[] = "'parameters' can't be null";
         }
-        if ($this->container['exports'] === null) {
-            $invalidProperties[] = "'exports' can't be null";
+        if ($this->container['hasImage'] === null) {
+            $invalidProperties[] = "'hasImage' can't be null";
         }
-        if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
-            $invalidProperties[] = "invalid value for 'maxWaitTime', must be bigger than or equal to 0.";
+        if ($this->container['hasGltf'] === null) {
+            $invalidProperties[] = "'hasGltf' can't be null";
         }
-
+        if ($this->container['hasUsdz'] === null) {
+            $invalidProperties[] = "'hasUsdz' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -322,9 +334,36 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string $id ID of the Model-State.
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        }
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
      * Gets parameters
      *
-     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue>
+     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>
      */
     public function getParameters()
     {
@@ -334,7 +373,7 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameters
      *
-     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue> $parameters A directory of parameter keys and values.  Supported parameter keys are as follows, whereby the parameter resolution is done in the same order as the keys are listed: * `id` * `name` * `displayname`  Supported parameter values are: * Basic parameter (`CommonsBasicParameter`) * S-type parameter (`CommonsStypeParameter`)
+     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue> $parameters A directory of parameter IDs and values.
      *
      * @return self
      */
@@ -349,87 +388,82 @@ class ReqExportOrCache implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets exports
+     * Gets hasImage
      *
-     * @return string[]
+     * @return bool
      */
-    public function getExports()
+    public function getHasImage()
     {
-        return $this->container['exports'];
+        return $this->container['hasImage'];
     }
 
     /**
-     * Sets exports
+     * Sets hasImage
      *
-     * @param string[] $exports exports
+     * @param bool $hasImage Indicates whether the Model-State includes an image.
      *
      * @return self
      */
-    public function setExports($exports)
+    public function setHasImage($hasImage)
     {
-        if (is_null($exports)) {
-            throw new \InvalidArgumentException('non-nullable exports cannot be null');
+        if (is_null($hasImage)) {
+            throw new \InvalidArgumentException('non-nullable hasImage cannot be null');
         }
-        $this->container['exports'] = $exports;
+        $this->container['hasImage'] = $hasImage;
 
         return $this;
     }
 
     /**
-     * Gets outputs
+     * Gets hasGltf
      *
-     * @return string[]|null
+     * @return bool
      */
-    public function getOutputs()
+    public function getHasGltf()
     {
-        return $this->container['outputs'];
+        return $this->container['hasGltf'];
     }
 
     /**
-     * Sets outputs
+     * Sets hasGltf
      *
-     * @param string[]|null $outputs outputs
+     * @param bool $hasGltf Indicates whether the Model-State includes a glTF asset.
      *
      * @return self
      */
-    public function setOutputs($outputs)
+    public function setHasGltf($hasGltf)
     {
-        if (is_null($outputs)) {
-            throw new \InvalidArgumentException('non-nullable outputs cannot be null');
+        if (is_null($hasGltf)) {
+            throw new \InvalidArgumentException('non-nullable hasGltf cannot be null');
         }
-        $this->container['outputs'] = $outputs;
+        $this->container['hasGltf'] = $hasGltf;
 
         return $this;
     }
 
     /**
-     * Gets maxWaitTime
+     * Gets hasUsdz
      *
-     * @return int|null
+     * @return bool
      */
-    public function getMaxWaitTime()
+    public function getHasUsdz()
     {
-        return $this->container['maxWaitTime'];
+        return $this->container['hasUsdz'];
     }
 
     /**
-     * Sets maxWaitTime
+     * Sets hasUsdz
      *
-     * @param int|null $maxWaitTime Maximum amount of milliseconds to wait for completion of export request before responding.
+     * @param bool $hasUsdz Indicates whether the Model-State includes a USDZ asset.
      *
      * @return self
      */
-    public function setMaxWaitTime($maxWaitTime)
+    public function setHasUsdz($hasUsdz)
     {
-        if (is_null($maxWaitTime)) {
-            throw new \InvalidArgumentException('non-nullable maxWaitTime cannot be null');
+        if (is_null($hasUsdz)) {
+            throw new \InvalidArgumentException('non-nullable hasUsdz cannot be null');
         }
-
-        if (($maxWaitTime < 0)) {
-            throw new \InvalidArgumentException('invalid value for $maxWaitTime when calling ReqExportOrCache., must be bigger than or equal to 0.');
-        }
-
-        $this->container['maxWaitTime'] = $maxWaitTime;
+        $this->container['hasUsdz'] = $hasUsdz;
 
         return $this;
     }

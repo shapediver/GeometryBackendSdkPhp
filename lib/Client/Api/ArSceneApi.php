@@ -131,9 +131,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneGltf
      *
-     * Downloads the glTF asset of an AR scene.
+     * Downloads the glTF asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneGltf'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -149,9 +149,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneGltfWithHttpInfo
      *
-     * Downloads the glTF asset of an AR scene.
+     * Downloads the glTF asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneGltf'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -308,9 +308,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneGltfAsync
      *
-     * Downloads the glTF asset of an AR scene.
+     * Downloads the glTF asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneGltf'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -329,9 +329,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneGltfAsyncWithHttpInfo
      *
-     * Downloads the glTF asset of an AR scene.
+     * Downloads the glTF asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneGltf'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -381,7 +381,7 @@ class ArSceneApi
     /**
      * Create request for operation 'downloadArSceneGltf'
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneGltf'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -473,9 +473,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneUsdz
      *
-     * Downloads the USDZ asset of an AR scene.
+     * Downloads the USDZ asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneUsdz'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -491,9 +491,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneUsdzWithHttpInfo
      *
-     * Downloads the USDZ asset of an AR scene.
+     * Downloads the USDZ asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneUsdz'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -650,9 +650,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneUsdzAsync
      *
-     * Downloads the USDZ asset of an AR scene.
+     * Downloads the USDZ asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneUsdz'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -671,9 +671,9 @@ class ArSceneApi
     /**
      * Operation downloadArSceneUsdzAsyncWithHttpInfo
      *
-     * Downloads the USDZ asset of an AR scene.
+     * Downloads the USDZ asset of an AR scene or a Model-State that is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneUsdz'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -723,7 +723,7 @@ class ArSceneApi
     /**
      * Create request for operation 'downloadArSceneUsdz'
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['downloadArSceneUsdz'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -815,9 +815,9 @@ class ArSceneApi
     /**
      * Operation getArSceneMetadata
      *
-     * Checks the existence of an AR scene.
+     * Verifies whether an AR scene exists or if a Model-State is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getArSceneMetadata'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -832,9 +832,9 @@ class ArSceneApi
     /**
      * Operation getArSceneMetadataWithHttpInfo
      *
-     * Checks the existence of an AR scene.
+     * Verifies whether an AR scene exists or if a Model-State is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getArSceneMetadata'] to see the possible values for this operation
      *
      * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
@@ -900,9 +900,9 @@ class ArSceneApi
     /**
      * Operation getArSceneMetadataAsync
      *
-     * Checks the existence of an AR scene.
+     * Verifies whether an AR scene exists or if a Model-State is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getArSceneMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -921,9 +921,9 @@ class ArSceneApi
     /**
      * Operation getArSceneMetadataAsyncWithHttpInfo
      *
-     * Checks the existence of an AR scene.
+     * Verifies whether an AR scene exists or if a Model-State is linked to an AR scene.
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getArSceneMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -960,7 +960,7 @@ class ArSceneApi
     /**
      * Create request for operation 'getArSceneMetadata'
      *
-     * @param  string $sceneId AR scene ID. (required)
+     * @param  string $sceneId ID of the AR scene or Model-State. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getArSceneMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

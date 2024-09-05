@@ -61,6 +61,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => '\ShapeDiver\GeometryApiV2\Client\Model\ResFileInfo[]',
         'sdtf' => '\ShapeDiver\GeometryApiV2\Client\Model\ResSdtfInfo[]',
         'model' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModel[]',
+        'modelState' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[]',
         'output' => '\ShapeDiver\GeometryApiV2\Client\Model\ResOutput[]',
         'export' => '\ShapeDiver\GeometryApiV2\Client\Model\ResExport[]',
         'texture' => '\ShapeDiver\GeometryApiV2\Client\Model\ResTexture[]'
@@ -77,6 +78,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => null,
         'sdtf' => null,
         'model' => null,
+        'modelState' => null,
         'output' => null,
         'export' => null,
         'texture' => null
@@ -91,6 +93,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => false,
         'sdtf' => false,
         'model' => false,
+        'modelState' => false,
         'output' => false,
         'export' => false,
         'texture' => false
@@ -185,6 +188,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'file',
         'sdtf' => 'sdtf',
         'model' => 'model',
+        'modelState' => 'modelState',
         'output' => 'output',
         'export' => 'export',
         'texture' => 'texture'
@@ -199,6 +203,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'setFile',
         'sdtf' => 'setSdtf',
         'model' => 'setModel',
+        'modelState' => 'setModelState',
         'output' => 'setOutput',
         'export' => 'setExport',
         'texture' => 'setTexture'
@@ -213,6 +218,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         'file' => 'getFile',
         'sdtf' => 'getSdtf',
         'model' => 'getModel',
+        'modelState' => 'getModelState',
         'output' => 'getOutput',
         'export' => 'getExport',
         'texture' => 'getTexture'
@@ -278,6 +284,7 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('file', $data ?? [], null);
         $this->setIfExists('sdtf', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
+        $this->setIfExists('modelState', $data ?? [], null);
         $this->setIfExists('output', $data ?? [], null);
         $this->setIfExists('export', $data ?? [], null);
         $this->setIfExists('texture', $data ?? [], null);
@@ -402,6 +409,33 @@ class ResList implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable model cannot be null');
         }
         $this->container['model'] = $model;
+
+        return $this;
+    }
+
+    /**
+     * Gets modelState
+     *
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[]|null
+     */
+    public function getModelState()
+    {
+        return $this->container['modelState'];
+    }
+
+    /**
+     * Sets modelState
+     *
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateInfo[]|null $modelState A directory of Model-States.
+     *
+     * @return self
+     */
+    public function setModelState($modelState)
+    {
+        if (is_null($modelState)) {
+            throw new \InvalidArgumentException('non-nullable modelState cannot be null');
+        }
+        $this->container['modelState'] = $modelState;
 
         return $this;
     }

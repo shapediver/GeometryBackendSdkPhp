@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqParameterAsset
+ * ResPartModelStateData
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqParameterAsset Class Doc Comment
+ * ResPartModelStateData Class Doc Comment
  *
  * @category Class
- * @description Reference to the s-type parameter asset to be used.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResPartModelStateData implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqParameterAsset';
+    protected static $openAPIModelName = 'ResPartModelStateData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,8 +57,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'chunk' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqParameterChunk'
+        'modelState' => '\ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData'
     ];
 
     /**
@@ -70,8 +68,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'chunk' => null
+        'modelState' => null
     ];
 
     /**
@@ -80,8 +77,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'id' => false,
-        'chunk' => false
+        'modelState' => false
     ];
 
     /**
@@ -170,8 +166,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'chunk' => 'chunk'
+        'modelState' => 'modelState'
     ];
 
     /**
@@ -180,8 +175,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'chunk' => 'setChunk'
+        'modelState' => 'setModelState'
     ];
 
     /**
@@ -190,8 +184,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'chunk' => 'getChunk'
+        'modelState' => 'getModelState'
     ];
 
     /**
@@ -251,8 +244,7 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('chunk', $data ?? [], null);
+        $this->setIfExists('modelState', $data ?? [], null);
     }
 
     /**
@@ -282,9 +274,6 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -301,55 +290,28 @@ class ReqParameterAsset implements ModelInterface, ArrayAccess, \JsonSerializabl
 
 
     /**
-     * Gets id
+     * Gets modelState
      *
-     * @return string
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData|null
      */
-    public function getId()
+    public function getModelState()
     {
-        return $this->container['id'];
+        return $this->container['modelState'];
     }
 
     /**
-     * Sets id
+     * Sets modelState
      *
-     * @param string $id String ID of the asset.
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResModelStateData|null $modelState Model-State information.
      *
      * @return self
      */
-    public function setId($id)
+    public function setModelState($modelState)
     {
-        if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        if (is_null($modelState)) {
+            throw new \InvalidArgumentException('non-nullable modelState cannot be null');
         }
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets chunk
-     *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqParameterChunk|null
-     */
-    public function getChunk()
-    {
-        return $this->container['chunk'];
-    }
-
-    /**
-     * Sets chunk
-     *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqParameterChunk|null $chunk chunk
-     *
-     * @return self
-     */
-    public function setChunk($chunk)
-    {
-        if (is_null($chunk)) {
-            throw new \InvalidArgumentException('non-nullable chunk cannot be null');
-        }
-        $this->container['chunk'] = $chunk;
+        $this->container['modelState'] = $modelState;
 
         return $this;
     }
