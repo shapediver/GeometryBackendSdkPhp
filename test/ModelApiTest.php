@@ -3,6 +3,7 @@
 namespace ShapeDiver\GeometryApiV2\Test;
 
 use PHPUnit\Framework\TestCase;
+use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelApi;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryComputationStatisticsStatus;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryModelStatus;
@@ -14,6 +15,8 @@ require_once __DIR__ . '/config.php';
 
 class ModelApiTest extends TestCase
 {
+    use \Codeception\AssertThrows;
+
     public function testModelConfig(): void
     {
         global $host;
@@ -126,5 +129,34 @@ class ModelApiTest extends TestCase
             $reqParam[$key] = ['tooltip' => $tooltip];
         }
         $modelApi->updateParameterDefinitions($modelId, $reqParam);
+    }
+
+    public function testSoftDeleteAndRestore(): void
+    {
+        global $host;
+        global $jwtBackend;
+        global $jwtModel;
+        global $modelId;
+
+        $client = new SdClient();
+        $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+
+        # Soft-delete a model.
+        (new ModelApi($client, $backendConfig))->deleteModel($modelId);
+
+        # Fetch the model should not work anymore.
+        $this->assertThrows(
+            new ApiException(),
+            function () use ($client, $modelConfig, $modelId) {
+                (new ModelApi($client, $modelConfig))->getModel($modelId);
+            }
+        );
+
+        # Restore the model.
+        (new ModelApi($client, $backendConfig))->restoreModel($modelId);
+
+        # Fetching the model should work again.
+        (new ModelApi($client, $modelConfig))->getModel($modelId);
     }
 }
