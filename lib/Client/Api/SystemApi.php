@@ -567,7 +567,7 @@ class SystemApi
             }
 
             switch($statusCode) {
-                case 200:
+                case 202:
                     if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -653,7 +653,7 @@ class SystemApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel',

@@ -107,6 +107,9 @@ class ModelApi
         'listModels' => [
             'application/json',
         ],
+        'restoreModel' => [
+            'application/json',
+        ],
         'updateModel' => [
             'application/json',
         ],
@@ -4650,6 +4653,352 @@ class ModelApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation restoreModel
+     *
+     * Restore a soft-deleted model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['restoreModel'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel|\ShapeDiver\GeometryApiV2\Client\Model\ResError
+     */
+    public function restoreModel($modelId, string $contentType = self::contentTypes['restoreModel'][0])
+    {
+        list($response) = $this->restoreModelWithHttpInfo($modelId, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation restoreModelWithHttpInfo
+     *
+     * Restore a soft-deleted model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['restoreModel'] to see the possible values for this operation
+     *
+     * @throws \ShapeDiver\GeometryApiV2\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel|\ShapeDiver\GeometryApiV2\Client\Model\ResError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function restoreModelWithHttpInfo($modelId, string $contentType = self::contentTypes['restoreModel'][0])
+    {
+        $request = $this->restoreModelRequest($modelId, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                default:
+                    if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\ShapeDiver\GeometryApiV2\Client\Model\ResError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\ShapeDiver\GeometryApiV2\Client\Model\ResError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\ShapeDiver\GeometryApiV2\Client\Model\ResError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation restoreModelAsync
+     *
+     * Restore a soft-deleted model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['restoreModel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function restoreModelAsync($modelId, string $contentType = self::contentTypes['restoreModel'][0])
+    {
+        return $this->restoreModelAsyncWithHttpInfo($modelId, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation restoreModelAsyncWithHttpInfo
+     *
+     * Restore a soft-deleted model.
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['restoreModel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function restoreModelAsyncWithHttpInfo($modelId, string $contentType = self::contentTypes['restoreModel'][0])
+    {
+        $returnType = '\ShapeDiver\GeometryApiV2\Client\Model\ResDeleteModel';
+        $request = $this->restoreModelRequest($modelId, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'restoreModel'
+     *
+     * @param  string $modelId Model ID. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['restoreModel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function restoreModelRequest($modelId, string $contentType = self::contentTypes['restoreModel'][0])
+    {
+
+        // verify the required parameter 'modelId' is set
+        if ($modelId === null || (is_array($modelId) && count($modelId) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $modelId when calling restoreModel'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/model/{modelId}/restore';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($modelId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'modelId' . '}',
+                ObjectSerializer::toPathValue($modelId),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer (JWT) authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

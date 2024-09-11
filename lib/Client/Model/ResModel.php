@@ -58,6 +58,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'allowedLibraries' => 'string[]',
         'backlinkurl' => 'string',
         'checkurl' => 'string',
         'createdate' => 'string',
@@ -82,6 +83,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'allowedLibraries' => null,
         'backlinkurl' => null,
         'checkurl' => null,
         'createdate' => null,
@@ -104,6 +106,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'allowedLibraries' => false,
         'backlinkurl' => false,
         'checkurl' => false,
         'createdate' => false,
@@ -206,6 +209,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'allowedLibraries' => 'allowed_libraries',
         'backlinkurl' => 'backlinkurl',
         'checkurl' => 'checkurl',
         'createdate' => 'createdate',
@@ -228,6 +232,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'allowedLibraries' => 'setAllowedLibraries',
         'backlinkurl' => 'setBacklinkurl',
         'checkurl' => 'setCheckurl',
         'createdate' => 'setCreatedate',
@@ -250,6 +255,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'allowedLibraries' => 'getAllowedLibraries',
         'backlinkurl' => 'getBacklinkurl',
         'checkurl' => 'getCheckurl',
         'createdate' => 'getCreatedate',
@@ -323,6 +329,7 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('allowedLibraries', $data ?? [], null);
         $this->setIfExists('backlinkurl', $data ?? [], null);
         $this->setIfExists('checkurl', $data ?? [], null);
         $this->setIfExists('createdate', $data ?? [], null);
@@ -390,6 +397,33 @@ class ResModel implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets allowedLibraries
+     *
+     * @return string[]|null
+     */
+    public function getAllowedLibraries()
+    {
+        return $this->container['allowedLibraries'];
+    }
+
+    /**
+     * Sets allowedLibraries
+     *
+     * @param string[]|null $allowedLibraries List of allowed Grasshopper libraries.
+     *
+     * @return self
+     */
+    public function setAllowedLibraries($allowedLibraries)
+    {
+        if (is_null($allowedLibraries)) {
+            throw new \InvalidArgumentException('non-nullable allowedLibraries cannot be null');
+        }
+        $this->container['allowedLibraries'] = $allowedLibraries;
+
+        return $this;
+    }
 
     /**
      * Gets backlinkurl

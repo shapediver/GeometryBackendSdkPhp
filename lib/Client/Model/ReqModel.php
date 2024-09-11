@@ -59,6 +59,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'accessdomains' => 'string[]',
+        'allowedLibraries' => 'string[]',
         'authGroups' => 'string[]',
         'backendaccess' => 'bool',
         'filename' => 'string',
@@ -97,6 +98,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'accessdomains' => null,
+        'allowedLibraries' => null,
         'authGroups' => 'uuid',
         'backendaccess' => null,
         'filename' => null,
@@ -133,6 +135,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'accessdomains' => false,
+        'allowedLibraries' => false,
         'authGroups' => false,
         'backendaccess' => false,
         'filename' => false,
@@ -249,6 +252,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'accessdomains' => 'accessdomains',
+        'allowedLibraries' => 'allowed_libraries',
         'authGroups' => 'auth_groups',
         'backendaccess' => 'backendaccess',
         'filename' => 'filename',
@@ -285,6 +289,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'accessdomains' => 'setAccessdomains',
+        'allowedLibraries' => 'setAllowedLibraries',
         'authGroups' => 'setAuthGroups',
         'backendaccess' => 'setBackendaccess',
         'filename' => 'setFilename',
@@ -321,6 +326,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'accessdomains' => 'getAccessdomains',
+        'allowedLibraries' => 'getAllowedLibraries',
         'authGroups' => 'getAuthGroups',
         'backendaccess' => 'getBackendaccess',
         'filename' => 'getFilename',
@@ -408,6 +414,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->setIfExists('accessdomains', $data ?? [], null);
+        $this->setIfExists('allowedLibraries', $data ?? [], null);
         $this->setIfExists('authGroups', $data ?? [], null);
         $this->setIfExists('backendaccess', $data ?? [], null);
         $this->setIfExists('filename', $data ?? [], null);
@@ -545,6 +552,33 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable accessdomains cannot be null');
         }
         $this->container['accessdomains'] = $accessdomains;
+
+        return $this;
+    }
+
+    /**
+     * Gets allowedLibraries
+     *
+     * @return string[]|null
+     */
+    public function getAllowedLibraries()
+    {
+        return $this->container['allowedLibraries'];
+    }
+
+    /**
+     * Sets allowedLibraries
+     *
+     * @param string[]|null $allowedLibraries List of allowed Grasshopper libraries.
+     *
+     * @return self
+     */
+    public function setAllowedLibraries($allowedLibraries)
+    {
+        if (is_null($allowedLibraries)) {
+            throw new \InvalidArgumentException('non-nullable allowedLibraries cannot be null');
+        }
+        $this->container['allowedLibraries'] = $allowedLibraries;
 
         return $this;
     }
