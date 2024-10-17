@@ -292,6 +292,9 @@ class ResTemplate implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
+        if ($this->container['title'] === null) {
+            $invalidProperties[] = "'title' can't be null";
+        }
         if ($this->container['data'] === null) {
             $invalidProperties[] = "'data' can't be null";
         }
@@ -340,7 +343,7 @@ class ResTemplate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets title
      *
-     * @return string|null
+     * @return string
      */
     public function getTitle()
     {
@@ -350,7 +353,7 @@ class ResTemplate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets title
      *
-     * @param string|null $title Title of the template, e.g. 'Template for model customization request'.
+     * @param string $title Title of the template, e.g. 'Template for model customization request'.
      *
      * @return self
      */

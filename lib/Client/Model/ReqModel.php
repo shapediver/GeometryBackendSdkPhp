@@ -71,7 +71,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => 'int',
         'maxModelSize' => 'int',
         'maxOutputSize' => 'int',
-        'webhookToken' => 'bool',
+        'maxTextureSize' => 'int',
         'maxWaitTime' => 'int',
         'name' => 'string',
         'numLoadedMax' => 'int',
@@ -86,7 +86,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqTrustLevel',
         'useCdn' => 'bool',
         'userId' => 'string',
-        'webhookUrl' => 'string'
+        'webhookUrl' => 'string',
+        'webhookToken' => 'string',
+        'denyScripts' => 'bool'
     ];
 
     /**
@@ -110,7 +112,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => null,
         'maxModelSize' => null,
         'maxOutputSize' => null,
-        'webhookToken' => null,
+        'maxTextureSize' => null,
         'maxWaitTime' => null,
         'name' => null,
         'numLoadedMax' => null,
@@ -125,7 +127,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => null,
         'useCdn' => null,
         'userId' => 'uuid',
-        'webhookUrl' => null
+        'webhookUrl' => null,
+        'webhookToken' => null,
+        'denyScripts' => null
     ];
 
     /**
@@ -147,7 +151,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => false,
         'maxModelSize' => false,
         'maxOutputSize' => false,
-        'webhookToken' => false,
+        'maxTextureSize' => false,
         'maxWaitTime' => false,
         'name' => false,
         'numLoadedMax' => false,
@@ -162,7 +166,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => false,
         'useCdn' => false,
         'userId' => false,
-        'webhookUrl' => false
+        'webhookUrl' => false,
+        'webhookToken' => false,
+        'denyScripts' => false
     ];
 
     /**
@@ -264,7 +270,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => 'max_idle_minutes',
         'maxModelSize' => 'max_model_size',
         'maxOutputSize' => 'max_output_size',
-        'webhookToken' => 'webhook_token',
+        'maxTextureSize' => 'max_texture_size',
         'maxWaitTime' => 'max_wait_time',
         'name' => 'name',
         'numLoadedMax' => 'num_loaded_max',
@@ -279,7 +285,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => 'trust',
         'useCdn' => 'use_cdn',
         'userId' => 'user_id',
-        'webhookUrl' => 'webhook_url'
+        'webhookUrl' => 'webhook_url',
+        'webhookToken' => 'webhook_token',
+        'denyScripts' => 'deny_scripts'
     ];
 
     /**
@@ -301,7 +309,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => 'setMaxIdleMinutes',
         'maxModelSize' => 'setMaxModelSize',
         'maxOutputSize' => 'setMaxOutputSize',
-        'webhookToken' => 'setWebhookToken',
+        'maxTextureSize' => 'setMaxTextureSize',
         'maxWaitTime' => 'setMaxWaitTime',
         'name' => 'setName',
         'numLoadedMax' => 'setNumLoadedMax',
@@ -316,7 +324,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => 'setTrust',
         'useCdn' => 'setUseCdn',
         'userId' => 'setUserId',
-        'webhookUrl' => 'setWebhookUrl'
+        'webhookUrl' => 'setWebhookUrl',
+        'webhookToken' => 'setWebhookToken',
+        'denyScripts' => 'setDenyScripts'
     ];
 
     /**
@@ -338,7 +348,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'maxIdleMinutes' => 'getMaxIdleMinutes',
         'maxModelSize' => 'getMaxModelSize',
         'maxOutputSize' => 'getMaxOutputSize',
-        'webhookToken' => 'getWebhookToken',
+        'maxTextureSize' => 'getMaxTextureSize',
         'maxWaitTime' => 'getMaxWaitTime',
         'name' => 'getName',
         'numLoadedMax' => 'getNumLoadedMax',
@@ -353,7 +363,9 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         'trust' => 'getTrust',
         'useCdn' => 'getUseCdn',
         'userId' => 'getUserId',
-        'webhookUrl' => 'getWebhookUrl'
+        'webhookUrl' => 'getWebhookUrl',
+        'webhookToken' => 'getWebhookToken',
+        'denyScripts' => 'getDenyScripts'
     ];
 
     /**
@@ -426,7 +438,7 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('maxIdleMinutes', $data ?? [], null);
         $this->setIfExists('maxModelSize', $data ?? [], null);
         $this->setIfExists('maxOutputSize', $data ?? [], null);
-        $this->setIfExists('webhookToken', $data ?? [], null);
+        $this->setIfExists('maxTextureSize', $data ?? [], null);
         $this->setIfExists('maxWaitTime', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('numLoadedMax', $data ?? [], null);
@@ -442,6 +454,8 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('useCdn', $data ?? [], null);
         $this->setIfExists('userId', $data ?? [], null);
         $this->setIfExists('webhookUrl', $data ?? [], null);
+        $this->setIfExists('webhookToken', $data ?? [], null);
+        $this->setIfExists('denyScripts', $data ?? [], null);
     }
 
     /**
@@ -489,6 +503,10 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['maxOutputSize']) && ($this->container['maxOutputSize'] < 0)) {
             $invalidProperties[] = "invalid value for 'maxOutputSize', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['maxTextureSize']) && ($this->container['maxTextureSize'] < 0)) {
+            $invalidProperties[] = "invalid value for 'maxTextureSize', must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['maxWaitTime']) && ($this->container['maxWaitTime'] < 0)) {
@@ -906,28 +924,33 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets webhookToken
+     * Gets maxTextureSize
      *
-     * @return bool|null
+     * @return int|null
      */
-    public function getWebhookToken()
+    public function getMaxTextureSize()
     {
-        return $this->container['webhookToken'];
+        return $this->container['maxTextureSize'];
     }
 
     /**
-     * Sets webhookToken
+     * Sets maxTextureSize
      *
-     * @param bool|null $webhookToken Allows to control whether the model's Grasshopper file can contain scripts.
+     * @param int|null $maxTextureSize Allows to configure the maximum number of bytes allowed for a single texture.
      *
      * @return self
      */
-    public function setWebhookToken($webhookToken)
+    public function setMaxTextureSize($maxTextureSize)
     {
-        if (is_null($webhookToken)) {
-            throw new \InvalidArgumentException('non-nullable webhookToken cannot be null');
+        if (is_null($maxTextureSize)) {
+            throw new \InvalidArgumentException('non-nullable maxTextureSize cannot be null');
         }
-        $this->container['webhookToken'] = $webhookToken;
+
+        if (($maxTextureSize < 0)) {
+            throw new \InvalidArgumentException('invalid value for $maxTextureSize when calling ReqModel., must be bigger than or equal to 0.');
+        }
+
+        $this->container['maxTextureSize'] = $maxTextureSize;
 
         return $this;
     }
@@ -1358,6 +1381,60 @@ class ReqModel implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable webhookUrl cannot be null');
         }
         $this->container['webhookUrl'] = $webhookUrl;
+
+        return $this;
+    }
+
+    /**
+     * Gets webhookToken
+     *
+     * @return string|null
+     */
+    public function getWebhookToken()
+    {
+        return $this->container['webhookToken'];
+    }
+
+    /**
+     * Sets webhookToken
+     *
+     * @param string|null $webhookToken The webhook-token for authentication used by the webhook-url.
+     *
+     * @return self
+     */
+    public function setWebhookToken($webhookToken)
+    {
+        if (is_null($webhookToken)) {
+            throw new \InvalidArgumentException('non-nullable webhookToken cannot be null');
+        }
+        $this->container['webhookToken'] = $webhookToken;
+
+        return $this;
+    }
+
+    /**
+     * Gets denyScripts
+     *
+     * @return bool|null
+     */
+    public function getDenyScripts()
+    {
+        return $this->container['denyScripts'];
+    }
+
+    /**
+     * Sets denyScripts
+     *
+     * @param bool|null $denyScripts Allows to control whether the model's Grasshopper file can contain scripts.
+     *
+     * @return self
+     */
+    public function setDenyScripts($denyScripts)
+    {
+        if (is_null($denyScripts)) {
+            throw new \InvalidArgumentException('non-nullable denyScripts cannot be null');
+        }
+        $this->container['denyScripts'] = $denyScripts;
 
         return $this;
     }

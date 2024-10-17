@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqModelStatistics
+ * ResBaseAsset
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqModelStatistics Class Doc Comment
+ * ResBaseAsset Class Doc Comment
  *
  * @category Class
- * @description Body of a model statistics request. Every request-item results in exactly one response-item, whereby the order of response-items corresponds to the order of the request-items.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResBaseAsset implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqModelStatistics';
+    protected static $openAPIModelName = 'ResBaseAsset';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +57,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[]'
+        'asset' => '\ShapeDiver\GeometryApiV2\Client\Model\ResAsset'
     ];
 
     /**
@@ -69,7 +68,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'parameters' => null
+        'asset' => null
     ];
 
     /**
@@ -78,7 +77,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'parameters' => false
+        'asset' => false
     ];
 
     /**
@@ -167,7 +166,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'parameters' => 'parameters'
+        'asset' => 'asset'
     ];
 
     /**
@@ -176,7 +175,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'parameters' => 'setParameters'
+        'asset' => 'setAsset'
     ];
 
     /**
@@ -185,7 +184,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'parameters' => 'getParameters'
+        'asset' => 'getAsset'
     ];
 
     /**
@@ -245,7 +244,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('parameters', $data ?? [], null);
+        $this->setIfExists('asset', $data ?? [], null);
     }
 
     /**
@@ -275,9 +274,6 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
-        if ($this->container['parameters'] === null) {
-            $invalidProperties[] = "'parameters' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -294,28 +290,28 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets parameters
+     * Gets asset
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[]
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ResAsset|null
      */
-    public function getParameters()
+    public function getAsset()
     {
-        return $this->container['parameters'];
+        return $this->container['asset'];
     }
 
     /**
-     * Sets parameters
+     * Sets asset
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[] $parameters parameters
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ResAsset|null $asset asset
      *
      * @return self
      */
-    public function setParameters($parameters)
+    public function setAsset($asset)
     {
-        if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
+        if (is_null($asset)) {
+            throw new \InvalidArgumentException('non-nullable asset cannot be null');
         }
-        $this->container['parameters'] = $parameters;
+        $this->container['asset'] = $asset;
 
         return $this;
     }

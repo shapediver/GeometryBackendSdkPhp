@@ -67,6 +67,8 @@ class ResErrorType
 
     public const JWT_VALIDATION_ERROR = 'SdJwtValidationError';
 
+    public const METHOD_NOT_ALLOWED_ERROR = 'SdMethodNotAllowedError';
+
     public const MODEL_VALIDATION_ERROR = 'SdModelValidationError';
 
     public const NOT_ACCEPTABLE = 'SdNotAcceptable';
@@ -120,6 +122,7 @@ class ResErrorType
             self::ERROR_UNAUTHORIZED,
             self::ILLEGAL_ARGUMENT_ERROR,
             self::JWT_VALIDATION_ERROR,
+            self::METHOD_NOT_ALLOWED_ERROR,
             self::MODEL_VALIDATION_ERROR,
             self::NOT_ACCEPTABLE,
             self::NOT_FOUND_ERROR,

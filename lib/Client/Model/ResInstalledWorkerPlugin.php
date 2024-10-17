@@ -66,9 +66,9 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
         'description' => 'string',
         'assemblyVersion' => 'string',
         'assemblyFullName' => 'string',
-        'isCoreLibrary' => 'string',
-        'license' => 'string',
-        'loadingMechanism' => 'string',
+        'isCoreLibrary' => 'bool',
+        'license' => 'float',
+        'loadingMechanism' => 'float',
         'location' => 'string'
     ];
 
@@ -622,7 +622,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets isCoreLibrary
      *
-     * @return string
+     * @return bool
      */
     public function getIsCoreLibrary()
     {
@@ -632,7 +632,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets isCoreLibrary
      *
-     * @param string $isCoreLibrary Gets whether this library is a Grasshopper core library. Core libraries are installed along with Grasshopper and thus should always be available anywhere.
+     * @param bool $isCoreLibrary Gets whether this library is a Grasshopper core library. Core libraries are installed along with Grasshopper and thus should always be available anywhere.
      *
      * @return self
      */
@@ -649,7 +649,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets license
      *
-     * @return string
+     * @return float
      */
     public function getLicense()
     {
@@ -659,7 +659,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets license
      *
-     * @param string $license The license type of the plugin.  See the [documentation](https://developer.rhino3d.com/api/grasshopper/html/T_Grasshopper_Kernel_GH_LibraryLicense.htm) for more information.
+     * @param float $license The license type of the plugin.  See the [documentation](https://developer.rhino3d.com/api/grasshopper/html/T_Grasshopper_Kernel_GH_LibraryLicense.htm) for more information.
      *
      * @return self
      */
@@ -676,7 +676,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets loadingMechanism
      *
-     * @return string
+     * @return float
      */
     public function getLoadingMechanism()
     {
@@ -686,7 +686,7 @@ class ResInstalledWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets loadingMechanism
      *
-     * @param string $loadingMechanism The mechanism used to load the plugin.  See the [documentation](https://developer.rhino3d.com/api/grasshopper/html/T_Grasshopper_Kernel_GH_LoadingMechanism.htm) for more information.
+     * @param float $loadingMechanism The mechanism used to load the plugin.  See the [documentation](https://developer.rhino3d.com/api/grasshopper/html/T_Grasshopper_Kernel_GH_LoadingMechanism.htm) for more information.
      *
      * @return self
      */

@@ -64,10 +64,11 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => 'string',
         'authorName' => 'string',
         'description' => 'string',
+        'href' => 'string',
         'allowFallbackToAssemblyVersion' => 'bool',
         'checkMajorMinorVersionOnly' => 'bool',
         'checkIfInstalled' => 'bool',
-        'previousIds' => 'string',
+        'previousIds' => 'string[]',
         'allowedComponents' => '\ShapeDiver\GeometryApiV2\Client\Model\ResWorkerPluginComponent[]',
         'disallowedComponents' => '\ShapeDiver\GeometryApiV2\Client\Model\ResWorkerPluginComponent[]'
     ];
@@ -86,6 +87,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => null,
         'authorName' => null,
         'description' => null,
+        'href' => null,
         'allowFallbackToAssemblyVersion' => null,
         'checkMajorMinorVersionOnly' => null,
         'checkIfInstalled' => null,
@@ -106,6 +108,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => false,
         'authorName' => false,
         'description' => false,
+        'href' => false,
         'allowFallbackToAssemblyVersion' => false,
         'checkMajorMinorVersionOnly' => false,
         'checkIfInstalled' => false,
@@ -206,6 +209,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => 'maxVersion',
         'authorName' => 'authorName',
         'description' => 'description',
+        'href' => 'href',
         'allowFallbackToAssemblyVersion' => 'allowFallbackToAssemblyVersion',
         'checkMajorMinorVersionOnly' => 'checkMajorMinorVersionOnly',
         'checkIfInstalled' => 'checkIfInstalled',
@@ -226,6 +230,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => 'setMaxVersion',
         'authorName' => 'setAuthorName',
         'description' => 'setDescription',
+        'href' => 'setHref',
         'allowFallbackToAssemblyVersion' => 'setAllowFallbackToAssemblyVersion',
         'checkMajorMinorVersionOnly' => 'setCheckMajorMinorVersionOnly',
         'checkIfInstalled' => 'setCheckIfInstalled',
@@ -246,6 +251,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         'maxVersion' => 'getMaxVersion',
         'authorName' => 'getAuthorName',
         'description' => 'getDescription',
+        'href' => 'getHref',
         'allowFallbackToAssemblyVersion' => 'getAllowFallbackToAssemblyVersion',
         'checkMajorMinorVersionOnly' => 'getCheckMajorMinorVersionOnly',
         'checkIfInstalled' => 'getCheckIfInstalled',
@@ -317,6 +323,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
         $this->setIfExists('maxVersion', $data ?? [], null);
         $this->setIfExists('authorName', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('href', $data ?? [], null);
         $this->setIfExists('allowFallbackToAssemblyVersion', $data ?? [], null);
         $this->setIfExists('checkMajorMinorVersionOnly', $data ?? [], null);
         $this->setIfExists('checkIfInstalled', $data ?? [], null);
@@ -560,6 +567,33 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
     }
 
     /**
+     * Gets href
+     *
+     * @return string|null
+     */
+    public function getHref()
+    {
+        return $this->container['href'];
+    }
+
+    /**
+     * Sets href
+     *
+     * @param string|null $href Link to a website related to the plugin.
+     *
+     * @return self
+     */
+    public function setHref($href)
+    {
+        if (is_null($href)) {
+            throw new \InvalidArgumentException('non-nullable href cannot be null');
+        }
+        $this->container['href'] = $href;
+
+        return $this;
+    }
+
+    /**
      * Gets allowFallbackToAssemblyVersion
      *
      * @return bool
@@ -643,7 +677,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets previousIds
      *
-     * @return string
+     * @return string[]
      */
     public function getPreviousIds()
     {
@@ -653,7 +687,7 @@ class ResAllowedWorkerPlugin implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets previousIds
      *
-     * @param string $previousIds List of previous plugin IDs supported by this plugin version. This is used for the obscure case of the plugin developer changing the plugin ID.
+     * @param string[] $previousIds List of previous plugin IDs supported by this plugin version. This is used for the obscure case of the plugin developer changing the plugin ID.
      *
      * @return self
      */

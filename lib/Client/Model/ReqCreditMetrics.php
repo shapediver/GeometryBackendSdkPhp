@@ -275,6 +275,9 @@ class ReqCreditMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['parameters'] === null) {
+            $invalidProperties[] = "'parameters' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -293,7 +296,7 @@ class ReqCreditMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets parameters
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetric[]|null
+     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetric[]
      */
     public function getParameters()
     {
@@ -303,7 +306,7 @@ class ReqCreditMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameters
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetric[]|null $parameters parameters
+     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetric[] $parameters parameters
      *
      * @return self
      */

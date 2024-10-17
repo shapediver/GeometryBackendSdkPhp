@@ -1,6 +1,6 @@
 <?php
 /**
- * ReqModelStatistics
+ * ResModelStateOrData
  *
  * PHP version 7.4
  *
@@ -32,16 +32,15 @@ use \ArrayAccess;
 use \ShapeDiver\GeometryApiV2\Client\ObjectSerializer;
 
 /**
- * ReqModelStatistics Class Doc Comment
+ * ResModelStateOrData Class Doc Comment
  *
  * @category Class
- * @description Body of a model statistics request. Every request-item results in exactly one response-item, whereby the order of response-items corresponds to the order of the request-items.
  * @package  ShapeDiver\GeometryApiV2\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializable
+class ResModelStateOrData implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +49,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReqModelStatistics';
+    protected static $openAPIModelName = 'ResModelStateOrData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +57,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'parameters' => '\ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[]'
+        'parameters' => 'array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>',
+        'data' => 'array<string,mixed>',
+        'id' => 'string',
+        'modelId' => 'string',
+        'createdate' => 'string',
+        'imageUrl' => 'string'
     ];
 
     /**
@@ -69,7 +73,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'parameters' => null
+        'parameters' => null,
+        'data' => null,
+        'id' => null,
+        'modelId' => 'uuid',
+        'createdate' => null,
+        'imageUrl' => null
     ];
 
     /**
@@ -78,7 +87,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'parameters' => false
+        'parameters' => false,
+        'data' => false,
+        'id' => false,
+        'modelId' => false,
+        'createdate' => false,
+        'imageUrl' => false
     ];
 
     /**
@@ -167,7 +181,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'parameters' => 'parameters'
+        'parameters' => 'parameters',
+        'data' => 'data',
+        'id' => 'id',
+        'modelId' => 'modelId',
+        'createdate' => 'createdate',
+        'imageUrl' => 'imageUrl'
     ];
 
     /**
@@ -176,7 +195,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'parameters' => 'setParameters'
+        'parameters' => 'setParameters',
+        'data' => 'setData',
+        'id' => 'setId',
+        'modelId' => 'setModelId',
+        'createdate' => 'setCreatedate',
+        'imageUrl' => 'setImageUrl'
     ];
 
     /**
@@ -185,7 +209,12 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'parameters' => 'getParameters'
+        'parameters' => 'getParameters',
+        'data' => 'getData',
+        'id' => 'getId',
+        'modelId' => 'getModelId',
+        'createdate' => 'getCreatedate',
+        'imageUrl' => 'getImageUrl'
     ];
 
     /**
@@ -246,6 +275,11 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(array $data = null)
     {
         $this->setIfExists('parameters', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('modelId', $data ?? [], null);
+        $this->setIfExists('createdate', $data ?? [], null);
+        $this->setIfExists('imageUrl', $data ?? [], null);
     }
 
     /**
@@ -278,6 +312,19 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['parameters'] === null) {
             $invalidProperties[] = "'parameters' can't be null";
         }
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['modelId'] === null) {
+            $invalidProperties[] = "'modelId' can't be null";
+        }
+        if ($this->container['createdate'] === null) {
+            $invalidProperties[] = "'createdate' can't be null";
+        }
+        if (!preg_match("/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/", $this->container['createdate'])) {
+            $invalidProperties[] = "invalid value for 'createdate', must be conform to the pattern /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/.";
+        }
+
         return $invalidProperties;
     }
 
@@ -296,7 +343,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets parameters
      *
-     * @return \ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[]
+     * @return array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue>
      */
     public function getParameters()
     {
@@ -306,7 +353,7 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets parameters
      *
-     * @param \ShapeDiver\GeometryApiV2\Client\Model\ReqModelStatistic[] $parameters parameters
+     * @param array<string,\ShapeDiver\GeometryApiV2\Client\Model\ResParameterValue> $parameters A directory of parameter IDs and values.
      *
      * @return self
      */
@@ -316,6 +363,146 @@ class ReqModelStatistics implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable parameters cannot be null');
         }
         $this->container['parameters'] = $parameters;
+
+        return $this;
+    }
+
+    /**
+     * Gets data
+     *
+     * @return array<string,mixed>|null
+     */
+    public function getData()
+    {
+        return $this->container['data'];
+    }
+
+    /**
+     * Sets data
+     *
+     * @param array<string,mixed>|null $data Optional untyped data that holds additional information.
+     *
+     * @return self
+     */
+    public function setData($data)
+    {
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
+        }
+        $this->container['data'] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string $id ID of the Model-State.
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        }
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets modelId
+     *
+     * @return string
+     */
+    public function getModelId()
+    {
+        return $this->container['modelId'];
+    }
+
+    /**
+     * Sets modelId
+     *
+     * @param string $modelId ID of the ShapeDiver model.
+     *
+     * @return self
+     */
+    public function setModelId($modelId)
+    {
+        if (is_null($modelId)) {
+            throw new \InvalidArgumentException('non-nullable modelId cannot be null');
+        }
+        $this->container['modelId'] = $modelId;
+
+        return $this;
+    }
+
+    /**
+     * Gets createdate
+     *
+     * @return string
+     */
+    public function getCreatedate()
+    {
+        return $this->container['createdate'];
+    }
+
+    /**
+     * Sets createdate
+     *
+     * @param string $createdate Timestamp of creation of the Model-State.
+     *
+     * @return self
+     */
+    public function setCreatedate($createdate)
+    {
+        if (is_null($createdate)) {
+            throw new \InvalidArgumentException('non-nullable createdate cannot be null');
+        }
+
+        if ((!preg_match("/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/", ObjectSerializer::toString($createdate)))) {
+            throw new \InvalidArgumentException("invalid value for \$createdate when calling ResModelStateOrData., must conform to the pattern /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/.");
+        }
+
+        $this->container['createdate'] = $createdate;
+
+        return $this;
+    }
+
+    /**
+     * Gets imageUrl
+     *
+     * @return string|null
+     */
+    public function getImageUrl()
+    {
+        return $this->container['imageUrl'];
+    }
+
+    /**
+     * Sets imageUrl
+     *
+     * @param string|null $imageUrl The URL of the Model-State image.
+     *
+     * @return self
+     */
+    public function setImageUrl($imageUrl)
+    {
+        if (is_null($imageUrl)) {
+            throw new \InvalidArgumentException('non-nullable imageUrl cannot be null');
+        }
+        $this->container['imageUrl'] = $imageUrl;
 
         return $this;
     }
