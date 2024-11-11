@@ -145,7 +145,8 @@ usability.
 ### Setup
 
 This project is written in _PHP 8.0_ and uses [Composer](https://getcomposer.org/) as a dependency
-manager. Project-specific commands are handled via [just](https://github.com/casey/just), so install this tool as well. To get an overview of all available commands, run `just --list`.
+manager. Project-specific commands are handled via [just](https://github.com/casey/just), so install
+this tool as well. To get an overview of all available commands, run `just --list`.
 
 Run the following commands to install all dependencies:
 

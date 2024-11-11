@@ -35,12 +35,12 @@ class ModelStateApiTest extends TestCase
         $sessionId = $resSession->getSessionId();
 
         // The value of the first string parameter will be overwritten by the Model-State.
-        $strParam = array_filter(array_values($resSession->getParameters()), function ($param) {
+        $strParams = array_filter(array_values($resSession->getParameters()), function ($param) {
             return $param->getType() == ResParameterType::STRING;
         });
-        $this->assertNotEmpty($strParam);
+        $this->assertNotEmpty($strParams);
 
-        $customParamId = $strParam[array_key_first($strParam)]->getId();
+        $customParamId = $strParams[array_key_first($strParams)]->getId();
         $customParamValue = TestUtils::now();
         $customData = ["foo" => "bar"];
 
@@ -69,13 +69,13 @@ class ModelStateApiTest extends TestCase
         $this->assertNull($resModelStateInfo->getModelState()->getImageUrl());
 
         // Fetch only parameters and data of the Model-State.
-        $resModelStateInfo = (new ModelStateApi($client, $config))
+        $resModelStateData = (new ModelStateApi($client, $config))
             ->getModelStateData($modelStateId);
         $this->assertEquals(
-            $resModelStateInfo->getModelState()->getParameters()[$customParamId]->getValue(),
+            $resModelStateData->getModelState()->getParameters()[$customParamId]->getValue(),
             $customParamValue
         );
-        $this->assertEquals($resModelStateInfo->getModelState()->getData(), $customData);
+        $this->assertEquals($resModelStateData->getModelState()->getData(), $customData);
 
         // Check if the Model-State has an image.
         try {
