@@ -1,7 +1,5 @@
 set shell := ["bash", "-uc"]
 
-php_version := "8.2"
-
 remote_url := "https://raw.githubusercontent.com/shapediver/OpenApiSpecifications"
 remote_tag_prefix := "gb_v2"
 remote_file_name := "geometry_backend_v2.yaml"
@@ -16,10 +14,7 @@ default: setup
 
 # Installs the package and its dependencies.
 setup:
-    # Check PHP version.
-    command -v php{{php_version}}
-
-    # Install dependencies.
+    php -r 'if (!preg_match("/^8\.2\./", phpversion())) { exit(1); }' # PHP 8.2
     composer install
 
 # Removes dependencies.
