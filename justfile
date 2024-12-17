@@ -32,7 +32,11 @@ release version:
     test -z "$(git diff --shortstat)"
 
     # Update sdk version number.
-    sed -i 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php"
+    case $(uname -s) in \
+    Linux) sed -i 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
+    Darwin) sed -i '' 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
+    *) exit 1 ;; \
+    esac
 
     # Commit and tag.
     git add -A .
@@ -62,7 +66,6 @@ generate version:
 
     # Generate the PHP client.
     mkdir -p "{{target_dir}}"
-    # --generate-alias-as-model
     openapi-generator-cli generate \
         --invoker-package "ShapeDiver\\\GeometryApiV2\\\Client" \
         --additional-properties=\
