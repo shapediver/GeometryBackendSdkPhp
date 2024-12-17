@@ -5,6 +5,7 @@ namespace ShapeDiver\GeometryApiV2\Test;
 use PHPUnit\Framework\TestCase;
 use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelApi;
+use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryComputationStatisticsStatus;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryModelStatus;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqModel;
@@ -131,6 +132,50 @@ class ModelApiTest extends TestCase
         $modelApi->updateParameterDefinitions($modelId, $reqParam);
     }
 
+    public function testModelBlocking(): void
+    {
+        global $host;
+        global $jwtBackend;
+        global $jwtModel;
+        global $modelId;
+
+        $client = new SdClient();
+        $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
+        $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
+        $modelApi = new ModelApi($client, $backendConfig);
+        $sessionApi = new SessionApi($client, $modelConfig);
+
+        // Fetch a model.
+        $resModel = $modelApi->getModel($modelId);
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getOwner());
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getCreditLimit());
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getPluginPermission());
+
+        // Block the model.
+        $modelApi->updateModel($modelId, new ReqModel(['blockingReasons' => ['creditLimit' => true]]));
+
+        // Fetch a model.
+        $resModel = $modelApi->getModel($modelId);
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getOwner());
+        $this->assertTrue($resModel->getSetting()->getModel()->getBlockingReasons()->getCreditLimit());
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getPluginPermission());
+
+        // Init session should not work anymore.
+        $this->assertThrows(
+            new ApiException(),
+            function () use ($sessionApi, $modelId) {
+                $sessionApi->createSessionByModel($modelId);
+            }
+        );
+
+        // Unblock the model.
+        $modelApi->updateModel($modelId, new ReqModel(['blockingReasons' => ['creditLimit' => false]]));
+
+        // Session init should work again.
+        $sessionId = $sessionApi->createSessionByModel($modelId)->getSessionId();
+        $sessionApi->closeSession($sessionId);
+    }
+
     public function testSoftDeleteAndRestore(): void
     {
         global $host;
@@ -142,10 +187,10 @@ class ModelApiTest extends TestCase
         $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
         $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
 
-        # Soft-delete a model.
+        // Soft-delete a model.
         (new ModelApi($client, $backendConfig))->deleteModel($modelId);
 
-        # Fetch the model should not work anymore.
+        // Fetch the model should not work anymore.
         $this->assertThrows(
             new ApiException(),
             function () use ($client, $modelConfig, $modelId) {
@@ -153,10 +198,10 @@ class ModelApiTest extends TestCase
             }
         );
 
-        # Restore the model.
+        // Restore the model.
         (new ModelApi($client, $backendConfig))->restoreModel($modelId);
 
-        # Fetching the model should work again.
+        // Fetching the model should work again.
         (new ModelApi($client, $modelConfig))->getModel($modelId);
     }
 }
