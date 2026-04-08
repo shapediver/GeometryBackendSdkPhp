@@ -149,6 +149,7 @@ class ModelApiTest extends TestCase
         $resModel = $modelApi->getModel($modelId);
         $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getOwner());
         $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getCreditLimit());
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getBackendPermission());
         $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getPluginPermission());
 
         // Block the model.
@@ -158,6 +159,7 @@ class ModelApiTest extends TestCase
         $resModel = $modelApi->getModel($modelId);
         $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getOwner());
         $this->assertTrue($resModel->getSetting()->getModel()->getBlockingReasons()->getCreditLimit());
+        $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getBackendPermission());
         $this->assertFalse($resModel->getSetting()->getModel()->getBlockingReasons()->getPluginPermission());
 
         // Init session should not work anymore.
