@@ -66,6 +66,22 @@ class SdtfApiTest extends TestCase
         $resList = (new SdtfApi($client, $modelConfig))->listSdtfs($sessionId, $namespace);
         $this->assertNotEmpty($resList->getList()->getSdtf());
 
+        $sdtfIdParts = explode('/', $sdtf->getId());
+        $sdtfListId = $sdtfIdParts[count($sdtfIdParts) - 1];
+        $listedSdtf = null;
+        foreach ($resList->getList()->getSdtf() as $item) {
+            if ($item->getId() === $sdtfListId) {
+                $listedSdtf = $item;
+                break;
+            }
+        }
+        $this->assertNotNull($listedSdtf);
+        $this->assertMatchesRegularExpression(
+            '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/',
+            $listedSdtf->getLastModified()
+        );
+        $this->assertNotFalse(strtotime($listedSdtf->getLastModified()));
+
         // Delete the uploaded sdTF.
         (new SdtfApi($client, $modelConfig))->deleteSdtf($sessionId, $namespace, $sdtf->getId());
 
