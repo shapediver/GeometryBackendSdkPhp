@@ -25,10 +25,12 @@ class ModelSessionsAnalyticsTest extends TestCase
         global $jwtModel;
         global $modelId;
 
+        // Analytics reads use the model JWT. Opening and closing the session use the ticket, with no access token.
         $client = new SdClient();
         $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
         $sessionConfig = (new SdConfig())->setHost($host);
 
+        // The list filters on open time. Sample the start before the session exists, and the end after it does.
         $from = $this->dateTimeMs(-60);
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $sessionConfig))
@@ -41,6 +43,7 @@ class ModelSessionsAnalyticsTest extends TestCase
         $sessionApi = new SessionApi($client, $sessionConfig);
 
         try {
+            // Poll until this session is listed as open. A missing row or a later status is retried.
             $openPage = $this->untilRow(
                 function () use ($modelApi, $modelId, $from, $to) {
                     return $modelApi->getModelSessionsAnalytics(
@@ -63,8 +66,10 @@ class ModelSessionsAnalyticsTest extends TestCase
                 $this->soleSession($openPage->getSessions(), $sessionId)->getStatus()
             );
 
+            // Close the session.
             $this->closeOnce($sessionApi, $sessionId, $closed);
 
+            // Poll until the same session is listed as pending.
             $pendingPage = $this->untilRow(
                 function () use ($modelApi, $modelId, $from, $to) {
                     return $modelApi->getModelSessionsAnalytics(
@@ -86,10 +91,12 @@ class ModelSessionsAnalyticsTest extends TestCase
             $this->assertSame(SessionAnalyticsStatus::PENDING, $pending->getStatus());
             $this->assertSame($sessionId, $pending->getId());
         } finally {
+            // Close the session if an assertion failed before the close above.
             $this->closeOnce($sessionApi, $sessionId, $closed);
         }
     }
 
+    // Query bounds are DateTimeMs: 17 digits. Ticket expiry uses TestUtils::now(), which is 14.
     private function dateTimeMs(int $diffSeconds = 0): string
     {
         $dt = (new DateTimeImmutable('now', new DateTimeZone('UTC')))
@@ -98,6 +105,7 @@ class ModelSessionsAnalyticsTest extends TestCase
         return $dt->format('YmdHisv');
     }
 
+    // The revealed session id, or the only '<redacted>' row when the id is hidden. Any other count throws.
     private function soleSession(array $sessions, string $knownSessionId): ResModelSession
     {
         $revealed = [];
@@ -132,6 +140,7 @@ class ModelSessionsAnalyticsTest extends TestCase
         );
     }
 
+    // Retry up to 8 times, 1s apart, while load or accept throws. accept is the condition for this phase.
     private function untilRow(callable $load, callable $accept): mixed
     {
         for ($attempt = 0; $attempt < 8; $attempt++) {
@@ -150,6 +159,7 @@ class ModelSessionsAnalyticsTest extends TestCase
         throw new RuntimeException('analytics row did not appear');
     }
 
+    // Close at most once. The flag flips only after closeSession resolves, so a failed close is tried again from finally.
     private function closeOnce(SessionApi $sessionApi, string $sessionId, array &$state): void
     {
         if ($state['closed']) {
