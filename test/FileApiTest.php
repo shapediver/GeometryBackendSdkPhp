@@ -84,6 +84,20 @@ class FileApiTest extends TestCase
             ->listFiles($sessionId, $fileParams[0]->getId());
         $this->assertNotEmpty($resList->getList()->getFile());
 
+        $listedFile = null;
+        foreach ($resList->getList()->getFile() as $item) {
+            if ($item->getId() === $file->getId()) {
+                $listedFile = $item;
+                break;
+            }
+        }
+        $this->assertNotNull($listedFile);
+        $this->assertMatchesRegularExpression(
+            '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/',
+            $listedFile->getLastModified()
+        );
+        $this->assertNotFalse(strtotime($listedFile->getLastModified()));
+
         // Delete the uploaded file.
         (new FileApi($client, $modelConfig))
             ->deleteFile($sessionId, $fileParams[0]->getId(), $file->getId());
