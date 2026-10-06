@@ -15,7 +15,7 @@ default: setup
 # Installs the package and its dependencies.
 setup:
     git config core.hooksPath .githooks
-    php -r 'if (!preg_match("/^8\.2\./", phpversion())) { exit(1); }' # PHP 8.2
+    php -r 'if (version_compare(PHP_VERSION, "8.4.1", "<")) { fwrite(STDERR, "PHP 8.4.1 or newer is required to install dev tools.\n"); exit(1); }'
     composer install
 
 # Removes dependencies.
