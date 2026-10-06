@@ -4,14 +4,14 @@ namespace ShapeDiver\GeometryApiV2\Test;
 
 use PHPUnit\Framework\TestCase;
 use ShapeDiver\GeometryApiV2\Client\Api\AnalyticsApi;
+use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqAnyCreditMetricId;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetric;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqCreditMetrics;
-use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class AnalyticsApiTest extends TestCase
 {
@@ -28,15 +28,16 @@ class AnalyticsApiTest extends TestCase
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $modelConfig))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
 
-        # Fetch credit metrics within a specific time range.
+        // Fetch credit metrics within a specific time range.
         $reqCredits = (new ReqCreditMetrics())->setParameters(
             [
                 (new ReqCreditMetric())
                     ->setId((new ReqAnyCreditMetricId())->setModelIds([$modelId]))
-                    ->setTimestampFrom("2024")
-                    ->setTimestampTo("2025")
+                    ->setTimestampFrom('2024')
+                    ->setTimestampTo('2025'),
             ]
         );
         $resStats = (new AnalyticsApi($client, $modelConfig))->getCreditMetrics($reqCredits);
@@ -54,7 +55,7 @@ class AnalyticsApiTest extends TestCase
         $client = new SdClient();
         $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
-        $resCredits = (new AnalyticsApi($client, $backendConfig))->getUserCreditMetrics("202407");
+        $resCredits = (new AnalyticsApi($client, $backendConfig))->getUserCreditMetrics('202407');
         $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
     }
 
@@ -66,7 +67,7 @@ class AnalyticsApiTest extends TestCase
         $client = new SdClient();
         $backendConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
-        $resCredits = (new AnalyticsApi($client, $backendConfig))->getOrganizationCreditMetrics("202407");
+        $resCredits = (new AnalyticsApi($client, $backendConfig))->getOrganizationCreditMetrics('202407');
         $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
     }
 
@@ -78,9 +79,10 @@ class AnalyticsApiTest extends TestCase
         $client = new SdClient();
         $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
-        $userId = "92a8410b-6496-4b86-8c3f-1014d59f7fa3";
+        $userId = '92a8410b-6496-4b86-8c3f-1014d59f7fa3';
         $resCredits = (new AnalyticsApi($client, $modelConfig))
-            ->getModelUserCreditMetrics("202407", $userId);
+            ->getModelUserCreditMetrics('202407', $userId)
+        ;
         $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
     }
 
@@ -92,9 +94,10 @@ class AnalyticsApiTest extends TestCase
         $client = new SdClient();
         $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtBackend);
 
-        $orgId = "a785380e-183d-11ef-926a-f3f7d2b9f407";
+        $orgId = 'a785380e-183d-11ef-926a-f3f7d2b9f407';
         $resCredits = (new AnalyticsApi($client, $modelConfig))
-            ->getModelOrganizationCreditMetrics("202407", $orgId);
+            ->getModelOrganizationCreditMetrics('202407', $orgId)
+        ;
         $this->assertNotEmpty($resCredits->getAnalytics()->getCreditMetrics());
     }
 }

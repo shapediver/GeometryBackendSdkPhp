@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class SdClient implements ClientInterface
 {
-    public const SDK_VERSION = "1.13.0";  # WARNING: This value is updated automatically!
+    public const SDK_VERSION = '1.13.0';  // WARNING: This value is updated automatically!
 
     protected $client;
 
@@ -45,7 +45,7 @@ class SdClient implements ClientInterface
      *     status codes.
      *   - max_retries_wait: Maximum number of seconds to wait between retries.
      *
-     * @param array $config Client configuration settings.
+     * @param array $config client configuration settings
      */
     public function __construct(array $config = [])
     {
@@ -68,7 +68,8 @@ class SdClient implements ClientInterface
             } catch (BadResponseException $e) {
                 $waitSec = $this->extractWaitSec($retryCounter, $e);
                 sleep($waitSec);
-                continue 1;
+
+                continue;
             } catch (\Throwable $e) {
                 throw $e;
             }
@@ -79,8 +80,8 @@ class SdClient implements ClientInterface
     public function sendAsync(RequestInterface $request, array $options = []): PromiseInterface
     {
         return $this->attemptRequestAsync(
-            array($this->client, 'sendAsync'),
-            array($request, $options),
+            [$this->client, 'sendAsync'],
+            [$request, $options],
             0
         );
     }
@@ -96,6 +97,7 @@ class SdClient implements ClientInterface
             } catch (BadResponseException $e) {
                 $waitSec = $this->extractWaitSec($retryCounter, $e);
                 sleep($waitSec);
+
                 continue;
             } catch (\Throwable $e) {
                 throw $e;
@@ -107,8 +109,8 @@ class SdClient implements ClientInterface
     public function requestAsync(string $method, $uri, array $options = []): PromiseInterface
     {
         return $this->attemptRequestAsync(
-            array($this->client, 'requestAsync'),
-            array($method, $uri, $options),
+            [$this->client, 'requestAsync'],
+            [$method, $uri, $options],
             0
         );
     }
@@ -123,10 +125,10 @@ class SdClient implements ClientInterface
      * Extracts the waiting time from a RequestException and returns it when the response status is
      * retry-able and the retry limit has not been reached yet. Otherwise, an Exception is thrown.
      *
-     * @param int $retryCounter The number of already executed retries.
-     * @param \GuzzleHttp\Exception\BadResponseException $e The thrown exception.
-     * @return int
-     * @throws \GuzzleHttp\Exception\BadResponseException
+     * @param int                  $retryCounter the number of already executed retries
+     * @param BadResponseException $e            the thrown exception
+     *
+     * @throws BadResponseException
      */
     private function extractWaitSec(
         int &$retryCounter,
@@ -136,39 +138,39 @@ class SdClient implements ClientInterface
         $waitSec = null;
 
         // Check for special response statuses.
-        if ($response && $response->getStatusCode() === 429) {
+        if ($response && 429 === $response->getStatusCode()) {
             // 429 Too Many Requests - Try to extract waiting time from Retry-After header.
             $waitSec = $response->getHeaderLine('Retry-After');
             if (empty($waitSec)) {
                 $waitSec = 60; // Default is 1 minute
             }
-        } elseif ($response && $response->getStatusCode() === 502) {
+        } elseif ($response && 502 === $response->getStatusCode()) {
             // 502 Bad Gateway - Try again after short pause.
             $waitSec = 1;
         }
 
         // Retry or throw.
-        if ($waitSec !== null && $retryCounter < $this->maxRetries) {
-            $retryCounter++;
+        if (null !== $waitSec && $retryCounter < $this->maxRetries) {
+            ++$retryCounter;
 
-            if ($this->maxRetryWait !== null) {
+            if (null !== $this->maxRetryWait) {
                 $waitSec = min($waitSec, $this->maxRetryWait);
             }
 
             return $waitSec;
-        } else {
-            throw $e;
         }
+
+        throw $e;
     }
 
     /**
      * Attempts to send a request asynchronously and retries requests when possible.
      *
-     * @param array $fn The async `$client` function to execute.
-     * @param array $args Arguments of `$fn`. The last item must be `$options`!
-     * @param int $retryCounter The number of executed retries.
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     * @throws \GuzzleHttp\Exception\BadResponseException
+     * @param array $fn           the async `$client` function to execute
+     * @param array $args         Arguments of `$fn`. The last item must be `$options`!
+     * @param int   $retryCounter the number of executed retries
+     *
+     * @throws BadResponseException
      */
     private function attemptRequestAsync(
         array $fn,
@@ -188,9 +190,9 @@ class SdClient implements ClientInterface
                     array_push($args, $options);
 
                     return $this->attemptRequestAsync($fn, $args, $retryCounter);
-                } else {
-                    throw $e;
                 }
+
+                throw $e;
             }
         );
     }

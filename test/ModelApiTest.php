@@ -2,21 +2,22 @@
 
 namespace ShapeDiver\GeometryApiV2\Test;
 
+use Codeception\AssertThrows;
 use PHPUnit\Framework\TestCase;
-use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelApi;
 use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
+use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryComputationStatisticsStatus;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryModelStatus;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqModel;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class ModelApiTest extends TestCase
 {
-    use \Codeception\AssertThrows;
+    use AssertThrows;
 
     public function testModelConfig(): void
     {
@@ -34,7 +35,8 @@ class ModelApiTest extends TestCase
         // Update the model configuration. However, for the sake of simplicity, we will re-use the
         // already existing configuration object.
         (new ModelApi($client, $modelConfig))
-            ->updateModelConfig($modelId, $resConfig->getViewer()->getConfig());
+            ->updateModelConfig($modelId, $resConfig->getViewer()->getConfig())
+        ;
     }
 
     public function testModel(): void
@@ -72,7 +74,8 @@ class ModelApiTest extends TestCase
 
         // List all models with a specific status.
         $resList = (new ModelApi($client, $backendConfig))
-            ->listModels(QueryModelStatus::DENIED);
+            ->listModels(QueryModelStatus::DENIED)
+        ;
         $this->assertNotEmpty($resList->getList()->getModel());
     }
 
@@ -87,13 +90,13 @@ class ModelApiTest extends TestCase
         $modelApi = new ModelApi($client, $modelConfig);
 
         // Trigger an export cleanup.
-        $modelApi->cleanupExports($modelId, "2024");
+        $modelApi->cleanupExports($modelId, '2024');
 
         // Trigger an output cleanup.
-        $modelApi->cleanupOutputs($modelId, "2024");
+        $modelApi->cleanupOutputs($modelId, '2024');
 
         // Trigger an texture cleanup.
-        $modelApi->cleanupTextures($modelId, "2024");
+        $modelApi->cleanupTextures($modelId, '2024');
 
         // Get the cleanup status.
         $resCleanup = $modelApi->getCleanupStatus($modelId);
@@ -124,7 +127,7 @@ class ModelApiTest extends TestCase
         $modelApi->updateParameterDefaultValues($modelId, $reqDefval);
 
         // Update the model's parameter definitions.
-        $tooltip = 'Updated via PHP SDK, ' . TestUtils::now();
+        $tooltip = 'Updated via PHP SDK, '.TestUtils::now();
         $reqParam = [];
         foreach ($resModel->getParameters() as $key => $param) {
             $reqParam[$key] = ['tooltip' => $tooltip];

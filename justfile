@@ -33,8 +33,8 @@ release version:
 
     # Update sdk version number.
     case $(uname -s) in \
-    Linux) sed -i 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
-    Darwin) sed -i '' 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
+    Linux) sed -i "s/SDK_VERSION = '.*'/SDK_VERSION = '{{version}}'/" "./lib/SdClient.php" ;; \
+    Darwin) sed -i '' "s/SDK_VERSION = '.*'/SDK_VERSION = '{{version}}'/" "./lib/SdClient.php" ;; \
     *) exit 1 ;; \
     esac
 

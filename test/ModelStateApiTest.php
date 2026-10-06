@@ -3,18 +3,18 @@
 namespace ShapeDiver\GeometryApiV2\Test;
 
 use PHPUnit\Framework\TestCase;
-use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
 use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
+use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqFileDefinition;
-use ShapeDiver\GeometryApiV2\Client\Model\ResParameterType;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
 use ShapeDiver\GeometryApiV2\Client\Model\ReqParameterValue;
+use ShapeDiver\GeometryApiV2\Client\Model\ResParameterType;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 use ShapeDiver\GeometryApiV2\SdUtils;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class ModelStateApiTest extends TestCase
 {
@@ -35,27 +35,30 @@ class ModelStateApiTest extends TestCase
 
         // The value of the first string parameter will be overwritten by the Model-State.
         $strParams = array_filter(array_values($resSession->getParameters()), function ($param) {
-            return $param->getType() == ResParameterType::STRING;
+            return ResParameterType::STRING == $param->getType();
         });
         $this->assertNotEmpty($strParams);
 
         $customParamId = $strParams[array_key_first($strParams)]->getId();
         $customParamValue = TestUtils::now();
-        $customData = ["foo" => "bar"];
+        $customData = ['foo' => 'bar'];
 
         // Create a new Model-State.
         $reqModelState = (new ReqModelState())
             ->setParameters([
-                $customParamId => (new ReqParameterValue())->setValue($customParamValue)
+                $customParamId => (new ReqParameterValue())->setValue($customParamValue),
             ])
-            ->setData($customData);
+            ->setData($customData)
+        ;
         $resModelState = (new ModelStateApi($client, $config))
-            ->createModelState($sessionId, $reqModelState);
+            ->createModelState($sessionId, $reqModelState)
+        ;
         $modelStateId = $resModelState->getModelState()->getId();
 
         // Check if the Model-State was created successfully.
         $resMetadata = (new ModelStateApi($client, $config))
-            ->getModelStateMetadataWithHttpInfo($modelStateId);
+            ->getModelStateMetadataWithHttpInfo($modelStateId)
+        ;
         $this->assertEquals($resMetadata[1], 200);
 
         // Fetch all available information of the Model-State.
@@ -69,7 +72,8 @@ class ModelStateApiTest extends TestCase
 
         // Fetch only parameters and data of the Model-State.
         $resModelStateData = (new ModelStateApi($client, $config))
-            ->getModelStateData($modelStateId);
+            ->getModelStateData($modelStateId)
+        ;
         $this->assertEquals(
             $resModelStateData->getModelState()->getParameters()[$customParamId]->getValue(),
             $customParamValue
@@ -79,7 +83,8 @@ class ModelStateApiTest extends TestCase
         // Check if the Model-State has an image.
         try {
             (new ModelStateApi($client, $config))
-                ->getModelStateImageMetadataWithHttpInfo($modelStateId);
+                ->getModelStateImageMetadataWithHttpInfo($modelStateId)
+            ;
             $this->assertTrue(false, 'Expected ApiException not raised');
         } catch (ApiException) {
             // That's what we except
@@ -89,7 +94,8 @@ class ModelStateApiTest extends TestCase
 
         // Fetch all Model-States of a model.
         $resList = (new ModelStateApi($client, $backendConfig))
-            ->listModelStates($resModelState->getModelState()->getModelId());
+            ->listModelStates($resModelState->getModelState()->getModelId())
+        ;
         $this->assertNotEmpty($resList->getList()->getModelState());
 
         // Delete the Model-State.
@@ -113,21 +119,23 @@ class ModelStateApiTest extends TestCase
         $resSession = (new SessionApi($client, $config))->createSessionByTicket($ticket);
         $sessionId = $resSession->getSessionId();
 
-        $fpath = "test/data/logo.jpg";
+        $fpath = 'test/data/logo.jpg';
         $fsize = filesize($fpath);
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
-        # Create a new Model-State and request an image upload.
+        // Create a new Model-State and request an image upload.
         $reqModelState = (new ReqModelState())
             ->setParameters([])
             ->setImage(
                 (new ReqFileDefinition())
-                    ->setFilename("ShapeDiver_Logo.jpg")
-                    ->setFormat("image/jpeg")
+                    ->setFilename('ShapeDiver_Logo.jpg')
+                    ->setFormat('image/jpeg')
                     ->setSize($fsize)
-            );
+            )
+        ;
         $resModelState = (new ModelStateApi($client, $config))
-            ->createModelState($sessionId, $reqModelState);
+            ->createModelState($sessionId, $reqModelState)
+        ;
         $this->assertNotNull($resModelState->getAsset());
         $this->assertNotNull($resModelState->getAsset()->getModelState());
         $modelStateId = $resModelState->getModelState()->getId();
@@ -139,7 +147,8 @@ class ModelStateApiTest extends TestCase
 
         // Check if the Model-State has an image.
         $resImageMetadata = (new ModelStateApi($client, $config))
-            ->getModelStateImageMetadataWithHttpInfo($modelStateId);
+            ->getModelStateImageMetadataWithHttpInfo($modelStateId)
+        ;
         $this->assertEquals($resImageMetadata[1], 200);
 
         // Download the uploaded image.

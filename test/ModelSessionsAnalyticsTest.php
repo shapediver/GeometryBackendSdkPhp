@@ -2,10 +2,7 @@
 
 namespace ShapeDiver\GeometryApiV2\Test;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelApi;
 use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryOrder;
@@ -13,9 +10,8 @@ use ShapeDiver\GeometryApiV2\Client\Model\ResModelSession;
 use ShapeDiver\GeometryApiV2\Client\Model\SessionAnalyticsStatus;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
-use Throwable;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class ModelSessionsAnalyticsTest extends TestCase
 {
@@ -35,7 +31,8 @@ class ModelSessionsAnalyticsTest extends TestCase
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $sessionConfig))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
         $to = $this->dateTimeMs(60);
         $closed = ['closed' => false];
 
@@ -56,10 +53,11 @@ class ModelSessionsAnalyticsTest extends TestCase
                 },
                 function ($page) use ($sessionId) {
                     $row = $this->soleSession($page->getSessions(), $sessionId);
+
                     /** @var string $status Runtime value is the string constant, not the enum class. */
                     $status = $row->getStatus();
-                    if ($status !== SessionAnalyticsStatus::OPEN) {
-                        throw new RuntimeException('session ' . $sessionId . ' is ' . $status);
+                    if (SessionAnalyticsStatus::OPEN !== $status) {
+                        throw new \RuntimeException('session '.$sessionId.' is '.$status);
                     }
                 }
             );
@@ -84,10 +82,11 @@ class ModelSessionsAnalyticsTest extends TestCase
                 },
                 function ($page) use ($sessionId) {
                     $row = $this->soleSession($page->getSessions(), $sessionId);
+
                     /** @var string $status Runtime value is the string constant, not the enum class. */
                     $status = $row->getStatus();
-                    if ($status !== SessionAnalyticsStatus::PENDING) {
-                        throw new RuntimeException('session ' . $sessionId . ' is ' . $status);
+                    if (SessionAnalyticsStatus::PENDING !== $status) {
+                        throw new \RuntimeException('session '.$sessionId.' is '.$status);
                     }
                 }
             );
@@ -103,8 +102,9 @@ class ModelSessionsAnalyticsTest extends TestCase
     // Query bounds are DateTimeMs: 17 digits. Ticket expiry uses TestUtils::now(), which is 14.
     private function dateTimeMs(int $diffSeconds = 0): string
     {
-        $dt = (new DateTimeImmutable('now', new DateTimeZone('UTC')))
-            ->modify(sprintf('%+d seconds', $diffSeconds));
+        $dt = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
+            ->modify(sprintf('%+d seconds', $diffSeconds))
+        ;
 
         return $dt->format('YmdHisv');
     }
@@ -118,49 +118,51 @@ class ModelSessionsAnalyticsTest extends TestCase
                 $revealed[] = $row;
             }
         }
-        if (count($revealed) === 1) {
+        if (1 === count($revealed)) {
             return $revealed[0];
         }
         if (count($revealed) > 1) {
-            throw new RuntimeException("multiple analytics rows for session {$knownSessionId}");
+            throw new \RuntimeException("multiple analytics rows for session {$knownSessionId}");
         }
         $redacted = [];
         foreach ($sessions as $row) {
-            if ($row->getId() === '<redacted>') {
+            if ('<redacted>' === $row->getId()) {
                 $redacted[] = $row;
             }
         }
-        if (count($redacted) === 1) {
+        if (1 === count($redacted)) {
             return $redacted[0];
         }
-        throw new RuntimeException(
+
+        throw new \RuntimeException(
             'expected one analytics row for session '
-            . $knownSessionId
-            . ', found '
-            . count($revealed)
-            . ' revealed and '
-            . count($redacted)
-            . ' redacted'
+            .$knownSessionId
+            .', found '
+            .count($revealed)
+            .' revealed and '
+            .count($redacted)
+            .' redacted'
         );
     }
 
     // Retry up to 8 times, 1s apart, while load or accept throws. accept is the condition for this phase.
     private function untilRow(callable $load, callable $accept): mixed
     {
-        for ($attempt = 0; $attempt < 8; $attempt++) {
+        for ($attempt = 0; $attempt < 8; ++$attempt) {
             try {
                 $value = $load();
                 $accept($value);
 
                 return $value;
-            } catch (Throwable $e) {
-                if ($attempt === 7) {
+            } catch (\Throwable $e) {
+                if (7 === $attempt) {
                     throw $e;
                 }
                 sleep(1);
             }
         }
-        throw new RuntimeException('analytics row did not appear');
+
+        throw new \RuntimeException('analytics row did not appear');
     }
 
     // Close at most once. The flag flips only after closeSession resolves, so a failed close is tried again from finally.

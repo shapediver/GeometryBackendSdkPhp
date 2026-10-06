@@ -11,7 +11,7 @@ use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 use ShapeDiver\GeometryApiV2\SdUtils;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class FileApiTest extends TestCase
 {
@@ -34,16 +34,16 @@ class FileApiTest extends TestCase
         // Search for a file-parameter.
         $fileParams = [];
         foreach ($resSession->getParameters() as $key => $param) {
-            if ($param->getType() == ResParameterType::FILE) {
+            if (ResParameterType::FILE == $param->getType()) {
                 array_push($fileParams, $param);
             }
         }
         $this->assertNotEmpty($fileParams);
 
         // File upload.
-        $fpath = "test/data/logo.jpg";
+        $fpath = 'test/data/logo.jpg';
         $fsize = filesize($fpath);
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         $filename = 'ShapeDiver_Logo.jpg';
         $format = 'image/jpeg';
@@ -56,7 +56,7 @@ class FileApiTest extends TestCase
                     'filename' => $filename,
                     'format' => $format,
                     'size' => $fsize,
-                ])
+                ]),
             ],
         );
         $file = $resUpload->getAsset()->getFile()[$fileParams[0]->getId()];
@@ -68,12 +68,14 @@ class FileApiTest extends TestCase
 
         // Download the uploaded file.
         $resData = (new FileApi($client, $modelConfig))
-            ->downloadFile($sessionId, $fileParams[0]->getId(), $file->getId());
+            ->downloadFile($sessionId, $fileParams[0]->getId(), $file->getId())
+        ;
         $this->assertEquals(filesize($resData->getPathname()), $fsize);
 
         // Get metadata of an existing file.
         $resMetadata = (new FileApi($client, $config))
-            ->getFileMetadataWithHttpInfo($sessionId, $fileParams[0]->getId(), $file->getId());
+            ->getFileMetadataWithHttpInfo($sessionId, $fileParams[0]->getId(), $file->getId())
+        ;
         $this->assertEquals($resMetadata[1], 200);
         $fileInfo = SdUtils::extractFileInfo($resMetadata[2]);
         $this->assertEquals($fileInfo['filename'], $filename);
@@ -81,13 +83,15 @@ class FileApiTest extends TestCase
 
         // List all files of a specific file-parameter.
         $resList = (new FileApi($client, $modelConfig))
-            ->listFiles($sessionId, $fileParams[0]->getId());
+            ->listFiles($sessionId, $fileParams[0]->getId())
+        ;
         $this->assertNotEmpty($resList->getList()->getFile());
 
         $listedFile = null;
         foreach ($resList->getList()->getFile() as $item) {
             if ($item->getId() === $file->getId()) {
                 $listedFile = $item;
+
                 break;
             }
         }
@@ -100,7 +104,8 @@ class FileApiTest extends TestCase
 
         // Delete the uploaded file.
         (new FileApi($client, $modelConfig))
-            ->deleteFile($sessionId, $fileParams[0]->getId(), $file->getId());
+            ->deleteFile($sessionId, $fileParams[0]->getId(), $file->getId())
+        ;
 
         // Close the session.
         (new SessionApi($client, $config))->closeSession($sessionId);
