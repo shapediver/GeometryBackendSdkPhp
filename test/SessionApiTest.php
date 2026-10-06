@@ -11,10 +11,6 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqTicketType;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-use function ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
-use function ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
-use function ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
-
 require_once __DIR__ . '/config.php';
 
 class SessionApiTest extends TestCase

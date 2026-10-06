@@ -56,8 +56,10 @@ class ModelSessionsAnalyticsTest extends TestCase
                 },
                 function ($page) use ($sessionId) {
                     $row = $this->soleSession($page->getSessions(), $sessionId);
-                    if ($row->getStatus() !== SessionAnalyticsStatus::OPEN) {
-                        throw new RuntimeException('session ' . $sessionId . ' is ' . $row->getStatus());
+                    /** @var string $status Runtime value is the string constant, not the enum class. */
+                    $status = $row->getStatus();
+                    if ($status !== SessionAnalyticsStatus::OPEN) {
+                        throw new RuntimeException('session ' . $sessionId . ' is ' . $status);
                     }
                 }
             );
@@ -82,8 +84,10 @@ class ModelSessionsAnalyticsTest extends TestCase
                 },
                 function ($page) use ($sessionId) {
                     $row = $this->soleSession($page->getSessions(), $sessionId);
-                    if ($row->getStatus() !== SessionAnalyticsStatus::PENDING) {
-                        throw new RuntimeException('session ' . $sessionId . ' is ' . $row->getStatus());
+                    /** @var string $status Runtime value is the string constant, not the enum class. */
+                    $status = $row->getStatus();
+                    if ($status !== SessionAnalyticsStatus::PENDING) {
+                        throw new RuntimeException('session ' . $sessionId . ' is ' . $status);
                     }
                 }
             );

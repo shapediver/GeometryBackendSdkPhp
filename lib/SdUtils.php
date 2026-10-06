@@ -50,7 +50,7 @@ class SdUtils
      *
      * @param string $url The target URL of the upload request.
      * @param resource $data The data that should be uploaded.
-     * @param array $headers The headers object that was returned from the request-upload call.
+     * @param ResAssetUploadHeaders $headers The headers object that was returned from the request-upload call.
      * @return \Psr\Http\Message\ResponseInterface
      */
     public static function uploadAsset(
@@ -58,9 +58,10 @@ class SdUtils
         $data,
         ResAssetUploadHeaders $headers
     ): ResponseInterface {
-        $resHeaders = ['Content-Type' => $headers['contentType']];
-        if (!empty($headers['contentDisposition'])) {
-            $resHeaders['Content-Disposition'] = $headers['contentDisposition'];
+        $resHeaders = ['Content-Type' => $headers->getContentType()];
+        $contentDisposition = $headers->getContentDisposition();
+        if ($contentDisposition !== null && $contentDisposition !== '') {
+            $resHeaders['Content-Disposition'] = $contentDisposition;
         }
 
         $client = new SdClient(['base_uri' => $url]);
@@ -89,8 +90,8 @@ class SdUtils
     /**
      * Parse HTTP headers to extract size and filename information.
      *
-     * @param array[string] $headers The HTTP headers of a file-metadata response.
-     * @return array[string]
+     * @param array<string, array<int, string>>|null $headers The HTTP headers of a file-metadata response.
+     * @return array{size: int|null, filename: string|null}
      * array(
      *   'size'     => 123,         // The file size in bytes.
      *   'filename' => 'foobar',    // The decoded name of the content-disposition header

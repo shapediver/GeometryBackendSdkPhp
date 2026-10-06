@@ -26,7 +26,8 @@
   "require-dev": {
     "codeception/assert-throws": "^1.4",
     "phpunit/phpunit": " ^11.0",
-    "friendsofphp/php-cs-fixer": "^3.5"
+    "friendsofphp/php-cs-fixer": "^3.5",
+    "phpstan/phpstan": "^2.2"
   },
   "autoload": {
     "psr-4": {

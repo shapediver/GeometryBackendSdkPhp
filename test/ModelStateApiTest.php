@@ -2,7 +2,6 @@
 
 namespace ShapeDiver\GeometryApiV2\Test;
 
-use PHPUnit\Event\Code\Throwable;
 use PHPUnit\Framework\TestCase;
 use ShapeDiver\GeometryApiV2\Client\ApiException;
 use ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
@@ -84,7 +83,7 @@ class ModelStateApiTest extends TestCase
             $this->assertTrue(false, 'Expected ApiException not raised');
         } catch (ApiException) {
             // That's what we except
-        } catch (Throwable) {
+        } catch (\Throwable) {
             $this->assertTrue(false, 'Exception fo wrong type raised');
         }
 
