@@ -14,9 +14,9 @@ default: setup
 
 # Installs the package and its dependencies.
 setup:
+    git config core.hooksPath .githooks
     php -r 'if (!preg_match("/^8\.2\./", phpversion())) { exit(1); }' # PHP 8.2
     composer install
-    git config core.hooksPath .githooks
 
 # Removes dependencies.
 reset:
