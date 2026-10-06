@@ -12,7 +12,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class ArSceneApiTest extends TestCase
 {
@@ -27,14 +27,16 @@ class ArSceneApiTest extends TestCase
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $config))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
 
-        $fpath = "test/data/Box.glb";
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $fpath = 'test/data/Box.glb';
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         // Create AR scene from glTF file.
         $resUpload = (new GltfApi($client, $config))
-            ->uploadGltf($sessionId, $f, QueryGltfConversion::SCENE);
+            ->uploadGltf($sessionId, $f, QueryGltfConversion::SCENE)
+        ;
         $this->assertNotNull($resUpload->getGltf()->getSceneId());
 
         $sceneId = $resUpload->getGltf()->getSceneId();
@@ -69,25 +71,29 @@ class ArSceneApiTest extends TestCase
         $resSession = (new SessionApi($client, $config))->createSessionByTicket($ticket);
         $sessionId = $resSession->getSessionId();
 
-        $fpath = "test/data/Box.glb";
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $fpath = 'test/data/Box.glb';
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         // Create AR scene from glTF file.
         $resUpload = (new GltfApi($client, $config))
-            ->uploadGltf($sessionId, $f, QueryGltfConversion::SCENE);
+            ->uploadGltf($sessionId, $f, QueryGltfConversion::SCENE)
+        ;
         $this->assertNotNull($resUpload->getGltf()->getSceneId());
 
         // Create minimal Model-State from AR scene.
         $reqModelState = (new ReqModelState())
             ->setParameters([])
-            ->setArSceneId($resUpload->getGltf()->getSceneId());
+            ->setArSceneId($resUpload->getGltf()->getSceneId())
+        ;
         $resModelState = (new ModelStateApi($client, $config))
-            ->createModelState($sessionId, $reqModelState);
+            ->createModelState($sessionId, $reqModelState)
+        ;
         $modelStateId = $resModelState->getModelState()->getId();
 
         // Get metadata of the Model-State's AR scene.
         $resMetadata = (new ArSceneApi($client, $config))
-            ->getArSceneMetadataWithHttpInfo($modelStateId);
+            ->getArSceneMetadataWithHttpInfo($modelStateId)
+        ;
         $this->assertEquals($resMetadata[1], 200);
 
         // Download the created Model-State's AR scene as glTF.

@@ -11,7 +11,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqExportOrCache;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class ExportApiTest extends TestCase
 {
@@ -46,7 +46,8 @@ class ExportApiTest extends TestCase
         }
         $reqComp = (new ReqExport())
             ->setParameters($parameters)
-            ->setExports([$export->getId()]);
+            ->setExports([$export->getId()])
+        ;
 
         // TODO: add `SdUtils::submitAndWaitForExport` when implemented.
 
@@ -69,14 +70,15 @@ class ExportApiTest extends TestCase
             $modelId,
             [
                 $export->getId() => new ReqExportDefinition([
-                    'tooltip' => 'Updated via PHP SDK, ' . TestUtils::now()
-                ])
+                    'tooltip' => 'Updated via PHP SDK, '.TestUtils::now(),
+                ]),
             ]
         );
 
         // List versions of an export.
         $resList = (new ExportApi($client, $modelConfig))
-            ->listExportVersions($sessionId, $export->getId());
+            ->listExportVersions($sessionId, $export->getId())
+        ;
         $this->assertNotEmpty($resList->getList()->getExport());
 
         // Close the session.

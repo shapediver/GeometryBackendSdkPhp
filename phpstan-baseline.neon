@@ -1,0 +1,157 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$reqCreditMetrics in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/AnalyticsApi.php
+
+		-
+			message: '#^Anonymous function has an unused use \$returnType\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: lib/Client/Api/ArSceneApi.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(\|\\ShapeDiver\\GeometryApiV2\\Client\\Model\\ResError\)\: Unexpected token "\|", expected type at offset 579 on line 12$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: lib/Client/Api/AssetsApi.php
+
+		-
+			message: '#^Variable \$reqAuthorizationGroup in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/AuthGroupApi.php
+
+		-
+			message: '#^Variable \$reqExport in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/ExportApi.php
+
+		-
+			message: '#^Variable \$reqExportOrCache in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/ExportApi.php
+
+		-
+			message: '#^Variable \$requestBody in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/ExportApi.php
+
+		-
+			message: '#^Anonymous function has an unused use \$returnType\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: lib/Client/Api/FileApi.php
+
+		-
+			message: '#^Variable \$requestBody in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/FileApi.php
+
+		-
+			message: '#^Variable \$body in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/GltfApi.php
+
+		-
+			message: '#^Variable \$reqLogMessage in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/LogApi.php
+
+		-
+			message: '#^Variable \$reqModel in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 2
+			path: lib/Client/Api/ModelApi.php
+
+		-
+			message: '#^Variable \$requestBody in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 4
+			path: lib/Client/Api/ModelApi.php
+
+		-
+			message: '#^Anonymous function has an unused use \$returnType\.$#'
+			identifier: closure.unusedUse
+			count: 2
+			path: lib/Client/Api/ModelStateApi.php
+
+		-
+			message: '#^Variable \$reqModelState in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/ModelStateApi.php
+
+		-
+			message: '#^Variable \$reqCustomizationOrCache in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/OutputApi.php
+
+		-
+			message: '#^Variable \$requestBody in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 2
+			path: lib/Client/Api/OutputApi.php
+
+		-
+			message: '#^Variable \$reqSdtfDefinition in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/SdtfApi.php
+
+		-
+			message: '#^Variable \$reqTicket in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: lib/Client/Api/SessionApi.php
+
+		-
+			message: '#^Call to an undefined method ShapeDiver\\GeometryApiV2\\Client\\Model\\ModelInterface\:\:offsetGet\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: lib/Client/FormDataProcessor.php
+
+		-
+			message: '#^Binary operation "\*" between non\-falsy\-string and 1000 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: lib/Client/HeaderSelector.php
+
+		-
+			message: '#^Parameter &\$currentWeight by\-ref type of method ShapeDiver\\GeometryApiV2\\Client\\HeaderSelector\:\:adjustWeight\(\) expects float, int given\.$#'
+			identifier: parameterByRef.type
+			count: 2
+			path: lib/Client/HeaderSelector.php
+
+		-
+			message: '#^Constructor of class ShapeDiver\\GeometryApiV2\\Client\\Model\\CommonsBasicParameter has an unused parameter \$data\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: lib/Client/Model/CommonsBasicParameter.php
+
+		-
+			message: '#^Constructor of class ShapeDiver\\GeometryApiV2\\Client\\Model\\ReqBasicParameter has an unused parameter \$data\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: lib/Client/Model/ReqBasicParameter.php
+
+		-
+			message: '#^Constructor of class ShapeDiver\\GeometryApiV2\\Client\\Model\\ReqCustomizationOrCache has an unused parameter \$data\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: lib/Client/Model/ReqCustomizationOrCache.php
+
+		-
+			message: '#^Constructor of class ShapeDiver\\GeometryApiV2\\Client\\Model\\ResBasicParameter has an unused parameter \$data\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: lib/Client/Model/ResBasicParameter.php

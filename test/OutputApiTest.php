@@ -10,7 +10,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqOutputDefinition;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class OutputApiTest extends TestCase
 {
@@ -65,14 +65,15 @@ class OutputApiTest extends TestCase
             $modelId,
             [
                 $output->getId() => new ReqOutputDefinition([
-                    'tooltip' => 'Updated via PHP SDK, ' . TestUtils::now()
-                ])
+                    'tooltip' => 'Updated via PHP SDK, '.TestUtils::now(),
+                ]),
             ]
         );
 
         // List versions of an output.
         $resList = (new OutputApi($client, $modelConfig))
-            ->listOutputVersions($sessionId, $output->getId());
+            ->listOutputVersions($sessionId, $output->getId())
+        ;
         $this->assertNotEmpty($resList->getList()->getOutput());
 
         // Close the session.

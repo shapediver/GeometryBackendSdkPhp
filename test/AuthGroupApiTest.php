@@ -8,7 +8,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqAuthorizationGroup;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class AuthGroupApiTest extends TestCase
 {
@@ -25,9 +25,11 @@ class AuthGroupApiTest extends TestCase
         $reqAuthGroup = (new ReqAuthorizationGroup())
             ->setModels([$modelId])
             ->setUsers([TestUtils::uuid()])
-            ->setOrganizations([TestUtils::uuid()]);
+            ->setOrganizations([TestUtils::uuid()])
+        ;
         $resAuthGroup = (new AuthGroupApi($client, $backendConfig))
-            ->createAuthorizationGroup($reqAuthGroup);
+            ->createAuthorizationGroup($reqAuthGroup)
+        ;
         $this->assertNotNull($resAuthGroup);
     }
 }

@@ -19,14 +19,15 @@
     "php": "^8.0",
     "ext-curl": "*",
     "ext-json": "*",
-    "ext-mbstring": "*",
     "guzzlehttp/guzzle": "^7.3",
     "guzzlehttp/psr7": "^1.7 || ^2.0"
   },
   "require-dev": {
     "codeception/assert-throws": "^1.4",
     "phpunit/phpunit": " ^11.0",
-    "friendsofphp/php-cs-fixer": "^3.5"
+    "friendsofphp/php-cs-fixer": "^3.5",
+    "phpstan/phpstan": "^2.2",
+    "icanhazstring/composer-unused": "^0.9"
   },
   "autoload": {
     "psr-4": {
@@ -37,5 +38,8 @@
     "psr-4": {
       "ShapeDiver\\GeometryApiV2\\Test\\": "test/"
     }
+  },
+  "scripts": {
+    "unused": "composer-unused --excludeDir=Client --no-progress"
   }
 }

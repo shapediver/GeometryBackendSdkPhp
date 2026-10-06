@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+if ! command -v just >/dev/null 2>&1; then
+    printf '%s\n' 'pre-commit: just is not on PATH. Install just, then run `just setup`.' >&2
+    exit 1
+fi
+# The checkers read the worktree. Unstaged edits would let a bad index pass.
+if ! git diff --quiet --ignore-submodules; then
+    printf '%s\n' 'pre-commit: stage or stash unstaged changes so the checks match the commit.' >&2
+    exit 1
+fi
+untracked="$(git ls-files --others --exclude-standard -- lib test)"
+if [ -n "$untracked" ]; then
+    printf '%s\n' 'pre-commit: untracked files under lib or test would be checked but not committed.' >&2
+    printf '%s\n' "$untracked" >&2
+    exit 1
+fi
+exec just check

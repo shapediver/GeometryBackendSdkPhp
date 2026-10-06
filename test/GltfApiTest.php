@@ -7,10 +7,10 @@ use ShapeDiver\GeometryApiV2\Client\Api\GltfApi;
 use ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
 use ShapeDiver\GeometryApiV2\Client\Model\QueryGltfConversion;
 use ShapeDiver\GeometryApiV2\SdClient;
-use ShapeDiver\GeometryApiV2\SdUtils;
 use ShapeDiver\GeometryApiV2\SdConfig;
+use ShapeDiver\GeometryApiV2\SdUtils;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class GltfApiTest extends TestCase
 {
@@ -25,18 +25,19 @@ class GltfApiTest extends TestCase
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $config))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
 
-        $fpath = "test/data/Box.glb";
+        $fpath = 'test/data/Box.glb';
         $fsize = filesize($fpath);
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         // Upload a new glTF.
         $resUpload = (new GltfApi($client, $config))->uploadGltf($sessionId, $f);
         $this->assertNotNull($resUpload->getGltf()->getHref());
 
         // Download the uploaded glTF.
-        $dpath = '/tmp/' . TestUtils::now() . '.glb';
+        $dpath = '/tmp/'.TestUtils::now().'.glb';
         SdUtils::download($resUpload->getGltf()->getHref(), $dpath);
         $this->assertEquals(filesize($dpath), $fsize);
 
@@ -55,19 +56,21 @@ class GltfApiTest extends TestCase
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $config))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
 
-        $fpath = "test/data/Box.glb";
+        $fpath = 'test/data/Box.glb';
         $fsize = filesize($fpath);
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         // Upload a new glTF and convert to USDZ.
         $resUpload = (new GltfApi($client, $config))
-            ->uploadGltf($sessionId, $f, QueryGltfConversion::USDZ);
+            ->uploadGltf($sessionId, $f, QueryGltfConversion::USDZ)
+        ;
         $this->assertNotNull($resUpload->getGltf()->getHref());
 
         // Download the created USDZ.
-        $dpath = '/tmp/' . TestUtils::now() . '.usdz';
+        $dpath = '/tmp/'.TestUtils::now().'.usdz';
         SdUtils::download($resUpload->getGltf()->getHref(), $dpath);
         $this->assertNotEquals(filesize($dpath), $fsize);
 

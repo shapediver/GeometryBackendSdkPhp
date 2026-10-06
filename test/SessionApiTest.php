@@ -11,11 +11,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqTicketType;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-use function ShapeDiver\GeometryApiV2\Client\Api\SessionApi;
-use function ShapeDiver\GeometryApiV2\Client\Api\ModelStateApi;
-use function ShapeDiver\GeometryApiV2\Client\Model\ReqModelState;
-
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class SessionApiTest extends TestCase
 {
@@ -35,7 +31,8 @@ class SessionApiTest extends TestCase
             ->setAuthor(true)
             ->setType(ReqTicketType::BACKEND)
             ->setUntil(TestUtils::now(new \DateInterval('PT2M')))
-            ->setUseId2(false);
+            ->setUseId2(false)
+        ;
 
         $resTicket = (new SessionApi($client, $backendConfig))->createTicket($modelId, $reqTicket);
         $this->assertNotNull($resTicket->getTicket());
@@ -43,7 +40,8 @@ class SessionApiTest extends TestCase
         // Initialize a new session using the ticket.
         $sessionId = (new SessionApi($client, $config))
             ->createSessionByTicket($resTicket->getTicket())
-            ->getSessionId();
+            ->getSessionId()
+        ;
         $this->assertNotNull($sessionId);
 
         // Get the session defaults.
@@ -67,7 +65,8 @@ class SessionApiTest extends TestCase
         // Initialize a new session using the model ID.
         $sessionId = (new SessionApi($client, $backendConfig))
             ->createSessionByModel($modelId)
-            ->getSessionId();
+            ->getSessionId()
+        ;
         $this->assertNotNull($sessionId);
 
         // Get the session defaults.
@@ -93,22 +92,25 @@ class SessionApiTest extends TestCase
         $this->assertNull($resSession->getModelState());
         $sessionId = $resSession->getSessionId();
 
-        # Create minimal Model-State.
+        // Create minimal Model-State.
         $reqModelState = (new ReqModelState())->setParameters([]);
         $resModelState = (new ModelStateApi($client, $config))
-            ->createModelState($sessionId, $reqModelState);
+            ->createModelState($sessionId, $reqModelState)
+        ;
         $modelStateId = $resModelState->getModelState()->getId();
         $modelId = $resModelState->getModelState()->getModelId();
 
-        # Test: Create session via ticket and Model-State.
+        // Test: Create session via ticket and Model-State.
         $res = (new SessionApi($client, $config))
-            ->createSessionByTicket($ticket, $modelStateId, true);
+            ->createSessionByTicket($ticket, $modelStateId, true)
+        ;
         $this->assertNotNull($res->getModelState());
         (new SessionApi($client, $config))->closeSession($res->getSessionId());
 
-        # Test: Create session via model and Model-State.
+        // Test: Create session via model and Model-State.
         $res = (new SessionApi($client, $backendConfig))
-            ->createSessionByModel($modelId, $modelStateId, false);
+            ->createSessionByModel($modelId, $modelStateId, false)
+        ;
         $this->assertNotNull($res->getModelState());
         (new SessionApi($client, $config))->closeSession($res->getSessionId());
 
@@ -134,7 +136,8 @@ class SessionApiTest extends TestCase
             ->setAuthor(true)
             ->setType(ReqTicketType::BACKEND)
             ->setUntil(TestUtils::now(new \DateInterval('PT2M')))
-            ->setUseId2(false);
+            ->setUseId2(false)
+        ;
 
         $resTicket = (new SessionApi($client, $backendConfig))->createTicket($modelId, $reqTicket);
         $this->assertNotNull($resTicket->getTicket());
@@ -142,7 +145,8 @@ class SessionApiTest extends TestCase
         // Decrypt the ticket.
         $decryptedTicket = (new SessionApi($client, $backendConfig))
             ->decryptTicket($resTicket->getTicket())
-            ->getDecryptedTicket();
+            ->getDecryptedTicket()
+        ;
         $this->assertEquals($decryptedTicket->getPub(), $reqTicket->getPub());
         $this->assertEquals($decryptedTicket->getAuthor(), $reqTicket->getAuthor());
         $this->assertEquals($decryptedTicket->getType(), $reqTicket->getType());

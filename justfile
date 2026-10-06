@@ -14,12 +14,23 @@ default: setup
 
 # Installs the package and its dependencies.
 setup:
-    php -r 'if (!preg_match("/^8\.2\./", phpversion())) { exit(1); }' # PHP 8.2
+    git config core.hooksPath .githooks
+    php -r 'if (version_compare(PHP_VERSION, "8.4.1", "<")) { fwrite(STDERR, "PHP 8.4.1 or newer is required to install dev tools.\n"); exit(1); }'
     composer install
 
 # Removes dependencies.
 reset:
     rm -rf './vendor'
+
+# Run static analysis, the formatter dry-run, and the unused-dependency check.
+check:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    status=0
+    vendor/bin/phpstan analyse --no-progress --memory-limit=1G || status=1
+    vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff || status=1
+    composer unused || status=1
+    exit "$status"
 
 # Run all PHP tests.
 [no-exit-message]
@@ -33,8 +44,8 @@ release version:
 
     # Update sdk version number.
     case $(uname -s) in \
-    Linux) sed -i 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
-    Darwin) sed -i '' 's/SDK_VERSION = ".*"/SDK_VERSION = "{{version}}"/' "./lib/SdClient.php" ;; \
+    Linux) sed -i "s/SDK_VERSION = '.*'/SDK_VERSION = '{{version}}'/" "./lib/SdClient.php" ;; \
+    Darwin) sed -i '' "s/SDK_VERSION = '.*'/SDK_VERSION = '{{version}}'/" "./lib/SdClient.php" ;; \
     *) exit 1 ;; \
     esac
 

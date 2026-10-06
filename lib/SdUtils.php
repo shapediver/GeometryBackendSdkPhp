@@ -12,13 +12,12 @@ class SdUtils
     /**
      * Upload the given file to the specified URL.
      *
-     * @param string $url The target URL of the upload request.
-     * @param $data The data that should be uploaded.
-     * @param string $contentType Indicate the original media type of the resource.
-     * @param ?string $filename The name of the file to be uploaded. When a filename has been
-     * specified in the request-upload call, then the same filename has to be specified for the
-     * upload as well.
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param string  $url         the target URL of the upload request
+     * @param         $data        The data that should be uploaded
+     * @param string  $contentType indicate the original media type of the resource
+     * @param ?string $filename    The name of the file to be uploaded. When a filename has been
+     *                             specified in the request-upload call, then the same filename has to be specified for the
+     *                             upload as well.
      */
     public static function upload(
         string $url,
@@ -34,12 +33,11 @@ class SdUtils
         $client = new SdClient(['base_uri' => $url]);
 
         try {
-            $response = $client->request(
+            return $client->request(
                 'PUT',
                 '',
                 [RequestOptions::HEADERS => $headers, RequestOptions::BODY => $data]
             );
-            return $response;
         } catch (RequestException $e) {
             return $e->getResponse();
         }
@@ -48,37 +46,36 @@ class SdUtils
     /**
      * Upload the given asset to the specified ShapeDiver URL.
      *
-     * @param string $url The target URL of the upload request.
-     * @param resource $data The data that should be uploaded.
-     * @param array $headers The headers object that was returned from the request-upload call.
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param string                $url     the target URL of the upload request
+     * @param resource              $data    the data that should be uploaded
+     * @param ResAssetUploadHeaders $headers the headers object that was returned from the request-upload call
      */
     public static function uploadAsset(
         string $url,
         $data,
         ResAssetUploadHeaders $headers
     ): ResponseInterface {
-        $resHeaders = ['Content-Type' => $headers['contentType']];
-        if (!empty($headers['contentDisposition'])) {
-            $resHeaders['Content-Disposition'] = $headers['contentDisposition'];
+        $resHeaders = ['Content-Type' => $headers->getContentType()];
+        $contentDisposition = $headers->getContentDisposition();
+        if (null !== $contentDisposition && '' !== $contentDisposition) {
+            $resHeaders['Content-Disposition'] = $contentDisposition;
         }
 
         $client = new SdClient(['base_uri' => $url]);
 
-        $response = $client->request(
+        return $client->request(
             'PUT',
             '',
             [RequestOptions::HEADERS => $resHeaders, RequestOptions::BODY => $data]
         );
-        return $response;
     }
 
     /**
      * Download from the specified URL.
      *
-     * @param string $url The target URL of the download request.
-     * @param string|resource $sink Either a path to a file that will store the contents of the
-     * response body, or a resource from `fopen` to write the response to.
+     * @param string          $url  the target URL of the download request
+     * @param resource|string $sink either a path to a file that will store the contents of the
+     *                              response body, or a resource from `fopen` to write the response to
      */
     public static function download(string $url, $sink): void
     {
@@ -89,25 +86,26 @@ class SdUtils
     /**
      * Parse HTTP headers to extract size and filename information.
      *
-     * @param array[string] $headers The HTTP headers of a file-metadata response.
-     * @return array[string]
-     * array(
-     *   'size'     => 123,         // The file size in bytes.
-     *   'filename' => 'foobar',    // The decoded name of the content-disposition header
-     * );
+     * @param null|array<string, array<int, string>> $headers the HTTP headers of a file-metadata response
+     *
+     * @return array{size: null|int, filename: null|string}
+     *                                                      array(
+     *                                                      'size'     => 123,         // The file size in bytes.
+     *                                                      'filename' => 'foobar',    // The decoded name of the content-disposition header
+     *                                                      );
      */
     public static function extractFileInfo(?array $headers): array
     {
-        if ($headers === null) {
+        if (null === $headers) {
             return ['size' => null, 'filename' => null];
         }
 
         // Extract size from Content-Length header
         $size = null;
         if (isset($headers['Content-Length'])) {
-            $size = (int)$headers['Content-Length'][0];
+            $size = (int) $headers['Content-Length'][0];
         } elseif (isset($headers['content-length'])) {
-            $size = (int)$headers['content-length'][0];
+            $size = (int) $headers['content-length'][0];
         }
 
         // Extract filename from Content-Disposition header
@@ -124,18 +122,17 @@ class SdUtils
     /**
      * Set content headers according to RFC 5987.
      *
-     * @param string $filename The file name to use.
-     * @return string
+     * @param string $filename the file name to use
      */
     public static function contentDispositionFromFilename(string $filename): string
     {
         // Normalize the filename to ASCII
         $asciiName = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $filename);
-        $header = 'attachment; filename="' . $asciiName . '"';
+        $header = 'attachment; filename="'.$asciiName.'"';
 
         if ($asciiName !== $filename) {
             $quotedName = rawurlencode($filename);
-            $header .= "; filename*=UTF-8''" . $quotedName;
+            $header .= "; filename*=UTF-8''".$quotedName;
         }
 
         return $header;
@@ -145,8 +142,7 @@ class SdUtils
      * Extract and return the filename from a content-disposition HTTP header. Decodes the
      * `filename*` property if set.
      *
-     * @param string $contentDisposition Content-Disposition header value.
-     * @return string
+     * @param string $contentDisposition content-Disposition header value
      */
     public static function filenameFromContentDisposition(string $contentDisposition): ?string
     {

@@ -3,7 +3,6 @@
 namespace ShapeDiver\GeometryApiV2;
 
 use ShapeDiver\GeometryApiV2\Client\Configuration;
-use ShapeDiver\GeometryApiV2\SdClient;
 
 class SdConfig extends Configuration
 {
@@ -15,13 +14,13 @@ class SdConfig extends Configuration
     public function __construct()
     {
         parent::__construct();
-        $this->userAgent = "sd-sdk/php/" . SdClient::SDK_VERSION;
+        $this->userAgent = 'sd-sdk/php/'.SdClient::SDK_VERSION;
     }
 
     #[\Override]
     public static function getDefaultConfiguration(): SdConfig
     {
-        if (self::$defaultConfiguration === null) {
+        if (null === self::$defaultConfiguration) {
             self::$defaultConfiguration = new SdConfig();
         }
 

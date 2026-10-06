@@ -8,7 +8,7 @@ use ShapeDiver\GeometryApiV2\Client\Model\ReqTicketType;
 use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class TestUtils
 {
@@ -20,7 +20,8 @@ class TestUtils
 
         $config = SdConfig::getDefaultConfiguration()
             ->setHost($host)
-            ->setAccessToken($jwtBackend);
+            ->setAccessToken($jwtBackend)
+        ;
 
         $sessionApi = new SessionApi(new SdClient(), $config);
 
@@ -28,9 +29,11 @@ class TestUtils
             ->setPub(true)
             ->setAuthor(true)
             ->setType(ReqTicketType::BACKEND)
-            ->setUntil(self::now(new \DateInterval('PT2M')));
+            ->setUntil(self::now(new \DateInterval('PT2M')))
+        ;
 
         $resTicket = $sessionApi->createTicket($modelId, $reqTicket);
+
         return $resTicket->getTicket();
     }
 
@@ -51,7 +54,7 @@ class TestUtils
         $currentTime = new \DateTime();
 
         // If a DateInterval is provided, add it to the current time
-        if ($diff !== null) {
+        if (null !== $diff) {
             $currentTime->add($diff);
         }
 
@@ -61,13 +64,15 @@ class TestUtils
 
     /**
      * Generate a random UUIDv4.
+     *
      * @return string UUID
      */
     public static function uuid(): string
     {
         $b = random_bytes(16);
-        $b[6] = chr(ord($b[6]) & 0x0f | 0x40);
-        $b[8] = chr(ord($b[8]) & 0x3f | 0x80);
+        $b[6] = chr(ord($b[6]) & 0x0F | 0x40);
+        $b[8] = chr(ord($b[8]) & 0x3F | 0x80);
+
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($b), 4));
     }
 }

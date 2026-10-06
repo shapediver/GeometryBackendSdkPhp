@@ -11,7 +11,7 @@ use ShapeDiver\GeometryApiV2\SdClient;
 use ShapeDiver\GeometryApiV2\SdConfig;
 use ShapeDiver\GeometryApiV2\SdUtils;
 
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 class SdtfApiTest extends TestCase
 {
@@ -23,18 +23,19 @@ class SdtfApiTest extends TestCase
         $client = new SdClient();
         $modelConfig = (new SdConfig())->setHost($host)->setAccessToken($jwtModel);
         $config = (new SdConfig())->setHost($host);
-        $namespace = "pub";
+        $namespace = 'pub';
 
         // Initialize a new session.
         $ticket = TestUtils::createTicket();
         $sessionId = (new SessionApi($client, $config))
             ->createSessionByTicket($ticket)
-            ->getSessionId();
+            ->getSessionId()
+        ;
 
-        /* sdTF upload. */
-        $fpath = "test/data/test.sdtf";
+        // sdTF upload.
+        $fpath = 'test/data/test.sdtf';
         $fsize = filesize($fpath);
-        $f = fopen($fpath, "r") or die("Unable to open file!");
+        $f = fopen($fpath, 'r') or exit('Unable to open file!');
 
         // Request a sdTF upload for a specific namespace.
         $resUpload = (new SdtfApi($client, $config))->uploadSdtf(
@@ -44,7 +45,7 @@ class SdtfApiTest extends TestCase
                     'contentLength' => $fsize,
                     'contentType' => ReqSdtfType::MODEL_SDTF,
                     'namespace' => $namespace,
-                ])
+                ]),
             ],
         );
         $sdtf = $resUpload->getAsset()->getSdtf()[0];
@@ -72,6 +73,7 @@ class SdtfApiTest extends TestCase
         foreach ($resList->getList()->getSdtf() as $item) {
             if ($item->getId() === $sdtfListId) {
                 $listedSdtf = $item;
+
                 break;
             }
         }
